@@ -33,74 +33,99 @@ function vrButton() {
 }
 
 function scene1Button() {
-    document.getElementById("scene1").classList.add("buttonON");
-    document.getElementById("scene2").classList.remove("buttonON");
-    document.getElementById("scene3").classList.remove("buttonON");
-    document.getElementById("scene4").classList.remove("buttonON");
+    if (notClick < 1) {
 
-    vrScene = 1;
+        document.getElementById("scene1").classList.add("buttonON");
+        document.getElementById("scene2").classList.remove("buttonON");
+        document.getElementById("scene3").classList.remove("buttonON");
+        document.getElementById("scene4").classList.remove("buttonON");
+
+        vrScene = 1;
+    }
+
 }
 
 function scene2Button() {
-    document.getElementById("scene1").classList.remove("buttonON");
-    document.getElementById("scene2").classList.add("buttonON");
-    document.getElementById("scene3").classList.remove("buttonON");
-    document.getElementById("scene4").classList.remove("buttonON");
+    if (notClick < 1) {
 
-    vrScene = 2;
+        document.getElementById("scene1").classList.remove("buttonON");
+        document.getElementById("scene2").classList.add("buttonON");
+        document.getElementById("scene3").classList.remove("buttonON");
+        document.getElementById("scene4").classList.remove("buttonON");
+
+        vrScene = 2;
+    }
 }
 
 function scene3Button() {
-    document.getElementById("scene1").classList.remove("buttonON");
-    document.getElementById("scene2").classList.remove("buttonON");
-    document.getElementById("scene3").classList.add("buttonON");
-    document.getElementById("scene4").classList.remove("buttonON");
+    if (notClick < 1) {
 
-    vrScene = 3;
+        document.getElementById("scene1").classList.remove("buttonON");
+        document.getElementById("scene2").classList.remove("buttonON");
+        document.getElementById("scene3").classList.add("buttonON");
+        document.getElementById("scene4").classList.remove("buttonON");
+
+        vrScene = 3;
+    }
 }
 
 function scene4Button() {
-    document.getElementById("scene1").classList.remove("buttonON");
-    document.getElementById("scene2").classList.remove("buttonON");
-    document.getElementById("scene3").classList.remove("buttonON");
-    document.getElementById("scene4").classList.add("buttonON");
+    if (notClick < 1) {
 
-    vrScene = 4;
+        document.getElementById("scene1").classList.remove("buttonON");
+        document.getElementById("scene2").classList.remove("buttonON");
+        document.getElementById("scene3").classList.remove("buttonON");
+        document.getElementById("scene4").classList.add("buttonON");
+
+        vrScene = 4;
+    }
 }
 
 function filmDron() {
-    document.getElementById("film").classList.remove("droneON");
-    document.getElementById("circle").classList.add("droneON");
-    document.getElementById("helix").classList.add("droneON");
-    document.getElementById("rocket").classList.add("droneON");
+    if (notClick < 1) {
 
-    drone = 1;
+        document.getElementById("film").classList.remove("droneON");
+        document.getElementById("circle").classList.add("droneON");
+        document.getElementById("helix").classList.add("droneON");
+        document.getElementById("rocket").classList.add("droneON");
+
+        drone = 1;
+    }
 }
 
 function circleDron() {
-    document.getElementById("film").classList.add("droneON");
-    document.getElementById("circle").classList.remove("droneON");
-    document.getElementById("helix").classList.add("droneON");
-    document.getElementById("rocket").classList.add("droneON");
+    if (notClick < 1) {
 
-    drone = 2;
+        document.getElementById("film").classList.add("droneON");
+        document.getElementById("circle").classList.remove("droneON");
+        document.getElementById("helix").classList.add("droneON");
+        document.getElementById("rocket").classList.add("droneON");
+
+        drone = 2;
+    }
 }
 
 function helixDron() {
-    document.getElementById("film").classList.add("droneON");
-    document.getElementById("circle").classList.add("droneON");
-    document.getElementById("helix").classList.remove("droneON");
-    document.getElementById("rocket").classList.add("droneON");
+    if (notClick < 1) {
 
-    drone = 3;
+        document.getElementById("film").classList.add("droneON");
+        document.getElementById("circle").classList.add("droneON");
+        document.getElementById("helix").classList.remove("droneON");
+        document.getElementById("rocket").classList.add("droneON");
+
+        drone = 3;
+    }
 }
 
 function rocketDron() {
-    document.getElementById("film").classList.add("droneON");
-    document.getElementById("circle").classList.add("droneON");
-    document.getElementById("helix").classList.add("droneON");
-    document.getElementById("rocket").classList.remove("droneON");
+    if (notClick < 1) {
 
-    drone = 4;
+        document.getElementById("film").classList.add("droneON");
+        document.getElementById("circle").classList.add("droneON");
+        document.getElementById("helix").classList.add("droneON");
+        document.getElementById("rocket").classList.remove("droneON");
+
+        drone = 4;
+    }
 }
 
