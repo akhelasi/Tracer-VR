@@ -33,7 +33,7 @@ function vrButton() {
 }
 
 function scene1Button() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("scene1").classList.add("buttonON");
         document.getElementById("scene2").classList.remove("buttonON");
@@ -46,7 +46,7 @@ function scene1Button() {
 }
 
 function scene2Button() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("scene1").classList.remove("buttonON");
         document.getElementById("scene2").classList.add("buttonON");
@@ -58,7 +58,7 @@ function scene2Button() {
 }
 
 function scene3Button() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("scene1").classList.remove("buttonON");
         document.getElementById("scene2").classList.remove("buttonON");
@@ -70,7 +70,7 @@ function scene3Button() {
 }
 
 function scene4Button() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("scene1").classList.remove("buttonON");
         document.getElementById("scene2").classList.remove("buttonON");
@@ -82,7 +82,7 @@ function scene4Button() {
 }
 
 function filmDron() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("film").classList.remove("droneON");
         document.getElementById("circle").classList.add("droneON");
@@ -94,7 +94,7 @@ function filmDron() {
 }
 
 function circleDron() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("film").classList.add("droneON");
         document.getElementById("circle").classList.remove("droneON");
@@ -106,7 +106,7 @@ function circleDron() {
 }
 
 function helixDron() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("film").classList.add("droneON");
         document.getElementById("circle").classList.add("droneON");
@@ -118,7 +118,7 @@ function helixDron() {
 }
 
 function rocketDron() {
-    if (notClick < 1) {
+    if (notClick !== 1) {
 
         document.getElementById("film").classList.add("droneON");
         document.getElementById("circle").classList.add("droneON");
