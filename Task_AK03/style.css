@@ -39,7 +39,10 @@ button{
     border-radius: 150px;
     border: solid 2px white;
     font-size: xx-large;
-
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
 }
 
 .vr{
