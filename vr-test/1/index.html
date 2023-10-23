@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene physics>
+      <a-sky color="#000000"></a-sky>
+      <a-assets>
+        <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
+      </a-assets>
+
+      <a-entity gltf-model="#pixel"></a-entity>
+    </a-scene>
+  </body>
+</html>
