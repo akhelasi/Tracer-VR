@@ -2,16 +2,35 @@
 <html>
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
+
+  <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+
+  <!-- Include A-Frame mobile support to improve performance on mobile devices -->
+  <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
+
   <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
 
-  <!-- Include the WebVR Polyfill to enable VR on various devices, including Samsung Gear VR -->
-  <script src="https://aframe.io/releases/1.4.0/aframe-v0.9.2.min.js"></script>
 
 </head>
 
 <body>
-<a-scene physics vr-mode-ui="enabled: true"> <!-- Enable the VR mode UI -->
+<a-scene mobile-ui="enabled: true">
+  <a-camera id="camera" wasd-controls look-controls></a-camera> <!-- Enable the VR mode UI -->
+
+  <script>
+    document.querySelector("a-scene").addEventListener("loaded", function () {
+      let scene = this;
+
+      // Detect the VR display and enter VR mode
+      scene.canvas.addEventListener("click", function () {
+        if (AFRAME.utils.device.checkHeadsetConnected()) {
+          scene.enterVR();
+        }
+      });
+    });
+  </script>
+
   <!-- Set the background color of the scene to black -->
   <a-sky color="#000000"></a-sky>
   <a-assets>
@@ -21,6 +40,8 @@
   <!-- Include your 3D model -->
   <a-entity gltf-model="#pixel"></a-entity>
 </a-scene>
+
+
 </body>
 </html>
 
