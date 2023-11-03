@@ -1,10 +1,11 @@
+<!--
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Include A-Frame and A-Frame Physics System -->
-  <!-- Include A-Frame -->
+  &lt;!&ndash; Include A-Frame and A-Frame Physics System &ndash;&gt;
+  &lt;!&ndash; Include A-Frame &ndash;&gt;
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <!-- Include A-Frame mobile support to improve performance on mobile devices -->
+  &lt;!&ndash; Include A-Frame mobile support to improve performance on mobile devices &ndash;&gt;
   <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
 </head>
@@ -13,7 +14,7 @@
 <a-scene mobile-ui="enabled: true">
   <a-camera id="camera" wasd-controls look-controls></a-camera>
 
-<!--  <script>
+&lt;!&ndash;  <script>
     // Delay entering VR mode until the "VR" button is clicked
     function enterVRMode() {
       let scene = document.querySelector("a-scene");
@@ -31,9 +32,36 @@
 
     // Wait for the page to load and then enter VR mode
     window.addEventListener("load", enterVRMode);
-  </script>-->
+  </script>&ndash;&gt;
 
-  <!-- Set the background color of the scene to black -->
+  &lt;!&ndash; Set the background color of the scene to black &ndash;&gt;
+  <a-sky color="#000000"></a-sky>
+  <a-assets>
+    <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
+  </a-assets>
+
+  &lt;!&ndash; Include your 3D model &ndash;&gt;
+  <a-entity gltf-model="#pixel"></a-entity>
+</a-scene>
+</body>
+</html>
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include A-Frame and A-Frame Physics System -->
+  <!-- Include A-Frame -->
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <!-- Include A-Frame mobile support to improve performance on mobile devices -->
+  <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+</head>
+
+<body>
+<a-scene mobile-ui="enabled: true">
+  <a-camera id="camera" wasd-controls look-controls></a-camera>
   <a-sky color="#000000"></a-sky>
   <a-assets>
     <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
@@ -42,5 +70,36 @@
   <!-- Include your 3D model -->
   <a-entity gltf-model="#pixel"></a-entity>
 </a-scene>
+
+<script>
+  // Function to enter VR mode when the device is held horizontally
+  function enterVRModeOnOrientation() {
+    var scene = document.querySelector("a-scene");
+
+    // Detect when the device's orientation is approximately horizontal (landscape)
+    function handleOrientation(event) {
+      if (
+              window.orientation === 90 ||  // Landscape with the home button on the left
+              window.orientation === -90    // Landscape with the home button on the right
+      ) {
+        if (AFRAME.utils.device.checkHeadsetConnected()) {
+          scene.enterVR();
+        }
+      }
+    }
+
+    // Listen for the deviceorientation event
+    window.addEventListener("deviceorientation", handleOrientation);
+
+    // Remove the event listener when VR mode is entered
+    scene.addEventListener("enter-vr", function () {
+      window.removeEventListener("deviceorientation", handleOrientation);
+    });
+  }
+
+  // Wait for the page to load and then enter VR mode when holding the device horizontally
+  window.addEventListener("load", enterVRModeOnOrientation);
+</script>
+
 </body>
 </html>
