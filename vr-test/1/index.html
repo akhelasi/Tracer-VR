@@ -69,12 +69,11 @@
 
   <!-- Include your 3D model -->
   <a-entity gltf-model="#pixel"></a-entity>
-  <button class="a-enter-vr-button" title="Enter VR mode with a headset or fullscreen without" aframe-injected></button>
 
   <script>
     // Function to programmatically click the VR button after the site loads
     function clickVRButton() {
-      var vrButton = document.querySelector(".a-enter-vr-button");
+      let vrButton = document.querySelector(".a-enter-vr-button");
 
       // Check if the VR button element exists
       if (vrButton) {
