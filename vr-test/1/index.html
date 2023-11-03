@@ -60,10 +60,9 @@
 
 <body>
 <!--https://aframe.io/docs/1.4.0/components/vr-mode-ui.html-->
-<a-scene id="sceneEl" auto-enter-vr mobile-ui="enabled: true" vr-mode-ui="enabled: false; enterVRButton: ''">
+<a-scene auto-enter-vr="display: all" mobile-ui="enabled: true" vr-mode-ui="enabled: false;">
   <a id="myEnterVRButton" href="#"></a>
 
-<!--  sceneEl.is('vr-mode')-->
 
   <a-camera id="camera" wasd-controls look-controls></a-camera>
   <a-sky color="#000000"></a-sky>
@@ -74,23 +73,6 @@
   <!-- Include your 3D model -->
   <a-entity gltf-model="#pixel"></a-entity>
 
-
-<!--  <script>
-    function clickVRButton() {
-     /* let vrButton = document.querySelector(".a-enter-vr-button");*/
-/*
-      document.getElementsByClassName('a-enter-vr-button')[0].click();
-*/
-      /*if (vrButton) {
-        vrButton.click();
-      }*/
-      document.querySelector('a-scene').enterVR();
-    }
-    setTimeout(clickVRButton, 2000); // 2 seconds
-
-  </script>
-  <script>
-  </script>-->
 </a-scene>
 </body>
 </html>
