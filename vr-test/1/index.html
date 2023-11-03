@@ -2,33 +2,32 @@
 <html>
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
-
   <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
   <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
-
   <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
-
-
 </head>
 
 <body>
 <a-scene mobile-ui="enabled: true">
-  <a-camera id="camera" wasd-controls look-controls></a-camera> <!-- Enable the VR mode UI -->
+  <a-camera id="camera" wasd-controls look-controls></a-camera>
 
   <script>
-    document.querySelector("a-scene").addEventListener("loaded", function () {
-      let scene = this;
+    // Delay entering VR mode until the "VR" button is clicked
+    function enterVRMode() {
+      let scene = document.querySelector("a-scene");
 
       // Detect the VR display and enter VR mode
-      scene.canvas.addEventListener("click", function () {
+      scene.addEventListener("click", function () {
         if (AFRAME.utils.device.checkHeadsetConnected()) {
           scene.enterVR();
         }
       });
-    });
+    }
+
+    // Wait for the page to load and then enter VR mode
+    window.addEventListener("load", enterVRMode);
   </script>
 
   <!-- Set the background color of the scene to black -->
@@ -40,29 +39,5 @@
   <!-- Include your 3D model -->
   <a-entity gltf-model="#pixel"></a-entity>
 </a-scene>
-
-
 </body>
 </html>
-
-
-
-<!--  Task_04
-<html>
-  <head>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
-  </head>
-
-  <body>
-    <a-scene physics>
-      <a-sky color="#000000"></a-sky>
-      <a-assets>
-        <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
-      </a-assets>
-
-      <a-entity gltf-model="#pixel"></a-entity>
-    </a-scene>
-  </body>
-</html>
--->
