@@ -47,7 +47,6 @@
 </html>
 -->
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,20 +70,36 @@
   <a-entity gltf-model="#pixel"></a-entity>
 
   <script>
-    // Function to programmatically click the VR button after the site loads
-    function clickVRButton() {
-      let vrButton = document.querySelector(".a-enter-vr-button");
+    // Function to programmatically enter VR mode when the device orientation changes
+    function enterVRModeOnOrientation() {
+      var scene = document.querySelector("a-scene");
 
-      // Check if the VR button element exists
-      if (vrButton) {
-        vrButton.click();
+      // Detect the orientation change
+      function handleOrientation(event) {
+        // Check if the orientation has changed to landscape
+        if (
+                (window.orientation === 90 || window.orientation === -90) &&
+                AFRAME.utils.device.checkHeadsetConnected()
+        ) {
+          scene.enterVR();
+        }
       }
+
+      // Listen for the deviceorientation event
+      window.addEventListener("deviceorientation", handleOrientation);
+
+      // Remove the event listener when VR mode is entered
+      scene.addEventListener("enter-vr", function () {
+        window.removeEventListener("deviceorientation", handleOrientation);
+      });
     }
 
-    // Wait for the page to load and then click the VR button
-    window.addEventListener("load", clickVRButton);
+    // Wait for the page to load and then trigger VR mode based on orientation change
+    window.addEventListener("load", enterVRModeOnOrientation);
   </script>
 </a-scene>
 </body>
 </html>
+
+
 
