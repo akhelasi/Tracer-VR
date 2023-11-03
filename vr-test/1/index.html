@@ -19,11 +19,16 @@
       let scene = document.querySelector("a-scene");
 
       // Detect the VR display and enter VR mode
+      if (AFRAME.utils.device.checkHeadsetConnected()) {
+        scene.enterVR();
+      }
+/*
       scene.addEventListener("click", function () {
         if (AFRAME.utils.device.checkHeadsetConnected()) {
           scene.enterVR();
         }
       });
+      */
     }
 
     // Wait for the page to load and then enter VR mode
