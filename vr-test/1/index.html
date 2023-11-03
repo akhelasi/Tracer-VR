@@ -5,8 +5,13 @@
   <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
+  <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+
+  <!--
   <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+-->
+
 </head>
 
 <body>
@@ -22,13 +27,12 @@
       if (AFRAME.utils.device.checkHeadsetConnected()) {
         scene.enterVR();
       }
-/*
+
       scene.addEventListener("click", function () {
         if (AFRAME.utils.device.checkHeadsetConnected()) {
           scene.enterVR();
         }
       });
-      */
     }
 
     // Wait for the page to load and then enter VR mode
