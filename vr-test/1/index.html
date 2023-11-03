@@ -59,16 +59,8 @@
 </head>
 
 <body>
-<a-scene mobile-ui="enabled: true" vr-mode-ui="enterVRButton: #myEnterVRButton">
-
-<!--  <a-scene vr-mode-ui="enabled: false"
-  < a-scene vr-mode-ui = "enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton" >
-  &lt;!&ndash; Оформите кнопку изображениями или чем-то еще. &ndash;&gt;
-  <a id = "myEnterVRButton" href = "#" >
-    < / a >
-    < a id = " myEnterARButton" href = " # " >
-    < / a >
-    < / a - scene >-->
+<!--https://aframe.io/docs/1.4.0/components/vr-mode-ui.html-->
+<a-scene mobile-ui="enabled: true" vr-mode-ui="enabled: false">
 
   <a-camera id="camera" wasd-controls look-controls></a-camera>
   <a-sky color="#000000"></a-sky>
@@ -80,9 +72,8 @@
   <a-entity gltf-model="#pixel"></a-entity>
 
 
-  <script>
+<!--  <script>
     function clickVRButton() {
-      debugger
      /* let vrButton = document.querySelector(".a-enter-vr-button");*/
       document.getElementsByClassName('a-enter-vr-button')[0].click();
       /*if (vrButton) {
@@ -91,7 +82,7 @@
     }
     setTimeout(clickVRButton, 2000); // 2 seconds
 
-  </script>
+  </script>-->
 </a-scene>
 </body>
 </html>
