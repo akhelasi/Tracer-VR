@@ -69,37 +69,23 @@
 
   <!-- Include your 3D model -->
   <a-entity gltf-model="#pixel"></a-entity>
-</a-scene>
+  <button class="a-enter-vr-button" title="Enter VR mode with a headset or fullscreen without" aframe-injected></button>
 
-<script>
-  // Function to enter VR mode when the device is held horizontally
-  function enterVRModeOnOrientation() {
-    var scene = document.querySelector("a-scene");
+  <script>
+    // Function to programmatically click the VR button after the site loads
+    function clickVRButton() {
+      var vrButton = document.querySelector(".a-enter-vr-button");
 
-    // Detect when the device's orientation is approximately horizontal (landscape)
-    function handleOrientation(event) {
-      if (
-              window.orientation === 90 ||  // Landscape with the home button on the left
-              window.orientation === -90    // Landscape with the home button on the right
-      ) {
-        if (AFRAME.utils.device.checkHeadsetConnected()) {
-          scene.enterVR();
-        }
+      // Check if the VR button element exists
+      if (vrButton) {
+        vrButton.click();
       }
     }
 
-    // Listen for the deviceorientation event
-    window.addEventListener("deviceorientation", handleOrientation);
-
-    // Remove the event listener when VR mode is entered
-    scene.addEventListener("enter-vr", function () {
-      window.removeEventListener("deviceorientation", handleOrientation);
-    });
-  }
-
-  // Wait for the page to load and then enter VR mode when holding the device horizontally
-  window.addEventListener("load", enterVRModeOnOrientation);
-</script>
-
+    // Wait for the page to load and then click the VR button
+    window.addEventListener("load", clickVRButton);
+  </script>
+</a-scene>
 </body>
 </html>
+
