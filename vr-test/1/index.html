@@ -61,7 +61,7 @@
 <body>
 <!--https://aframe.io/docs/1.4.0/components/vr-mode-ui.html-->
 <a-scene mobile-ui="enabled: true" vr-mode-ui="enterARButton: #myEnterARButton">
-    <a id="myEnterARButton" href="#" style="display: none; opacity: 0;"></a>
+    <a id="myEnterARButton" href="#" style="/*display: none;*/ opacity: 0;"></a>
 
   <a-camera id="camera" wasd-controls look-controls></a-camera>
   <a-sky color="#000000"></a-sky>
@@ -75,14 +75,14 @@
 </a-scene>
 </body>
 
-<script>
+<!--<script>
   document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
       document.getElementById('myEnterVRButton').click()
     }, 5000);
   }, false);
 
-</script>
+</script>-->
 </html>
 
 
