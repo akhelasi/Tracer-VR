@@ -60,7 +60,7 @@
 
 <body>
 <!--https://aframe.io/docs/1.4.0/components/vr-mode-ui.html-->
-<a-scene id="sceneEl" mobile-ui="enabled: true" vr-mode-ui="enabled: false; enterVRButton: ''">
+<a-scene id="sceneEl" auto-enter-vr mobile-ui="enabled: true" vr-mode-ui="enabled: false; enterVRButton: ''">
   <a id="myEnterVRButton" href="#"></a>
 
 <!--  sceneEl.is('vr-mode')-->
@@ -75,7 +75,7 @@
   <a-entity gltf-model="#pixel"></a-entity>
 
 
-  <script>
+<!--  <script>
     function clickVRButton() {
      /* let vrButton = document.querySelector(".a-enter-vr-button");*/
 /*
@@ -90,7 +90,7 @@
 
   </script>
   <script>
-  </script>
+  </script>-->
 </a-scene>
 </body>
 </html>
