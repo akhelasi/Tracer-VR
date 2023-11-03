@@ -2,7 +2,6 @@
 <html>
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
-
   <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
 
@@ -11,12 +10,15 @@
 
   <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
 
+  <link href="style.css" rel="stylesheet" />
+  <script src="script.js"></script>
 
 </head>
 
 <body>
 <a-scene mobile-ui="enabled: true">
   <a-camera id="camera" wasd-controls look-controls></a-camera> <!-- Enable the VR mode UI -->
+<!--
 
   <script>
     document.querySelector("a-scene").addEventListener("loaded", function () {
@@ -29,7 +31,9 @@
         }
       });
     });
+
   </script>
+-->
 
   <!-- Set the background color of the scene to black -->
   <a-sky color="#000000"></a-sky>
