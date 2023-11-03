@@ -5,20 +5,15 @@
   <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
-  <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
-
-  <!--
   <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
--->
-
 </head>
 
 <body>
 <a-scene mobile-ui="enabled: true">
   <a-camera id="camera" wasd-controls look-controls></a-camera>
 
-  <script>
+<!--  <script>
     // Delay entering VR mode until the "VR" button is clicked
     function enterVRMode() {
       let scene = document.querySelector("a-scene");
@@ -27,7 +22,6 @@
       if (AFRAME.utils.device.checkHeadsetConnected()) {
         scene.enterVR();
       }
-
       scene.addEventListener("click", function () {
         if (AFRAME.utils.device.checkHeadsetConnected()) {
           scene.enterVR();
@@ -37,7 +31,7 @@
 
     // Wait for the page to load and then enter VR mode
     window.addEventListener("load", enterVRMode);
-  </script>
+  </script>-->
 
   <!-- Set the background color of the scene to black -->
   <a-sky color="#000000"></a-sky>
