@@ -69,37 +69,21 @@
   <!-- Include your 3D model -->
   <a-entity gltf-model="#pixel"></a-entity>
 
+
   <script>
-    // Function to programmatically enter VR mode when the device orientation changes
-    function enterVRModeOnOrientation() {
-      var scene = document.querySelector("a-scene");
+    function clickVRButton() {
+      debugger
+      let vrButton = document.querySelector(".a-enter-vr-button");
 
-      // Detect the orientation change
-      function handleOrientation(event) {
-        // Check if the orientation has changed to landscape
-        if (
-                (window.orientation === 90 || window.orientation === -90) &&
-                AFRAME.utils.device.checkHeadsetConnected()
-        ) {
-          scene.enterVR();
-        }
+      if (vrButton) {
+        vrButton.click();
       }
-
-      // Listen for the deviceorientation event
-      window.addEventListener("deviceorientation", handleOrientation);
-
-      // Remove the event listener when VR mode is entered
-      scene.addEventListener("enter-vr", function () {
-        window.removeEventListener("deviceorientation", handleOrientation);
-      });
     }
+    setTimeout(clickVRButton, 2000); // 2 seconds
 
-    // Wait for the page to load and then trigger VR mode based on orientation change
-    window.addEventListener("load", enterVRModeOnOrientation);
   </script>
 </a-scene>
 </body>
 </html>
-
 
 
