@@ -14,5 +14,14 @@ document.querySelector("a-scene").addEventListener("loaded", function () {
 
 let button = document.querySelector(".a-enter-vr-button");
 
-// Trigger a click event on the button
-button.click();
+let interval = setInterval(timer, 1000);
+
+function timer() {
+    let seconds = 2;
+
+    seconds--;
+    if (seconds < 0) {
+        clearInterval(interval);
+        button.click();
+    }
+}
