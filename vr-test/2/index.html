@@ -1,29 +1,46 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
-  </head>
-    <a-scene physics>
-      <a-box
-        position="-1 4 -3"
-        rotation="0 45 0"
-        color="#ab0000"
-        dynamic-body
-      ></a-box>
-      <a-plane
-        position="0 0 -4"
-        rotation="-90 0 0"
-        width="4"
-        height="4"
-        color="#7BC8A4"
-        static-body
-      ></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-      <a-assets>
-        <a-asset-item id="pixel" src="/Pixel-cut3.glb"></a-asset-item>
-      </a-assets>
+<head>
+  <!-- Include A-Frame and A-Frame Physics System -->
+  <!-- Include A-Frame -->
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <!-- Include A-Frame mobile support to improve performance on mobile devices -->
+  <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+</head>
 
-      <a-entity gltf-model="#pixel"></a-entity>
-    </a-scene>
-  </body>
+<body>
+<a-scene mobile-ui="enabled: true">
+  <a-camera id="camera" wasd-controls look-controls></a-camera>
+
+  <!--  <script>
+      // Delay entering VR mode until the "VR" button is clicked
+      function enterVRMode() {
+        let scene = document.querySelector("a-scene");
+
+        // Detect the VR display and enter VR mode
+        if (AFRAME.utils.device.checkHeadsetConnected()) {
+          scene.enterVR();
+        }
+        scene.addEventListener("click", function () {
+          if (AFRAME.utils.device.checkHeadsetConnected()) {
+            scene.enterVR();
+          }
+        });
+      }
+
+      // Wait for the page to load and then enter VR mode
+      window.addEventListener("load", enterVRMode);
+    </script>-->
+
+  <!-- Set the background color of the scene to black -->
+  <a-sky color="#000000"></a-sky>
+  <a-assets>
+    <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
+  </a-assets>
+
+  <!-- Include your 3D model -->
+  <a-entity gltf-model="#pixel"></a-entity>
+</a-scene>
+</body>
 </html>
