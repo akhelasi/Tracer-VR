@@ -1,52 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/.9.0/aframe.min.js"></script>
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
-  <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
-  <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
+  <script src="https://aframe.io/releases/0.9.0/aframe-mobile.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-system@0.9.0/dist/aframe-physics-system.min.js"></script>
 </head>
 
-<body style="display: flex;">
+<body>
+<a-scene mobile-ui="enabled: true">
+  <a-camera id="camera" wasd-controls look-controls></a-camera>
 
-<!-- Left Eye Scene -->
-<div style="
-    position: absolute;
-    left: 0%;
-    width: calc(50% - 2px);
-    border-right: solid 2px white;
-}">
-  <a-scene mobile-ui="enabled: true">
-    <a-camera id="left-camera" wasd-controls look-controls="enabled: false"></a-camera>
-    <a-sky color="#000000"></a-sky>
-    <a-assets>
-      <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
-    </a-assets>
-    <a-entity gltf-model="#pixel"></a-entity>
-  </a-scene>
-</div>
+  <!--  <script>
+      // Delay entering VR mode until the "VR" button is clicked
+      function enterVRMode() {
+        let scene = document.querySelector("a-scene");
 
-<!-- Right Eye Scene -->
-<div style="
-    position: absolute;
-    left: calc(50% + 2px);
-    width: calc(50% - 2px);
-    border-left: solid 2px white;
-}">
-  <a-scene mobile-ui="enabled: true">
-    <a-camera id="right-camera" wasd-controls look-controls="enabled: false"></a-camera>
-    <a-sky color="#000000"></a-sky>
-    <a-assets>
-      <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
-    </a-assets>
-    <a-entity gltf-model="#pixel"></a-entity>
-  </a-scene>
-</div>
+        // Detect the VR display and enter VR mode
+        if (AFRAME.utils.device.checkHeadsetConnected()) {
+          scene.enterVR();
+        }
+        scene.addEventListener("click", function () {
+          if (AFRAME.utils.device.checkHeadsetConnected()) {
+            scene.enterVR();
+          }
+        });
+      }
 
+      // Wait for the page to load and then enter VR mode
+      window.addEventListener("load", enterVRMode);
+    </script>-->
+
+  <!-- Set the background color of the scene to black -->
+  <a-sky color="#000000"></a-sky>
+  <a-assets>
+    <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
+  </a-assets>
+
+  <!-- Include your 3D model -->
+  <a-entity gltf-model="#pixel"></a-entity>
+</a-scene>
 </body>
-
 </html>
