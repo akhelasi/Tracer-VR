@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
@@ -10,37 +11,46 @@
 </head>
 
 <body>
-<a-scene mobile-ui="enabled: true">
-  <a-camera id="camera" wasd-controls look-controls></a-camera>
+  <a-scene mobile-ui="enabled: true">
+    <a-camera id="camera" wasd-controls look-controls></a-camera>
+    <!-- Set the background color of the scene to black -->
+    <a-sky color="#000000"></a-sky>
+    <a-assets>
+      <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
+    </a-assets>
 
-  <!--  <script>
-      // Delay entering VR mode until the "VR" button is clicked
-      function enterVRMode() {
-        let scene = document.querySelector("a-scene");
+    <!-- Include your 3D model -->
+    <a-entity gltf-model="#pixel"></a-entity>
+  </a-scene>
 
-        // Detect the VR display and enter VR mode
-        if (AFRAME.utils.device.checkHeadsetConnected()) {
-          scene.enterVR();
-        }
-        scene.addEventListener("click", function () {
-          if (AFRAME.utils.device.checkHeadsetConnected()) {
-            scene.enterVR();
-          }
-        });
-      }
+  <script>
+    // Get the camera entity
+    const camera = document.getElementById('camera');
 
-      // Wait for the page to load and then enter VR mode
-      window.addEventListener("load", enterVRMode);
-    </script>-->
+    let q = 0;
 
-  <!-- Set the background color of the scene to black -->
-  <a-sky color="#000000"></a-sky>
-  <a-assets>
-    <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
-  </a-assets>
+    // Animation loop
+    function animate() {
+      q += 0.0075;
 
-  <!-- Include your 3D model -->
-  <a-entity gltf-model="#pixel"></a-entity>
-</a-scene>
+      let qSin = Math.sin(q);
+      let qCos = Math.cos(q);
+
+      let r = 10;
+
+      let scaledCos = r * qCos;
+      let scaledSin = r * qSin;
+
+      // Set the position of the camera entity
+      camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+
+      // Call the animation loop recursively
+      requestAnimationFrame(animate);
+    }
+
+    // Start the animation loop
+    animate();
+  </script>
 </body>
+
 </html>
