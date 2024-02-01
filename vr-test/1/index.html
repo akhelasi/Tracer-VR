@@ -10,30 +10,50 @@
 </head>
 
 <body>
-<!--https://aframe.io/docs/1.4.0/components/vr-mode-ui.html-->
-<a-scene mobile-ui="enabled: true" vr-mode-ui="enterARButton: #myEnterARButton;">
-  <a href="#" id="myEnterARButton" style="/*display: none;*/ opacity: 0;"></a>
+  <a-scene mobile-ui="enabled: true">
+    <!-- Use the a-entity for the camera and set the position attribute -->
+    <a-entity id="camera" camera look-controls position="0 5 0">
+      <a-entity animation-mixer></a-entity>
+    </a-entity>
 
-  <a-camera id="camera" wasd-controls look-controls></a-camera>
-  <a-sky color="#000000"></a-sky>
-  <a-assets>
-    <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
-  </a-assets>
+    <!-- Set the background color of the scene to black -->
+    <a-sky color="#000000"></a-sky>
+    <a-assets>
+      <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
+    </a-assets>
 
-  <!-- Include your 3D model -->
-  <a-entity gltf-model="#pixel"></a-entity>
+    <!-- Include your 3D model -->
+    <a-entity gltf-model="#pixel"></a-entity>
+  </a-scene>
 
-</a-scene>
+  <script>
+    // Get the camera entity
+    const camera = document.getElementById('camera');
+
+    let q = 0;
+
+    // Animation loop
+    function animate() {
+      q += 0.01;
+
+      let qSin = Math.sin(q);
+      let qCos = Math.cos(q);
+
+      let scaledCos = 10 * qCos;
+      let scaledSin = 10 * qSin;
+
+      // Set the position of the camera entity
+      camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+      camera.setAttribute('look-controls', 'enabled', false); // Disable look-controls
+      camera.object3D.lookAt(0, 0, 0);
+
+      // Call the animation loop recursively
+      requestAnimationFrame(animate);
+    }
+
+    // Start the animation loop
+    animate();
+  </script>
 </body>
-
-<!--<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-      document.getElementById('myEnterVRButton').click()
-    }, 5000);
-  }, false);
-
-</script>-->
 </html>
-
 
