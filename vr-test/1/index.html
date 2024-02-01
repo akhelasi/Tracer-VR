@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
@@ -13,23 +12,8 @@
 <body>
   <a-scene mobile-ui="enabled: true">
     <!-- Use the a-entity for the camera and set the position attribute -->
-    <a-entity position="0 5 0">
-      <a-animation atribute="rotation" 
-        to="0 360 0" 
-        repeat="indefinite" 
-        dur="10000" 
-        easing="linear">
-      </a-animation>
-      <a-camera id="camera" 
-        look-controls 
-        position="10 0 0">
-        <a-animation atribute="rotation" 
-          to="0 360 0" 
-          repeat="indefinite" 
-          dur="10000" 
-          easing="linear">
-        </a-animation>
-    </a-camera>
+    <a-entity id="camera" camera look-controls position="0 5 0">
+      <a-entity animation-mixer></a-entity>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
@@ -42,10 +26,33 @@
     <a-entity gltf-model="#pixel"></a-entity>
   </a-scene>
 
-  <scryptr>
-      const camera = document.getElementById('camera');
-      camera.setAttribute('wasd-controls', 'enabled', false); // Disable wasd-controls
-  </scryptr>
+  <script>
+    // Get the camera entity
+    const camera = document.getElementById('camera');
 
+    let q = 0;
+
+    // Animation loop
+    function animate() {
+      q += 0.01;
+
+      let qSin = Math.sin(q);
+      let qCos = Math.cos(q);
+
+      let r = 10;
+
+      let scaledCos = r * qCos;
+      let scaledSin = r * qSin;
+
+      // Set the position of the camera entity
+      camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+
+      // Call the animation loop recursively
+      requestAnimationFrame(animate);
+    }
+
+    // Start the animation loop
+    animate();
+  </script>
 </body>
 </html>
