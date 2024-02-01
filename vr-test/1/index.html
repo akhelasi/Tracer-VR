@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
@@ -12,13 +13,18 @@
 <body>
   <a-scene mobile-ui="enabled: true">
     <!-- Use the a-entity for the camera and set the position attribute -->
-    <a-entity id="camera" camera look-controls position="0 5 0">
-      <a-animation attribute="position"
-                   dur="10000"  <!-- Duration in milliseconds -->
-                   easing="linear"  <!-- Easing function, you can customize it -->
-                   repeat="indefinite"  <!-- Set to "indefinite" to loop the animation -->
-                   to="0 5 0"></a-animation>
-      <a-entity animation-mixer></a-entity>
+    <a-entity position="0 5 0">
+      <a-animation 
+        atribute="rotation" 
+        to="0 360 0" 
+        repeat="indefinite" 
+        dur="10000" 
+        easing="linear">
+      </a-animation>
+      <a-camera 
+        look-controls 
+        position="10 0 0">
+    </a-camera>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
@@ -30,5 +36,6 @@
     <!-- Include your 3D model -->
     <a-entity gltf-model="#pixel"></a-entity>
   </a-scene>
+
 </body>
 </html>
