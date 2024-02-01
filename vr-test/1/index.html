@@ -34,7 +34,7 @@
 
     // Animation loop
     function animate() {
-      q += 0.01;
+      q += 0.003;
 
       let qSin = Math.sin(q);
       let qCos = Math.cos(q);
@@ -44,8 +44,6 @@
 
       // Set the position of the camera entity
       camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
-      camera.setAttribute('look-controls', 'enabled', false); // Disable look-controls
-      camera.object3D.lookAt(0, 0, 0);
 
       // Call the animation loop recursively
       requestAnimationFrame(animate);
