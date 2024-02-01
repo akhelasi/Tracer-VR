@@ -13,6 +13,11 @@
   <a-scene mobile-ui="enabled: true">
     <!-- Use the a-entity for the camera and set the position attribute -->
     <a-entity id="camera" camera look-controls position="0 5 0">
+      <a-animation attribute="position"
+                   dur="10000"  <!-- Duration in milliseconds -->
+                   easing="linear"  <!-- Easing function, you can customize it -->
+                   repeat="indefinite"  <!-- Set to "indefinite" to loop the animation -->
+                   to="0 5 0"></a-animation>
       <a-entity animation-mixer></a-entity>
     </a-entity>
 
@@ -25,35 +30,5 @@
     <!-- Include your 3D model -->
     <a-entity gltf-model="#pixel"></a-entity>
   </a-scene>
-
-  <script>
-    // Get the camera entity
-    const camera = document.getElementById('camera');
-
-    let q = 0;
-
-    // Animation loop
-    function animate() {
-      q += 0.0075;
-
-      let qSin = Math.sin(q);
-      let qCos = Math.cos(q);
-
-      let r = 10;
-
-      let scaledCos = r * qCos;
-      let scaledSin = r * qSin;
-
-      // Set the position of the camera entity
-      camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
-
-      // Call the animation loop recursively
-      requestAnimationFrame(animate);
-    }
-
-    // Start the animation loop
-    animate();
-  </script>
 </body>
-
 </html>
