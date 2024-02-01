@@ -30,16 +30,18 @@
     // Get the camera entity
     const camera = document.getElementById('camera');
 
-    let lastTimestamp = 0;
+    let startTime = performance.now();
 
     // Animation loop
-    function animate(timestamp) {
-      // Calculate time elapsed since the last frame
-      const deltaTime = (timestamp - lastTimestamp) / 1000; // Convert to seconds
-      lastTimestamp = timestamp;
+    function animate() {
+      // Get the current time
+      let currentTime = performance.now();
 
-      // Adjust the animation based on time
-      q += 0.5 * deltaTime; // You can adjust the factor based on the speed you desire
+      // Calculate the elapsed time in seconds
+      let elapsedTime = (currentTime - startTime) / 1000;
+
+      // Update the animation based on elapsed time
+      let q = 0.0075 * elapsedTime;
 
       let qSin = Math.sin(q);
       let qCos = Math.cos(q);
@@ -59,5 +61,4 @@
     // Start the animation loop
     animate();
   </script>
-</body>
-</html>
+</body
