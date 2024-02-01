@@ -30,18 +30,11 @@
     // Get the camera entity
     const camera = document.getElementById('camera');
 
-    let startTime = performance.now();
+    let q = 0;
 
     // Animation loop
-    function animate() {
-      // Get the current time
-      let currentTime = performance.now();
-
-      // Calculate the elapsed time in seconds
-      let elapsedTime = (currentTime - startTime) / 1000;
-
-      // Update the animation based on elapsed time
-      let q = 0.0075 * elapsedTime;
+    setInterval(format =>{
+      q += 0.01;
 
       let qSin = Math.sin(q);
       let qCos = Math.cos(q);
@@ -54,11 +47,8 @@
       // Set the position of the camera entity
       camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
 
-      // Call the animation loop recursively
-      requestAnimationFrame(animate);
-    }
-
-    // Start the animation loop
-    animate();
+    },100)
+    
   </script>
-</body
+</body>
+</html>
