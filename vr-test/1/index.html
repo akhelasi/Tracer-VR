@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
@@ -11,11 +12,7 @@
 
 <body>
   <a-scene mobile-ui="enabled: true">
-    <!-- Use the a-entity for the camera and set the position attribute -->
-    <a-entity id="camera" camera look-controls position="0 5 0">
-      <a-entity animation-mixer></a-entity>
-    </a-entity>
-
+    <a-camera id="camera" wasd-controls look-controls></a-camera>
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
     <a-assets>
@@ -33,8 +30,8 @@
     let q = 0;
 
     // Animation loop
-    setInterval(format =>{
-      q += 0.01;
+    function animate() {
+      q += 0.0075;
 
       let qSin = Math.sin(q);
       let qCos = Math.cos(q);
@@ -47,8 +44,13 @@
       // Set the position of the camera entity
       camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
 
-    },100)
-    
+      // Call the animation loop recursively
+      requestAnimationFrame(animate);
+    }
+
+    // Start the animation loop
+    animate();
   </script>
 </body>
+
 </html>
