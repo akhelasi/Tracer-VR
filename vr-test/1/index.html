@@ -34,13 +34,15 @@
 
     // Animation loop
     function animate() {
-      q += 0.003;
+      q += 0.0075;
 
       let qSin = Math.sin(q);
       let qCos = Math.cos(q);
 
-      let scaledCos = 10 * qCos;
-      let scaledSin = 10 * qSin;
+      let r = 10;
+
+      let scaledCos = r * qCos;
+      let scaledSin = r * qSin;
 
       // Set the position of the camera entity
       camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
