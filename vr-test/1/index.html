@@ -20,7 +20,7 @@
         dur="10000" 
         easing="linear">
       </a-animation>
-      <a-camera 
+      <a-camera id="camera" 
         look-controls 
         position="10 0 0">
         <a-animation atribute="rotation" 
@@ -41,6 +41,11 @@
     <!-- Include your 3D model -->
     <a-entity gltf-model="#pixel"></a-entity>
   </a-scene>
+
+  <scryptr>
+      const camera = document.getElementById('camera');
+      camera.setAttribute('wasd-controls', 'enabled', false); // Disable wasd-controls
+  </scryptr>
 
 </body>
 </html>
