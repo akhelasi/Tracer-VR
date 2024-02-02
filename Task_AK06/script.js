@@ -1,12 +1,10 @@
 //   JavaScript
 
 let vrScene = 0,
-    drone = 0,
     notClick = 0;
 
 function vrButton() {
   if (vrScene > 0) {
-    if (drone > 0) {
       if (notClick < 1) {
         notClick = 1;
 
@@ -33,7 +31,6 @@ function vrButton() {
           }
         }
       }
-    }
   }
 }
 
@@ -78,49 +75,5 @@ function scene4Button() {
     document.getElementById("scene4").classList.add("buttonON");
 
     vrScene = 4;
-  }
-}
-
-function filmDron() {
-  if (notClick !== 1) {
-    document.getElementById("film").classList.remove("droneON");
-    document.getElementById("circle").classList.add("droneON");
-    document.getElementById("helix").classList.add("droneON");
-    document.getElementById("rocket").classList.add("droneON");
-
-    drone = 1;
-  }
-}
-
-function circleDron() {
-  if (notClick !== 1) {
-    document.getElementById("film").classList.add("droneON");
-    document.getElementById("circle").classList.remove("droneON");
-    document.getElementById("helix").classList.add("droneON");
-    document.getElementById("rocket").classList.add("droneON");
-
-    drone = 2;
-  }
-}
-
-function helixDron() {
-  if (notClick !== 1) {
-    document.getElementById("film").classList.add("droneON");
-    document.getElementById("circle").classList.add("droneON");
-    document.getElementById("helix").classList.remove("droneON");
-    document.getElementById("rocket").classList.add("droneON");
-
-    drone = 3;
-  }
-}
-
-function rocketDron() {
-  if (notClick !== 1) {
-    document.getElementById("film").classList.add("droneON");
-    document.getElementById("circle").classList.add("droneON");
-    document.getElementById("helix").classList.add("droneON");
-    document.getElementById("rocket").classList.remove("droneON");
-
-    drone = 4;
   }
 }

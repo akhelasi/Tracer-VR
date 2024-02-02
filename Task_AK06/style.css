@@ -83,42 +83,6 @@ button{
 
 }
 
-.drone {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    width: 200px;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.film{
-    background-image: url("../SVGs/film.svg");
-}
-
-.circle{
-    background-image: url("../SVGs/circle.svg")
-}
-
-.helix{
-    background-image: url("../SVGs/helix.svg");
-}
-
-.rocket{
-    background-image: url("../SVGs/rocket.svg");
-}
-
-.drones{
-    height: 40px;
-    width: 40px;
-    display: block;
-}
-
-.droneON{
-    opacity: 0.3;
-}
-
 .sentence{
     position: absolute;
     bottom: 0;
