@@ -9,13 +9,11 @@
   <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
 </head>
 
-
-
 <body>
   <a-scene mobile-ui="enabled: true">
     <!-- Use the a-entity for the camera and set the position attribute -->
     <a-entity id="camera" camera look-controls position="0 5 0">
-      <a-entity animation-mixer></a-entity>
+      <a-animation attribute="rotation" dur="10000" easing="linear" to="0 360 0" repeat="indefinite"></a-animation>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
@@ -26,6 +24,9 @@
 
     <!-- Include your 3D model -->
     <a-entity gltf-model="#pixel"></a-entity>
+
+    <!-- Enter VR button -->
+    <a id="myEnterVRButton" href="#" onclick="enterVR()"></a>
 
     <script>
       const camera = document.getElementById('camera');
@@ -50,11 +51,12 @@
       // Start the animation loop
       animate();
 
-      // Detect the VR button press
-      document.querySelector('a-scene').addEventListener('enter-vr', function () {
-        // Call the animate function again after entering VR
+      // Enter VR function
+      function enterVR() {
+        document.querySelector('a-scene').enterVR();
+        // Start the animation loop again after entering VR
         animate();
-      });
+      }
     </script>
   </a-scene>
 </body>
