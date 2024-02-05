@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <a-scene mobile-ui="enabled: true">
+  <a-scene vr-mode-ui="enterVRButton: #myEnterVRButton" mobile-ui="enabled: true">
     <!-- Use the a-entity for the camera and set the position attribute -->
     <a-entity id="camera" camera look-controls position="0 5 0">
       <a-animation attribute="rotation" dur="10000" easing="linear" to="0 360 0" repeat="indefinite"></a-animation>
@@ -26,7 +26,7 @@
     <a-entity gltf-model="#pixel"></a-entity>
 
     <!-- Enter VR button -->
-    <a id="myEnterVRButton" href="#" onclick="enterVR()"></a>
+    <a id="myEnterVRButton" href="#"></a>
 
     <script>
       const camera = document.getElementById('camera');
@@ -50,13 +50,6 @@
 
       // Start the animation loop
       animate();
-
-      // Enter VR function
-      function enterVR() {
-        document.querySelector('a-scene').enterVR();
-        // Start the animation loop again after entering VR
-        animate();
-      }
     </script>
   </a-scene>
 </body>
