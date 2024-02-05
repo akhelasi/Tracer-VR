@@ -3,11 +3,13 @@
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
-  <script src="https://aframe.io/releases/1.5.0/aframe-mobile.min.js"></script>
-  <script src="https://unpkg.com/aframe-physics-system@1.5.0/dist/aframe-physics-system.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
 </head>
+
+
 
 <body>
   <a-scene mobile-ui="enabled: true">
@@ -24,35 +26,36 @@
 
     <!-- Include your 3D model -->
     <a-entity gltf-model="#pixel"></a-entity>
-  </a-scene>
 
-  <script>
-    // Get the camera entity
-    const camera = document.getElementById('camera');
-
-    let q = 0;
-
-    // Animation loop
-    function animate() {
-      q += 0.01;
-
-      let qSin = Math.sin(q);
-      let qCos = Math.cos(q);
-
+    <script>
+      const camera = document.getElementById('camera');
+      let q = 0;
       let r = 10;
 
-      let scaledCos = r * qCos;
-      let scaledSin = r * qSin;
+      function animate() {
+        q += 0.01;
 
-      // Set the position of the camera entity
-      camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+        let qSin = Math.sin(q);
+        let qCos = Math.cos(q);
 
-      // Call the animation loop recursively
-      requestAnimationFrame(animate);
-    }
+        let scaledCos = r * qCos;
+        let scaledSin = r * qSin;
 
-    // Start the animation loop
-    animate();
-  </script>
+        camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+
+        // Call the animation loop recursively
+        requestAnimationFrame(animate);
+      }
+
+      // Start the animation loop
+      animate();
+
+      // Detect the VR button press
+      document.querySelector('a-scene').addEventListener('enter-vr', function () {
+        // Call the animate function again after entering VR
+        animate();
+      });
+    </script>
+  </a-scene>
 </body>
 </html>
