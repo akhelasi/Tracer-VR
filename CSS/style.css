@@ -1,0 +1,92 @@
+/*     CSS     */
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 720px;
+    min-height: 600px;
+    background-color: #2d2d2d;
+    font-family: sans-serif;
+}
+
+.tablet{
+    position: absolute;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 25px;
+    top: 0;
+    left: 0;
+    width: calc(100% - 44px);
+    height: calc(100% - 44px);
+    background-color: black;
+    border: solid 2px #41719c;
+}
+
+.logo{
+    width: 250px;
+    padding: 5px 20px;
+}
+
+button{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: #55afff70;
+    width: 120px;
+    height: 120px;
+    border-radius: 150px;
+    border: solid 2px white;
+    font-size: xx-large;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+.vr{
+    font-size: 100px;
+    top:50%;
+    left:50%;
+    width: 300px;
+    height: 300px;
+}
+
+.vrON{
+    color: white;
+}
+
+.scene1{
+    top:calc(50% - 194px);
+    left:50%;
+}
+
+.scene2{
+    top:50%;
+    left:calc(50% + 194px);
+}
+
+.scene3{
+    top:calc(50% + 194px);
+    left:50%;
+}
+
+.scene4{
+    top:50%;
+    left:calc(50% - 194px);
+}
+
+.buttonON{
+    background-color: #ffffff70;
+    color:white
+
+}
+
+.sentence{
+    position: absolute;
+    bottom: 0;
+    right:0;
+    color: #0b7fbf;
+    padding-right: 20px;
+}
