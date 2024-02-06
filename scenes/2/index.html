@@ -26,32 +26,6 @@
     <a-entity gltf-model="#pixel"></a-entity>
   </a-scene>
 
-  <script>
-    // Get the camera entity
-    const camera = document.getElementById('camera');
 
-    let q = 0;
-    let r = 10;
-
-    // Animation loop
-    function animate() {
-      q += 0.01;
-
-      let qSin = Math.sin(q);
-      let qCos = Math.cos(q);
-
-      let scaledCos = r * qCos;
-      let scaledSin = r * qSin;
-
-      // Set the position of the camera entity
-      camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
-
-      // Call the animation loop recursively
-      requestAnimationFrame(animate);
-    }
-
-    // Start the animation loop
-    animate();
-  </script>
 </body>
 </html>
