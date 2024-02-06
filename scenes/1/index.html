@@ -2,23 +2,12 @@
 <html>
 
 <head>
-  <!-- Load A-Frame version 1.5.0 for non-iOS devices -->
+  <!-- Include A-Frame and A-Frame Physics System -->
+  <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <!-- Include A-Frame mobile support to improve performance on mobile devices -->
   <script src="https://aframe.io/releases/1.5.0/aframe-mobile.min.js"></script>
   <script src="https://unpkg.com/aframe-physics-system@1.5.0/dist/aframe-physics-system.min.js"></script>
-
-  <script>
-    // Function to detect if the user agent is iOS
-    function isIOS() {
-      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    }
-
-    // Load A-Frame version 1.2.0 for iOS devices
-    if (isIOS()) {
-      document.write('<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>');
-      document.write('<script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script>');
-    }
-  </script>
 </head>
 
 <body>
