@@ -11,10 +11,10 @@
 
 <body>
   <a-scene mobile-ui="enabled: true">
-    <!-- Use the a-entity for the camera and set the position attribute -->
-    <a-entity id="camera" camera look-controls position="0 5 0">
-      <a-entity animation-mixer></a-entity>
-    </a-entity>
+
+    <a-entity id="rig" position="0 5 0">
+      <a-camera id="camera" camera look-controls></a-camera>
+   </a-entity>
 
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
@@ -28,7 +28,7 @@
 
   <script>
     // Get the camera entity
-    const camera = document.getElementById('camera');
+    const camera = document.getElementById('rig');
 
     let q = 0;
     let r = 10;
