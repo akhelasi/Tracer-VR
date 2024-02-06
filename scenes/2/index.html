@@ -3,20 +3,16 @@
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
-  <script src="https://aframe.io/releases/1.5.0/aframe-mobile.min.js"></script>
-  <script src="https://unpkg.com/aframe-physics-system@1.5.0/dist/aframe-physics-system.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
+  <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
 </head>
 
 <body>
   <a-scene mobile-ui="enabled: true">
-    <!-- Use the a-entity for the camera and set the position attribute -->
-    <!-- <a-entity id="camera" camera look-controls position="10 5 0">
-      <a-entity animation-mixer></a-entity>
-    </a-entity> -->
 
-    <a-entity id="rig" position="25 10 0">
+    <a-entity id="rig" position="0 5 0">
       <a-camera id="camera" camera look-controls></a-camera>
    </a-entity>
 
