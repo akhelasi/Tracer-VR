@@ -13,53 +13,76 @@
 <body>
   <a-scene>
 
-    <a-box position="-4 2 -12" rotation="0 45 0" color="#4CC3D9" depth="4" height="4" width="4"></a-box>
-    <a-sphere position="0 5 -20" radius="5" color="#EF2D5E"></a-sphere>
-    <a-cylinder position="4 3 -12" radius="2" height="6" color="#FFC65D"></a-cylinder>
-    <a-plane position="0 0 -16" rotation="-90 0 0" width="16" height="16" color="#7BC8A4"></a-plane>
-    
-
     <a-entity id="rig" position="0 5 0">
       <a-entity id="camera" camera="active: true" look-controls></a-entity>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
-    <a-assets>
-      <a-asset-item id="pixel" src="../vr-cavern.glb"></a-asset-item>
-    </a-assets>
 
-    <!-- Include your 3D model -->
-    <a-entity gltf-model="#pixel"></a-entity>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/loaders/DRACOLoader.js"></script>
+
+    <script>
+      // Get the camera entity
+      const cam = document.getElementById('rig');
+
+      let q = 0;
+      let r = 10;
+
+      // Animation loop
+      function animate() {
+        q += 0.01;
+
+        let qSin = Math.sin(q);
+        let qCos = Math.cos(q);
+
+        let scaledCos = r * qCos;
+        let scaledSin = r * qSin;
+
+        // Set the position of the camera entity
+        cam.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+
+        // Call the animation loop recursively
+        requestAnimationFrame(animate);
+      }
+
+      // Start the animation loop
+      animate();
+
+      // Function to preload the GLB model
+      function preloadModel(src) {
+        return new Promise((resolve, reject) => {
+          const loader = new THREE.GLTFLoader();
+          const dracoLoader = new THREE.DRACOLoader();
+          dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+          loader.setDRACOLoader(dracoLoader);
+          loader.load(src, resolve, undefined, reject);
+        });
+      }
+
+      // Preload the GLB model
+      preloadModel('../vr-cavern.glb')
+        .then(gltf => {
+          // Model loaded successfully
+          const scene = document.querySelector('a-scene');
+          const model = document.createElement('a-entity');
+          const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+          model.setAttribute('id', modelId);
+          model.setAttribute('gltf-model', `#${modelId}`);
+          scene.appendChild(model);
+
+          // Set the GLTF model data
+          const modelElement = document.getElementById(modelId);
+          modelElement.setObject3D('gltf-model', gltf.scene);
+
+          // Make the model visible
+          model.setAttribute('visible', true);
+        })
+        .catch(error => {
+          console.error('Error loading model:', error);
+        });
+    </script>
   </a-scene>
-
-  <script>
-    // Get the camera entity
-    const cam = document.getElementById('rig');
-
-    let q = 0;
-    let r = 10;
-
-    // Animation loop
-    function animate() {
-      q += 0.01;
-
-      let qSin = Math.sin(q);
-      let qCos = Math.cos(q);
-
-      let scaledCos = r * qCos;
-      let scaledSin = r * qSin;
-
-      // Set the position of the camera entity
-      cam.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
-
-      // Call the animation loop recursively
-      requestAnimationFrame(animate);
-    }
-
-    // Start the animation loop
-    animate();
-  </script>
 </body>
 
 </html>
