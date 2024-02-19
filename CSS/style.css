@@ -102,18 +102,9 @@ button{
     }
 
     button{
-        position: absolute;
-        transform: translate(-50%, -50%);
-        background-color: #55afff70;
         width: 100px;
         height: 100px;
-        border-radius: 150px;
-        border: solid 2px white;
         font-size: 25px;
-        display: flex;
-        flex-wrap: wrap;
-        align-content: center;
-        justify-content: space-evenly;
     }
 
     .scene1{
@@ -141,25 +132,15 @@ button{
 @media screen and (max-height: 600px){
     .vr{
         font-size: 60px;
-        top:50%;
-        left:50%;
+        top:calc(50% + 40px);
         width: 150px;
         height: 150px;
     }
 
     button{
-        position: absolute;
-        transform: translate(-50%, -50%);
-        background-color: #55afff70;
         width: 100px;
         height: 100px;
-        border-radius: 150px;
-        border: solid 2px white;
         font-size: 25px;
-        display: flex;
-        flex-wrap: wrap;
-        align-content: center;
-        justify-content: space-evenly;
     }
 
     .scene1{
