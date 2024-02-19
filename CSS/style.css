@@ -140,8 +140,11 @@ button{
 
 @media screen and (max-height: 600px){
     .vr{
-        top:calc(50% + 40px);
+        font-size: 60px;
+        top:50%;
         left:50%;
+        width: 150px;
+        height: 150px;
     }
 
     button{
