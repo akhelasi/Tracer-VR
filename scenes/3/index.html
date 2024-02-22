@@ -56,11 +56,12 @@
         const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
         const distance = startPosition.distanceTo(target);
 
-        cam.object3D.lookAt(0, 0, 0); // Ensure camera looks at (0, 0, 0)
+        // Ensure camera looks at (0, 0, 0)
+        cam.setAttribute('rotation', `0 ${Math.atan2(startPosition.x, startPosition.z) * (180 / Math.PI)} 0`);
 
         if (startRotate) {
           // Perform rotation
-          rotationAngle += 0.01; // Adjust rotation speed as needed
+          rotationAngle += 0.02; // Adjust rotation speed as needed
           cam.object3D.rotation.y = rotationAngle;
 
           // Check if rotation completed (360 degrees)
