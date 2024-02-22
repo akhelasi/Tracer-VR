@@ -11,7 +11,12 @@
 </head>
 
 <body>
-  <a-scene>
+  <a-scene
+  vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+  <!-- Style the button with images or whatever. -->
+  <a id="myEnterVRButton" href="#"></a>
+  <a id="myEnterARButton" href="#" style="display: none;"></a>
+
 
     <a-entity id="rig" position="0 0 0">
       <a-entity id="camera" camera="active: true" look-controls-enabled="false" position="0 0 0"></a-entity>
