@@ -17,20 +17,17 @@
 </head>
 
 <body>
-  <a-scene>
+  <a-scene
+      vr-mode-ui="enabled: true"
+      ar-mode-ui="enabled: false">
 
-    <a-entity id="rig" position="0 5 0">
+    <a-entity id="rig" position="0 0 0">
       <a-entity id="camera" camera="active: true" look-controls-enabled="false"></a-entity>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
 
-    <a-scene
-      vr-mode-ui="enabled: true"
-      ar-mode-ui="enabled: false">
-
-    </a-scene>
 
     <script>
       // Get the camera entity
