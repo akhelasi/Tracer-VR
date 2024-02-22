@@ -8,46 +8,98 @@
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
   <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
   <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
+  <style>
+    /* Hide the AR button */
+    .a-enter-ar-button {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
   <a-scene>
 
     <a-entity id="rig" position="0 5 0">
-      <a-entity id="camera" camera="active: true" look-controls></a-entity>
+      <a-entity id="camera" camera="active: true" look-controls-enabled="false"></a-entity>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
 
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/loaders/DRACOLoader.js"></script>
+    <a-scene
+      vr-mode-ui="enabled: true"
+      ar-mode-ui="enabled: false">
+
+    </a-scene>
 
     <script>
       // Get the camera entity
       const cam = document.getElementById('rig');
 
-      let q = 0;
-      let r = 10;
+      const targetPositions = [
+        { x: 22, y: 16, z: 14 },
+        { x: 12, y: 3, z: 28 },
+        { x: 0, y: 0, z: 22 },
+        { x: 0, y: 0, z: 0 },
+        { x: 0, y: 0, z: 21 },
+        { x: 12, y: 3, z: 28 },
+        { x: 22, y: 16, z: 14 },
+      ];
+
+      let currentIndex = 0;
+      let targetPosition = targetPositions[currentIndex];
+
+      let animationRef = 0;
+      let startRotate = false; // Flag to indicate if rotation should start
+      let rotationAngle = 0; // Track the rotation angle
 
       // Animation loop
       function animate() {
-        q += 0.01;
+        const startPosition = cam.object3D.position.clone();
+        const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+        const distance = startPosition.distanceTo(target);
 
-        let qSin = Math.sin(q);
-        let qCos = Math.cos(q);
+        cam.object3D.lookAt(0, 0, 0); // Ensure camera looks at (0, 0, 0)
 
-        let scaledCos = r * qCos;
-        let scaledSin = r * qSin;
+        if (startRotate) {
+          // Perform rotation
+          rotationAngle += 0.01; // Adjust rotation speed as needed
+          cam.object3D.rotation.y = rotationAngle;
 
-        // Set the position of the camera entity
-        cam.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+          // Check if rotation completed (360 degrees)
+          if (rotationAngle >= Math.PI * 2) {
+            startRotate = false; // Stop rotation
+            rotationAngle = 0; // Reset rotation angle
+            currentIndex = (currentIndex + 1) % targetPositions.length; // Move to the next target position
+            targetPosition = targetPositions[currentIndex];
+          }
+        } else {
+          // Move to the target position
+          if (distance > 0.1) {
+            const newPosition = new THREE.Vector3();
+            newPosition.lerpVectors(startPosition, target, 0.05); // Smoothly interpolate between positions
+            cam.setAttribute('position', newPosition);
+          } else {
+            // Check if the camera position is (0, 0, 0) to start rotation
+            if (targetPosition.x === 0 && targetPosition.y === 0 && targetPosition.z === 0) {
+              startRotate = true;
+            } else {
+              currentIndex = (currentIndex + 1) % targetPositions.length; // Move to the next target position
+              targetPosition = targetPositions[currentIndex];
+            }
+          }
+        }
 
-        // Call the animation loop recursively
-        requestAnimationFrame(animate);
+        animationRef = requestAnimationFrame(animate);
       }
 
       // Start the animation loop
       animate();
+
+      // Function to stop animation
+      function stopAnimation() {
+        cancelAnimationFrame(animationRef);
+      }
 
       // Function to preload the GLB model
       function preloadModel(src) {
