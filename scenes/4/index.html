@@ -8,18 +8,24 @@
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
   <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
   <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
+  <style>
+    /* Hide the AR button */
+    .a-enter-ar-button {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
-  <a-scene>
-
+  <a-scene  vr-mode-ui="enabled: true"  ar-mode-ui="enabled: false">
 
     <a-entity id="rig" position="0 0 0">
-      <a-entity id="camera" camera="active: true" look-controls-enabled="false" position="0 0 0"></a-entity>
+      <a-entity id="camera" camera="active: true" look-controls-enabled="false"></a-entity>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
+
 
     <script>
       // Get the camera entity
@@ -27,11 +33,11 @@
 
       const targetPositions = [
         { x: 22, y: 16, z: 14 },
-        { x: 12, y: 3, z: 28 },
-        { x: 0, y: 0, z: 22 },
+        { x: 12, y: 3, z: 30 },
+        { x: 0, y: 0, z: 35 },
         { x: 0, y: 0, z: 0 },
-        { x: 0, y: 0, z: 21 },
-        { x: 12, y: 3, z: 28 },
+        { x: 0, y: 0, z: 35 },
+        { x: 12, y: 3, z: 30 },
         { x: 22, y: 16, z: 14 },
       ];
 
