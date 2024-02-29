@@ -20,18 +20,20 @@
   <a-scene vr-mode-ui="enabled: true" 
     ar-mode-ui="enabled: false">
     <a-entity id="rig" 
-      position="50 50 50">
+      position="35 35 35">
       <a-camera id="camera" 
         camera="active: true" 
         look-controls-enabled="false" 
         wasd-controls-enabled="false"
-        position="0 -1 0" >
+        position="0 1.6 0" >
       </a-camera>
     </a-entity>
 
-
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
+
+        <!-- Model entity -->
+        <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
 
 
     <script>
@@ -39,6 +41,7 @@
       const cam = document.getElementById('rig');
 
       const targetPositions = [
+        { x: 35, y: 35, z: 35 },
         { x: 22, y: 16, z: 14 },
         { x: 12, y: 3, z: 30 },
         { x: 0, y: 0, z: 35 },
@@ -46,6 +49,7 @@
         { x: 0, y: 0, z: 35 },
         { x: 12, y: 3, z: 30 },
         { x: 22, y: 16, z: 14 },
+        { x: 35, y: 35, z: 35 },
       ];
 
       let currentIndex = 0;
@@ -79,12 +83,12 @@
         } else {
           // Move to the target position
           if (distance > 0.1) {
-            const newPosition = new THREE.Vector3();
-            newPosition.lerpVectors(startPosition, target, 0.05); // Smoothly interpolate between positions
+            const direction = target.clone().sub(startPosition).normalize();
+            const newPosition = startPosition.clone().add(direction.multiplyScalar(0.2)); // Move by a fixed distance
             cam.setAttribute('position', newPosition);
           } else {
             // Check if the camera position is (0, 0, 0) to start rotation
-            if (targetPosition.x === 0 && targetPosition.y === 0 && targetPosition.z === 0) {
+            if (currentIndex === 4) {
               startRotate = true;
             } else {
               currentIndex = (currentIndex + 1) % targetPositions.length; // Move to the next target position
@@ -119,12 +123,12 @@
       preloadModel('../vr-cavern.glb')
         .then(gltf => {
           // Model loaded successfully
-          const scene = document.querySelector('a-scene');
+          const modelContainer = document.getElementById('modelContainer');
           const model = document.createElement('a-entity');
           const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
           model.setAttribute('id', modelId);
           model.setAttribute('gltf-model', `#${modelId}`);
-          scene.appendChild(model);
+          modelContainer.appendChild(model);
 
           // Set the GLTF model data
           const modelElement = document.getElementById(modelId);
