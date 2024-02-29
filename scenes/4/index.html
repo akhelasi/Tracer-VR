@@ -70,7 +70,7 @@
 
         if (startRotate) {
           // Perform rotation
-          rotationAngle += 0.01; // Adjust rotation speed as needed
+          rotationAngle += 0.005; // Adjust rotation speed as needed
           cam.object3D.rotation.y = rotationAngle;
 
           // Check if rotation completed (360 degrees)
@@ -84,7 +84,7 @@
           // Move to the target position
           if (distance > 0.1) {
             const direction = target.clone().sub(startPosition).normalize();
-            const newPosition = startPosition.clone().add(direction.multiplyScalar(0.2)); // Move by a fixed distance
+            const newPosition = startPosition.clone().add(direction.multiplyScalar(0.1)); // Move by a fixed distance
             cam.setAttribute('position', newPosition);
           } else {
             // Check if the camera position is (0, 0, 0) to start rotation
