@@ -29,15 +29,7 @@
               position="0 1.6 0"
               wasd-controls-enabled="false">
       <a-cursor cursor="fuse: true; fuseTimeout: 1000"
-                geometry="primitive: sphere; radius: 0.005"
-                material="color:#ffffff; shader: flat; opacity: 0.8">
-        <a-animation attribute="scale"
-                    to="3 3 3"
-                    dur="1000"
-                    begin="cursor-fusing"
-                    fill="backwards"
-                    easing="linear">
-        </a-animation>
+                material="color:#ffffff; opacity: 0.8">
       </a-cursor>
     </a-camera>
   </a-entity>
@@ -61,7 +53,6 @@
               event-set__mouseleave="_event: mouseleave; opacity: 1"
     >
 </a-sphere>
-
 
   </a-entity>
 
