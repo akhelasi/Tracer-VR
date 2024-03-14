@@ -29,32 +29,57 @@
               position="0 1.6 0"
               wasd-controls-enabled="false">
       <a-cursor cursor="fuse: true; fuseTimeout: 1000"
-                material="color:#ffffff; opacity: 0.8">
+                material="color:#ffffff; opacity: 0.8"
+                geometry="primitive: ring; radiusInner: 0.005; radiusOuter: 0.009"
+                material="color: #ffffff; shader: flat"
+                position="0 0 -0.5">
       </a-cursor>
     </a-camera>
+     
+    <!-- buttons -->
+      <a-sphere id="buton1" color="green" position="-0.05 1 0.05" radius="0.04"
+                event-set__changecolor1="_event: click; material.color: green"
+                event-set__changecolor2="_event: click; _target: #buton2; material.color: red"
+                event-set__changecolor3="_event: click; _target: #buton3; material.color: red"
+                event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
+                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
+                event-set__mouseleave="_event: mouseleave; opacity: 1">
+      </a-sphere>
+
+      <a-sphere id="buton2" color="red" position="-0.05 1 -0.05" radius="0.04"
+                event-set__changecolor1="_event: click; material.color: green"
+                event-set__changecolor2="_event: click; _target: #buton1; material.color: red"
+                event-set__changecolor3="_event: click; _target: #buton3; material.color: red"
+                event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
+                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
+                event-set__mouseleave="_event: mouseleave; opacity: 1">
+      </a-sphere>
+      
+      <a-sphere id="buton3" color="red" position="0.05 1 0.05" radius="0.04"
+                event-set__changecolor1="_event: click; material.color: green"
+                event-set__changecolor2="_event: click; _target: #buton2; material.color: red"
+                event-set__changecolor3="_event: click; _target: #buton1; material.color: red"
+                event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
+                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
+                event-set__mouseleave="_event: mouseleave; opacity: 1">
+      </a-sphere>
+
+      <a-sphere id="buton4" color="red" position="0.05 1 -0.05" radius="0.04"
+                event-set__changecolor1="_event: click; material.color: green"
+                event-set__changecolor2="_event: click; _target: #buton1; material.color: red"
+                event-set__changecolor3="_event: click; _target: #buton2; material.color: red"
+                event-set__changecolor4="_event: click; _target: #buton3; material.color: red"
+                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
+                event-set__mouseleave="_event: mouseleave; opacity: 1">
+      </a-sphere>
+      
   </a-entity>
 
   <!-- Set the background color of the scene to black -->
   <a-sky color="#000000"></a-sky>
 
   <!-- Model entity -->
-  <a-entity id="modelContainer" position="0 1.6 0">
-    <a-sphere id="buton" color="red" position="50 -100 0" radius="30"
-              event-set__changecolor="_event: click; material.color: blue"
-              event-set__mouseenter="_event: mouseenter; opacity: 0.7"
-              event-set__mouseleave="_event: mouseleave; opacity: 1"
-              >
-
-    </a-sphere>
-
-    <a-sphere color="gray" position="0 -100 50" radius="30"
-              event-set__rescolor="_event: click; _target: #buton; material.color: green"
-              event-set__mouseenter="_event: mouseenter; opacity: 0.7"
-              event-set__mouseleave="_event: mouseleave; opacity: 1"
-    >
-</a-sphere>
-
-  </a-entity>
+  <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
 
 
   <script>
