@@ -2,38 +2,59 @@
 <html>
 
 <head>
-    <!-- Include A-Frame and A-Frame Physics System -->
-    <!-- Include A-Frame -->
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <!-- Include A-Frame mobile support to improve performance on mobile devices -->
-    <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
-    <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
-    <style>
-        /* Hide the AR button */
-        .a-enter-ar-button {
-            display: none !important;
-        }
-    </style>
+  <!-- Include A-Frame and A-Frame Physics System -->
+  <!-- Include A-Frame -->
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+
+  <!-- Include A-Frame mobile support to improve performance on mobile devices -->
+  <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
+  <style>
+    /* Hide the AR button */
+    .a-enter-ar-button {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
 <a-scene ar-mode-ui="enabled: false"
          vr-mode-ui="enabled: true">
-    <a-entity id="rig"
-              position="35 35 35">
-        <a-camera camera="active: true"
-                  id="camera"
-                  look-controls-enabled="false"
-                  position="0 1.6 0"
-                  wasd-controls-enabled="false">
-        </a-camera>
-    </a-entity>
+  <a-entity id="rig"
+            position="35 35 35">
+    <a-camera camera="active: true"
+              id="camera"
+              look-controls-enabled="true"
+              position="0 1.6 0"
+              wasd-controls-enabled="false">
+      <a-cursor cursor="fuse: true; fuseTimeout: 1000"
+                material="color:#ffffff; opacity: 0.8">
+      </a-cursor>
+    </a-camera>
+  </a-entity>
 
-    <!-- Set the background color of the scene to black -->
-    <a-sky color="#000000"></a-sky>
+  <!-- Set the background color of the scene to black -->
+  <a-sky color="#000000"></a-sky>
 
-    <!-- Model entity -->
-    <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
+  <!-- Model entity -->
+  <a-entity id="modelContainer" position="0 1.6 0">
+    <a-sphere id="buton" color="red" position="50 -100 0" radius="30"
+              event-set__changecolor="_event: click; material.color: blue"
+              event-set__mouseenter="_event: mouseenter; opacity: 0.7"
+              event-set__mouseleave="_event: mouseleave; opacity: 1"
+              >
+
+    </a-sphere>
+
+    <a-sphere color="gray" position="0 -100 50" radius="30"
+              event-set__rescolor="_event: click; _target: #buton; material.color: green"
+              event-set__mouseenter="_event: mouseenter; opacity: 0.7"
+              event-set__mouseleave="_event: mouseleave; opacity: 1"
+    >
+</a-sphere>
+
+  </a-entity>
 
 
     <script>
