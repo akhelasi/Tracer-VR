@@ -5,6 +5,8 @@
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
   <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
   <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
@@ -23,9 +25,20 @@
             position="35 35 35">
     <a-camera camera="active: true"
               id="camera"
-              look-controls-enabled="false"
+              look-controls-enabled="true"
               position="0 1.6 0"
               wasd-controls-enabled="false">
+      <a-cursor cursor="fuse: true; fuseTimeout: 1000"
+                geometry="primitive: sphere; radius: 0.005"
+                material="color:#ffffff; shader: flat; opacity: 0.8">
+        <a-animation attribute="scale"
+                    to="3 3 3"
+                    dur="1000"
+                    begin="cursor-fusing"
+                    fill="backwards"
+                    easing="linear">
+        </a-animation>
+      </a-cursor>
     </a-camera>
   </a-entity>
 
@@ -33,7 +46,24 @@
   <a-sky color="#000000"></a-sky>
 
   <!-- Model entity -->
-  <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
+  <a-entity id="modelContainer" position="0 1.6 0">
+    <a-sphere id="buton" color="red" position="50 -100 0" radius="30"
+              event-set__changecolor="_event: click; material.color: blue"
+              event-set__mouseenter="_event: mouseenter; opacity: 0.7"
+              event-set__mouseleave="_event: mouseleave; opacity: 1"
+              >
+
+    </a-sphere>
+
+    <a-sphere color="gray" position="0 -100 50" radius="30"
+              event-set__rescolor="_event: click; _target: #buton; material.color: green"
+              event-set__mouseenter="_event: mouseenter; opacity: 0.7"
+              event-set__mouseleave="_event: mouseleave; opacity: 1"
+    >
+</a-sphere>
+
+
+  </a-entity>
 
 
   <script>
@@ -59,14 +89,18 @@
     let startRotate = false; // Flag to indicate if rotation should start
     let rotationAngle = 0; // Track the rotation angle
 
+    const startPosition = cam.object3D.position.clone();
+    const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+    const distance = startPosition.distanceTo(target);
+
+    // Ensure camera looks at (0, 0, 0)
+    cam.setAttribute('rotation', `0 ${Math.atan2(startPosition.x, startPosition.z) * (180 / Math.PI)} 0`);
+
     // Animation loop
     function animate() {
       const startPosition = cam.object3D.position.clone();
       const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
       const distance = startPosition.distanceTo(target);
-
-      // Ensure camera looks at (0, 0, 0)
-      cam.setAttribute('rotation', `0 ${Math.atan2(startPosition.x, startPosition.z) * (180 / Math.PI)} 0`);
 
       if (startRotate) {
         // Perform rotation
