@@ -30,49 +30,107 @@
               wasd-controls-enabled="false">
       <a-cursor cursor="fuse: true; fuseTimeout: 1000"
                 material="color:#ffffff; opacity: 0.8"
-                geometry="primitive: ring; radiusInner: 0.005; radiusOuter: 0.009"
+                geometry="primitive: ring; radiusInner: 0.004; radiusOuter: 0.007"
                 material="color: #ffffff; shader: flat"
                 position="0 0 -0.5">
       </a-cursor>
     </a-camera>
      
     <!-- buttons -->
-      <a-sphere id="buton1" color="green" position="-0.05 1 0.05" radius="0.04"
-                event-set__changecolor1="_event: click; material.color: green"
-                event-set__changecolor2="_event: click; _target: #buton2; material.color: red"
-                event-set__changecolor3="_event: click; _target: #buton3; material.color: red"
-                event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
-                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
-                event-set__mouseleave="_event: mouseleave; opacity: 1">
-      </a-sphere>
+    <a-box position="0 1 0" color="#a1a1a1" depth="0.2" height="0.01" width="0.2">
 
-      <a-sphere id="buton2" color="red" position="-0.05 1 -0.05" radius="0.04"
+      <a-box id="buton1" color="green" position="-0.05 0.01 0.05"  depth="0.06" height="0.02" width="0.06"
+             event-set__changecolor1="_event: click; material.color: green"
+             event-set__changecolor2="_event: click; _target: #buton2; material.color: red"
+             event-set__changecolor3="_event: click; _target: #buton3; material.color: red"
+             event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
+             event-set__mouseenter="_event: mouseenter; opacity: 0.8"
+             event-set__mouseleave="_event: mouseleave; opacity: 1">
+        <a-entity
+                text="
+                value:drone I;
+                color:#000000;
+                wrapCount:5;
+                align:center;
+                width:0.06;
+                "
+                position="0 0.011 0"
+                rotation="-90 0 0"
+        >
+        </a-entity>
+
+      </a-box>
+
+      <a-box id="buton2" color="red" position="-0.05 0.01 -0.05" depth="0.06" height="0.02" width="0.06"
                 event-set__changecolor1="_event: click; material.color: green"
                 event-set__changecolor2="_event: click; _target: #buton1; material.color: red"
                 event-set__changecolor3="_event: click; _target: #buton3; material.color: red"
                 event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
-                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
+                event-set__mouseenter="_event: mouseenter; opacity: 0.8"
                 event-set__mouseleave="_event: mouseleave; opacity: 1">
-      </a-sphere>
-      
-      <a-sphere id="buton3" color="red" position="0.05 1 0.05" radius="0.04"
+        <a-entity
+                id="buton2Text"
+                text="
+                value:drone II;
+                color:#000000;
+                wrapCount:5;
+                align:center;
+                width:0.06;
+                "
+                position="0 0.011 0"
+                rotation="-90 0 0"
+        >
+        </a-entity>
+
+      </a-box>
+
+      <a-box id="buton3" color="red" position="0.05 0.01 0.05" depth="0.06" height="0.02" width="0.06"
                 event-set__changecolor1="_event: click; material.color: green"
                 event-set__changecolor2="_event: click; _target: #buton2; material.color: red"
                 event-set__changecolor3="_event: click; _target: #buton1; material.color: red"
                 event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
-                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
+                event-set__mouseenter="_event: mouseenter; opacity: 0.8"
                 event-set__mouseleave="_event: mouseleave; opacity: 1">
-      </a-sphere>
+        <a-entity
+                id="buton3Text"
+                text="
+                value:drone III;
+                color:#000000;
+                wrapCount:5;
+                align:center;
+                width:0.06;
+                "
+                position="0 0.011 0"
+                rotation="-90 0 0"
+        >
+        </a-entity>
 
-      <a-sphere id="buton4" color="red" position="0.05 1 -0.05" radius="0.04"
+      </a-box>
+
+      <a-box id="buton4" color="red" position="0.05 0.01 -0.05" depth="0.06" height="0.02" width="0.06"
                 event-set__changecolor1="_event: click; material.color: green"
                 event-set__changecolor2="_event: click; _target: #buton1; material.color: red"
                 event-set__changecolor3="_event: click; _target: #buton2; material.color: red"
                 event-set__changecolor4="_event: click; _target: #buton3; material.color: red"
-                event-set__mouseenter="_event: mouseenter; opacity: 0.5"
+                event-set__mouseenter="_event: mouseenter; opacity: 0.8"
                 event-set__mouseleave="_event: mouseleave; opacity: 1">
-      </a-sphere>
-      
+        <a-entity
+                id="buton4Text"
+                text="
+                value:drone IV;
+                color:#000000;
+                wrapCount:5;
+                align:center;
+                width:0.06;
+                "
+                position="0 0.011 0"
+                rotation="-90 0 0"
+        >
+        </a-entity>
+
+      </a-box>
+
+    </a-box>
   </a-entity>
 
   <!-- Set the background color of the scene to black -->
@@ -105,18 +163,16 @@
     let startRotate = false; // Flag to indicate if rotation should start
     let rotationAngle = 0; // Track the rotation angle
 
-    const startPosition = cam.object3D.position.clone();
-    const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
-    const distance = startPosition.distanceTo(target);
-
-    // Ensure camera looks at (0, 0, 0)
-    cam.setAttribute('rotation', `0 ${Math.atan2(startPosition.x, startPosition.z) * (180 / Math.PI)} 0`);
 
     // Animation loop
     function animate() {
       const startPosition = cam.object3D.position.clone();
       const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
       const distance = startPosition.distanceTo(target);
+
+      // Ensure camera looks at (0, 0, 0)
+      cam.setAttribute('rotation', `0 ${Math.atan2(startPosition.x, startPosition.z) * (180 / Math.PI)} 0`);
+
 
       if (startRotate) {
         // Perform rotation
