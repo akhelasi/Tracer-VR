@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
-  <script src="https://aframe.io/releases/1.4.0/aframe-mobile.min.js"></script>
-  <script src="https://unpkg.com/aframe-physics-system@1.4.0/dist/aframe-physics-system.min.js"></script>
-  <style>
-   /* Hide the AR button */
-   .a-enter-ar-button {
-     display: none !important;
-   }
-  </style>
+  <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
 </head>
 
 <body>
-  <a-scene ar-mode-ui="enabled: false"
-           vr-mode-ui="enabled: true">
-    <!-- Use the a-entity for the camera and set the position attribute -->
-    <a-entity id="camera" camera look-controls position="0 5 0">
-      <a-entity animation-mixer></a-entity>
+  <a-scene>
+
+    <a-box position="-4 2 -12" rotation="0 45 0" color="#4CC3D9" depth="4" height="4" width="4"></a-box>
+    <a-sphere position="0 5 -20" radius="5" color="#EF2D5E"></a-sphere>
+    <a-cylinder position="4 3 -12" radius="2" height="6" color="#FFC65D"></a-cylinder>
+    <a-plane position="0 0 -16" rotation="-90 0 0" width="16" height="16" color="#7BC8A4"></a-plane>
+    
+
+    <a-entity id="rig" position="0 5 0">
+      <a-entity id="camera" camera="active: true" look-controls></a-entity>
     </a-entity>
 
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
     <a-assets>
-      <a-asset-item id="pixel" src="../GLB/vr-cavern.glb"></a-asset-item>
+      <!-- No need to add the glb model initially -->
     </a-assets>
 
     <!-- Include your 3D model -->
-    <a-entity gltf-model="#pixel"></a-entity>
+    <a-entity id="cavernModel"></a-entity>
 
     <script>
-      const camera = document.getElementById('camera');
+      // Get the camera entity
+      const cam = document.getElementById('rig');
+
       let q = 0;
       let r = 10;
 
+      // Animation loop
       function animate() {
         q += 0.01;
 
@@ -46,7 +49,8 @@
         let scaledCos = r * qCos;
         let scaledSin = r * qSin;
 
-        camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+        // Set the position of the camera entity
+        cam.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
 
         // Call the animation loop recursively
         requestAnimationFrame(animate);
@@ -55,12 +59,23 @@
       // Start the animation loop
       animate();
 
-      // Detect the VR button press
-      document.querySelector('a-scene').addEventListener('enter-vr', function () {
-        // Call the animate function again after entering VR
-        animate();
-      });
+      // Function to dynamically load the GLB model
+      function loadModel() {
+        const assetItem = document.createElement('a-asset-item');
+        assetItem.setAttribute('id', 'pixel');
+        assetItem.setAttribute('src', '../vr-cavern.glb');
+
+        const assets = document.querySelector('a-assets');
+        assets.appendChild(assetItem);
+
+        const model = document.getElementById('cavernModel');
+        model.setAttribute('gltf-model', '#pixel');
+      }
+
+      // Call the function to load the GLB model
+      loadModel();
     </script>
   </a-scene>
 </body>
+
 </html>
