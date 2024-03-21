@@ -21,6 +21,19 @@
 <body>
 <a-scene ar-mode-ui="enabled: false"
          vr-mode-ui="enabled: true">
+  <a-assets>
+    <img id="imgDroneI" src="../../SVGs/film.svg">
+    <img id="imgDroneII" src="../../SVGs/circle.svg">
+    <img id="imgDroneIII" src="../../SVGs/helix.svg">
+    <img id="imgDroneIV" src="../../SVGs/rocket.svg">
+  </a-assets>
+
+  <!-- Set the background color of the scene to black -->
+  <a-sky color="#000000"></a-sky>
+
+  <!-- Model entity -->
+  <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
+
   <a-entity id="rig"
             position="35 35 35">
     <a-camera camera="active: true"
@@ -37,26 +50,29 @@
     </a-camera>
      
     <!-- buttons -->
-    <a-box position="0 1 0" color="#a1a1a1" depth="0.2" height="0.01" width="0.2">
+    <a-box  position="0 1 0" 
+            color="#a1a1a1" 
+            depth="0.2" 
+            height="0.01" 
+            width="0.2">
+
+      <a-box  id="opabox" color="black" position="-0.05 -0.02 0.05"  
+              depth="0.06" height="0.01" width="0.06" opacity="0.25">
+      </a-box>
 
       <a-box id="buton1" color="green" position="-0.05 0.01 0.05"  depth="0.06" height="0.02" width="0.06"
              event-set__changecolor1="_event: click; material.color: green"
              event-set__changecolor2="_event: click; _target: #buton2; material.color: red"
              event-set__changecolor3="_event: click; _target: #buton3; material.color: red"
              event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
-             event-set__mouseenter="_event: mouseenter; opacity: 0.8"
-             event-set__mouseleave="_event: mouseleave; opacity: 1">
-        <a-entity
-                text="
-                value:drone I;
-                color:#000000;
-                wrapCount:5;
-                align:center;
-                width:0.06;
-                "
-                position="0 0.011 0"
-                rotation="-90 0 0"
-        >
+
+             event-set__mouseenter="_event: mouseenter; _target: #opabox; position: -0.05 0.02 0.05"
+             event-set__mouseleave="_event: mouseleave; _target: #opabox; position: -0.05 -0.02 0.05">
+        <a-entity position="0 0.01 0"
+                  rotation="-90 0 0">
+          <a-image id="droneImgI" src="#imgDroneI" height="0.06" width="0.06" position="0 0 0.01">
+          </a-image>
+
         </a-entity>
 
       </a-box>
@@ -66,22 +82,17 @@
                 event-set__changecolor2="_event: click; _target: #buton1; material.color: red"
                 event-set__changecolor3="_event: click; _target: #buton3; material.color: red"
                 event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
-                event-set__mouseenter="_event: mouseenter; opacity: 0.8"
-                event-set__mouseleave="_event: mouseleave; opacity: 1">
-        <a-entity
-                id="buton2Text"
-                text="
-                value:drone II;
-                color:#000000;
-                wrapCount:5;
-                align:center;
-                width:0.06;
-                "
-                position="0 0.011 0"
-                rotation="-90 0 0"
-        >
-        </a-entity>
 
+                event-set__mouseenter="_event: mouseenter; _target: #opabox; position: -0.05 0.02 -0.05"
+                event-set__mouseleave="_event: mouseleave; _target: #opabox; position: -0.05 -0.02 -0.05">
+           <a-entity position="0 0.01 0"
+                     rotation="-90 0 0">
+             <a-image id="droneImgII" src="#imgDroneII" height="0.06" width="0.06" position="0 0 0.01">
+             </a-image>
+   
+           </a-entity>
+   
+        
       </a-box>
 
       <a-box id="buton3" color="red" position="0.05 0.01 0.05" depth="0.06" height="0.02" width="0.06"
@@ -89,21 +100,16 @@
                 event-set__changecolor2="_event: click; _target: #buton2; material.color: red"
                 event-set__changecolor3="_event: click; _target: #buton1; material.color: red"
                 event-set__changecolor4="_event: click; _target: #buton4; material.color: red"
-                event-set__mouseenter="_event: mouseenter; opacity: 0.8"
-                event-set__mouseleave="_event: mouseleave; opacity: 1">
-        <a-entity
-                id="buton3Text"
-                text="
-                value:drone III;
-                color:#000000;
-                wrapCount:5;
-                align:center;
-                width:0.06;
-                "
-                position="0 0.011 0"
-                rotation="-90 0 0"
-        >
-        </a-entity>
+
+                event-set__mouseenter="_event: mouseenter; _target: #opabox; position: 0.05 0.02 0.05"
+                event-set__mouseleave="_event: mouseleave; _target: #opabox; position: 0.05 -0.02 0.05">
+           <a-entity position="0 0.01 0"
+                     rotation="-90 0 0">
+             <a-image id="droneImgIII" src="#imgDroneIII" height="0.06" width="0.06" position="0 0 0.01">
+             </a-image>
+   
+           </a-entity>
+   
 
       </a-box>
 
@@ -112,33 +118,21 @@
                 event-set__changecolor2="_event: click; _target: #buton1; material.color: red"
                 event-set__changecolor3="_event: click; _target: #buton2; material.color: red"
                 event-set__changecolor4="_event: click; _target: #buton3; material.color: red"
-                event-set__mouseenter="_event: mouseenter; opacity: 0.8"
-                event-set__mouseleave="_event: mouseleave; opacity: 1">
-        <a-entity
-                id="buton4Text"
-                text="
-                value:drone IV;
-                color:#000000;
-                wrapCount:5;
-                align:center;
-                width:0.06;
-                "
-                position="0 0.011 0"
-                rotation="-90 0 0"
-        >
-        </a-entity>
+                
+                event-set__mouseenter="_event: mouseenter; _target: #opabox; position: 0.05 0.02 -0.05"
+                event-set__mouseleave="_event: mouseleave; _target: #opabox; position: 0.05 -0.02 -0.05">
+           <a-entity position="0 0.01 0"
+                     rotation="-90 0 0">
+             <a-image id="droneImgIV" src="#imgDroneIV" height="0.06" width="0.06" position="0 0 0.01">
+             </a-image>
+   
+           </a-entity>
+   
 
       </a-box>
 
     </a-box>
   </a-entity>
-
-  <!-- Set the background color of the scene to black -->
-  <a-sky color="#000000"></a-sky>
-
-  <!-- Model entity -->
-  <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
-
 
   <script>
     // Get the camera entity
@@ -225,28 +219,6 @@
       });
     }
 
-
-    // Preload the GLB model
-    preloadModel('../GLB/vr-cavern.glb')
-            .then(gltf => {
-              // Model loaded successfully
-              const modelContainer = document.getElementById('modelContainer');
-              const model = document.createElement('a-entity');
-              const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
-              model.setAttribute('id', modelId);
-              model.setAttribute('gltf-model', `#${modelId}`);
-              modelContainer.appendChild(model);
-
-              // Set the GLTF model data
-              const modelElement = document.getElementById(modelId);
-              modelElement.setObject3D('gltf-model', gltf.scene);
-
-              // Make the model visible
-              model.setAttribute('visible', true);
-            })
-            .catch(error => {
-              console.error('Error loading model(vr-cavern.glb):', error);
-            });
 
     // Preload the GLB model
     preloadModel('../GLB/Barrel_Toroid_Scene-Draco.glb')
