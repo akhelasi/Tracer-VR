@@ -30,22 +30,27 @@
     // Get the camera entity
     const camera = document.getElementById('camera');
 
-    let q = 0;
+    let lastTimestamp = 0;
 
     // Animation loop
-    function animate() {
-      q += 0.01;
+    function animate(timestamp) {
+      // Calculate time elapsed since the last frame
+      const deltaTime = (timestamp - lastTimestamp) / 1000; // Convert to seconds
+      lastTimestamp = timestamp;
+
+      // Adjust the animation based on time
+      q += 0.5 * deltaTime; // You can adjust the factor based on the speed you desire
 
       let qSin = Math.sin(q);
       let qCos = Math.cos(q);
 
-      let scaledCos = 10 * qCos;
-      let scaledSin = 10 * qSin;
+      let r = 10;
+
+      let scaledCos = r * qCos;
+      let scaledSin = r * qSin;
 
       // Set the position of the camera entity
       camera.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
-      camera.setAttribute('look-controls', 'enabled', false); // Disable look-controls
-      camera.object3D.lookAt(0, 0, 0);
 
       // Call the animation loop recursively
       requestAnimationFrame(animate);
