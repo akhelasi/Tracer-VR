@@ -10,7 +10,8 @@
 </head>
 
 <body>
-  <a-scene mobile-ui="enabled: true">
+  <a-scene ar-mode-ui="enabled: false"
+           vr-mode-ui="enabled: true">
     <!-- Use the a-entity for the camera and set the position attribute -->
     <a-entity id="camera" camera look-controls position="0 5 0">
       <a-entity animation-mixer></a-entity>
