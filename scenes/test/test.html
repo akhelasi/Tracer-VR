@@ -5,75 +5,276 @@
   <!-- Include A-Frame and A-Frame Physics System -->
   <!-- Include A-Frame -->
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+
   <!-- Include A-Frame mobile support to improve performance on mobile devices -->
   <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
   <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
+  <style>
+    /* Hide the AR button */
+    .a-enter-ar-button {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
-  <a-scene>
-
-    <a-box position="-4 2 -12" rotation="0 45 0" color="#4CC3D9" depth="4" height="4" width="4"></a-box>
-    <a-sphere position="0 5 -20" radius="5" color="#EF2D5E"></a-sphere>
-    <a-cylinder position="4 3 -12" radius="2" height="6" color="#FFC65D"></a-cylinder>
-    <a-plane position="0 0 -16" rotation="-90 0 0" width="16" height="16" color="#7BC8A4"></a-plane>
-    
-
-    <a-entity id="rig" position="0 5 0">
-      <a-entity id="camera" camera="active: true" look-controls></a-entity>
-    </a-entity>
+  <a-scene ar-mode-ui="enabled: false" vr-mode-ui="enabled: true">
+    <a-assets>
+      <img id="imgDroneI" src="../../SVGs/film.svg">
+      <img id="imgDroneII" src="../../SVGs/circle.svg">
+      <img id="imgDroneIII" src="../../SVGs/helix.svg">
+      <img id="imgDroneIV" src="../../SVGs/rocket.svg">
+    </a-assets>
 
     <!-- Set the background color of the scene to black -->
     <a-sky color="#000000"></a-sky>
-    <a-assets>
-      <!-- No need to add the glb model initially -->
-    </a-assets>
 
-    <!-- Include your 3D model -->
-    <a-entity id="cavernModel"></a-entity>
+    <!-- Model entity -->
+    <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
+
+    <a-entity id="rig" position="35 35 35">
+      <a-camera camera="active: true" id="camera" look-controls-enabled="true" position="0 1.6 0"
+        wasd-controls-enabled="false">
+        <a-cursor cursor="fuse: true; fuseTimeout: 1000" material="color:#ffffff; opacity: 0.8"
+          geometry="primitive: ring; radiusInner: 0.004; radiusOuter: 0.007" material="color: #ffffff; shader: flat"
+          position="0 0 -0.5">
+        </a-cursor>
+      </a-camera>
+
+      <!-- buttons -->
+      <a-box position="0 1 0" color="#a1a1a1" depth="0.2" height="0.01" width="0.2">
+
+        <a-box id="opabox" color="black" position="-0.05 -0.02 0.05" depth="0.06" height="0.01" width="0.06"
+          opacity="0.25">
+        </a-box>
+
+        <a-box id="buton1" cursor-listener material="color: green" position="-0.05 0.01 0.05" depth="0.06" height="0.02"
+          width="0.06" event-set__mouseenter="_event: mouseenter; _target: #opabox; position: -0.05 0.02 0.05"
+          event-set__mouseleave="_event: mouseleave; _target: #opabox; position: -0.05 -0.02 0.05">
+          <a-entity position="0 0.01 0" rotation="-90 0 0">
+            <a-image id="droneImgI" src="#imgDroneI" height="0.06" width="0.06" position="0 0 0.01">
+            </a-image>
+
+          </a-entity>
+
+        </a-box>
+
+        <a-box id="buton2" cursor-listener material="color: red" position="-0.05 0.01 -0.05" depth="0.06" height="0.02"
+          width="0.06" event-set__mouseenter="_event: mouseenter; _target: #opabox; position: -0.05 0.02 -0.05"
+          event-set__mouseleave="_event: mouseleave; _target: #opabox; position: -0.05 -0.02 -0.05">
+          <a-entity position="0 0.01 0" rotation="-90 0 0">
+            <a-image id="droneImgII" src="#imgDroneII" height="0.06" width="0.06" position="0 0 0.01">
+            </a-image>
+
+          </a-entity>
+
+
+        </a-box>
+
+        <a-box id="buton3" cursor-listener material="color: red" position="0.05 0.01 0.05" depth="0.06" height="0.02"
+          width="0.06" event-set__mouseenter="_event: mouseenter; _target: #opabox; position: 0.05 0.02 0.05"
+          event-set__mouseleave="_event: mouseleave; _target: #opabox; position: 0.05 -0.02 0.05">
+          <a-entity position="0 0.01 0" rotation="-90 0 0">
+            <a-image id="droneImgIII" src="#imgDroneIII" height="0.06" width="0.06" position="0 0 0.01">
+            </a-image>
+
+          </a-entity>
+
+
+        </a-box>
+
+        <a-box id="buton4" cursor-listener material="color: red" position="0.05 0.01 -0.05" depth="0.06" height="0.02"
+          width="0.06" event-set__mouseenter="_event: mouseenter; _target: #opabox; position: 0.05 0.02 -0.05"
+          event-set__mouseleave="_event: mouseleave; _target: #opabox; position: 0.05 -0.02 -0.05">
+          <a-entity position="0 0.01 0" rotation="-90 0 0">
+            <a-image id="droneImgIV" src="#imgDroneIV" height="0.06" width="0.06" position="0 0 0.01">
+            </a-image>
+
+          </a-entity>
+
+
+        </a-box>
+
+      </a-box>
+    </a-entity>
+
 
     <script>
       // Get the camera entity
       const cam = document.getElementById('rig');
 
+      // Component to change to color on click.
+      AFRAME.registerComponent('cursor-listener', {
+        init: function () {
+          var COLORS = ['red', 'green'];
+          this.el.addEventListener('click', function (evt) {
+            for (var i = 1; i < 5; i++) {
+              if (this.getElementById('id') != ('buton' + i)) {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i++) {
+
+              var butonID = "buton" + i;
+              const dronec = document.getElementById(butonID);
+              var colorc = dronec.setAttribute('material', 'color', COLORS[0]);
+            }
+            this.setAttribute('material', 'color', COLORS[1]);
+            console.log('Id Id Id Id Id Id Id Id Id : ', this.getAttribute('id'));
+
+            console.log('I was clicked at: ', evt.detail.intersection.point);
+          });
+        }
+      });
+
+      // Film ANIMATE parameters
+      const targetPositions = [
+        { x: 35, y: 35, z: 35 },
+        { x: 22, y: 16, z: 14 },
+        { x: 12, y: 3, z: 30 },
+        { x: 0, y: 0, z: 35 },
+        { x: 0, y: 0, z: 0 },
+        { x: 0, y: 0, z: 35 },
+        { x: 12, y: 3, z: 30 },
+        { x: 22, y: 16, z: 14 },
+        { x: 35, y: 35, z: 35 },
+      ];
+
+      let currentIndex = 0;
+      let targetPosition = targetPositions[currentIndex];
+
+      let animationRef = 0;
+      let startRotate = false; // Flag to indicate if rotation should start
+      let rotationAngle = 0; // Track the rotation angle
+
+      // CIRCLE ANIMATE parameters
       let q = 0;
       let r = 10;
 
+
+      const drone1 = document.getElementById('buton1');
+      var color1 = drone1.getAttribute('material', 'color');
+      console.log("--------------d:  ", drone1);
+      console.log("--------------c:  ", color1);
+
+
+
       // Animation loop
       function animate() {
-        q += 0.01;
 
-        let qSin = Math.sin(q);
-        let qCos = Math.cos(q);
+        const drone1 = document.getElementById('buton1');
+        var color1 = drone1.getAttribute('material', 'color');
+        const drone2 = document.getElementById('buton2');
+        var color2 = drone2.getAttribute('material', 'color');
+        const drone3 = document.getElementById('buton3');
+        var color3 = drone3.getAttribute('material', 'color');
+        const drone4 = document.getElementById('buton4');
+        var color4 = drone4.getAttribute('material', 'color');
 
-        let scaledCos = r * qCos;
-        let scaledSin = r * qSin;
+        if (color1 === 'color: green') {
+          //-------------------------- FILM DRONE -------------------------------
+          const startPosition = cam.object3D.position.clone();
+          const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+          const distance = startPosition.distanceTo(target);
 
-        // Set the position of the camera entity
-        cam.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+          // Ensure camera looks at (0, 0, 0)
+          cam.setAttribute('rotation', `0 ${Math.atan2(startPosition.x, startPosition.z) * (180 / Math.PI)} 0`);
 
-        // Call the animation loop recursively
-        requestAnimationFrame(animate);
+          if (startRotate) {
+            // Perform rotation
+            rotationAngle += 0.005; // Adjust rotation speed as needed
+            cam.object3D.rotation.y = rotationAngle;
+
+            // Check if rotation completed (360 degrees)
+            if (rotationAngle >= Math.PI * 2) {
+              startRotate = false; // Stop rotation
+              rotationAngle = 0; // Reset rotation angle
+              currentIndex = (currentIndex + 1) % targetPositions.length; // Move to the next target position
+              targetPosition = targetPositions[currentIndex];
+            }
+          } else {
+            // Move to the target position
+            if (distance > 0.1) {
+              const direction = target.clone().sub(startPosition).normalize();
+              const newPosition = startPosition.clone().add(direction.multiplyScalar(0.1)); // Move by a fixed distance
+              cam.setAttribute('position', newPosition);
+            } else {
+              // Check if the camera position is (0, 0, 0) to start rotation
+              if (currentIndex === 4) {
+                startRotate = true;
+              } else {
+                currentIndex = (currentIndex + 1) % targetPositions.length; // Move to the next target position
+                targetPosition = targetPositions[currentIndex];
+              }
+            }
+          }
+        } else if (color2 === 'green') {
+          //-------------------------- CIRCLE ANIMATE -------------------------------
+          q += 0.01;
+
+          let qSin = Math.sin(q);
+          let qCos = Math.cos(q);
+
+          let scaledCos = r * qCos;
+          let scaledSin = r * qSin;
+
+          // Set the position of the camera entity
+          cam.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
+        } else {
+          // Neither color1 nor color2 is green
+          // Handle the case when neither color1 nor color2 is green
+          console.log("Neither color1 nor color2 is green.");
+        }
+
+        // Request the next animation frame
+        animationRef = requestAnimationFrame(animate);
       }
 
       // Start the animation loop
       animate();
 
-      // Function to dynamically load the GLB model
-      function loadModel() {
-        const assetItem = document.createElement('a-asset-item');
-        assetItem.setAttribute('id', 'pixel');
-        assetItem.setAttribute('src', '../vr-cavern.glb');
 
-        const assets = document.querySelector('a-assets');
-        assets.appendChild(assetItem);
-
-        const model = document.getElementById('cavernModel');
-        model.setAttribute('gltf-model', '#pixel');
+      // Start the animation loop
+      // Function to stop animation
+      function stopAnimation() {
+        cancelAnimationFrame(animationRef);
       }
 
-      // Call the function to load the GLB model
-      loadModel();
+      // Function to preload the GLB model
+      function preloadModel(src) {
+        return new Promise((resolve, reject) => {
+          const loader = new THREE.GLTFLoader();
+          const dracoLoader = new THREE.DRACOLoader();
+          dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+          loader.setDRACOLoader(dracoLoader);
+          loader.load(src, resolve, undefined, reject);
+        });
+      }
+
+
+      // Preload the GLB model
+      preloadModel('../GLB/Barrel_Toroid_Scene-Draco.glb')
+        .then(gltf => {
+          // Model loaded successfully
+          const modelContainer = document.getElementById('modelContainer');
+          const model = document.createElement('a-entity');
+          const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+          model.setAttribute('id', modelId);
+          model.setAttribute('gltf-model', `#${modelId}`);
+          modelContainer.appendChild(model);
+
+          // Set the GLTF model data
+          const modelElement = document.getElementById(modelId);
+          modelElement.setObject3D('gltf-model', gltf.scene);
+
+          // Make the model visible
+          model.setAttribute('visible', true);
+        })
+        .catch(error => {
+          console.error('Error loading model(Barrel_Toroid_Scene-Draco.glb):', error);
+        });
+
     </script>
   </a-scene>
 </body>
