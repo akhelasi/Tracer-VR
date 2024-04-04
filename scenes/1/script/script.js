@@ -95,9 +95,9 @@ function animate() {
             const targetdronePosition = new THREE.Vector3(nextDronePositions[nextdroneN - 1].x, nextDronePositions[nextdroneN - 1].y, nextDronePositions[nextdroneN - 1].z);
             const distancedronePosition = startdronePosition.distanceTo(targetdronePosition);
 
-            if (distancedronePosition > 0.1) {
+            if (distancedronePosition > 0.3) {
                 const direction = targetdronePosition.clone().sub(startdronePosition).normalize();
-                const newPosition = startdronePosition.clone().add(direction.multiplyScalar(0.2)); // Move by a fixed distance
+                const newPosition = startdronePosition.clone().add(direction.multiplyScalar(0.3)); // Move by a fixed distance
                 cam.setAttribute('position', newPosition);
             } else {
                 droneN = nextdroneN;
