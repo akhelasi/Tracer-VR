@@ -2,146 +2,137 @@
 <html>
 
 <head>
-  <!-- Include A-Frame and A-Frame Physics System -->
-  <!-- Include A-Frame -->
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <!-- Include A-Frame mobile support to improve performance on mobile devices -->
-  <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
-  <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
-  <style>
-    /* Hide the AR button */
-    .a-enter-ar-button {
-      display: none !important;
-    }
-  </style>
+    <!-- Include A-Frame and A-Frame Physics System -->
+    <!-- Include A-Frame -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+    <!-- Include A-Frame mobile support to improve performance on mobile devices -->
+    <!-- <script src="https://aframe.io/releases/1.2.0/aframe-mobile.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/aframe-physics-system@1.2.0/dist/aframe-physics-system.min.js"></script> -->
+    <style>
+        /* Hide the AR button */
+        .a-enter-ar-button {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body>
-<a-scene vr-mode-ui="enabled: true"
-         ar-mode-ui="enabled: false">
-  <a-entity id="rig"
-            position="35 35 35">
-    <a-camera id="camera"
-              camera="active: true"
-              look-controls-enabled="false"
-              wasd-controls-enabled="false"
-              position="0 1.6 0" >
-    </a-camera>
-  </a-entity>
+<a-scene ar-mode-ui="enabled: false"
+         vr-mode-ui="enabled: true">
+    <a-assets>
+        <img id="imgDroneI" src="../../SVGs/film.svg">
+        <img id="imgDroneII" src="../../SVGs/circle.svg">
+        <img id="imgDroneIII" src="../../SVGs/helix.svg">
+        <img id="imgDroneIV" src="../../SVGs/rocket.svg">
+    </a-assets>
 
-  <!-- Set the background color of the scene to black -->
-  <a-sky color="#000000"></a-sky>
+    <!-- Set the background color of the scene to black -->
+    <a-sky color="#000000"></a-sky>
 
-  <!-- Model entity -->
-  <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
+    <!-- Model entity -->
+    <a-entity id="modelContainer" position="0 1.6 0"></a-entity>
+
+    <a-entity id="rig"
+              position="0 0 35">
+        <a-camera camera="active: true"
+                  id="camera"
+                  look-controls-enabled="true"
+                  position="0 1.6 0"
+                  wasd-controls-enabled="false">
+            <a-cursor cursor="fuse: true; fuseTimeout: 1000"
+                      geometry="primitive: ring; radiusInner: 0.004; radiusOuter: 0.007"
+                      material="color:#ffffff; opacity: 0.8 shader: flat"
+                      position="0 0 -0.5">
+            </a-cursor>
+        </a-camera>
+
+        <!-- buttons -->
+        <a-box color="#a1a1a1"
+               depth="0.2"
+               height="0.01"
+               position="0 1 0"
+               width="0.2">
+
+            <a-box color="black" depth="0.06" height="0.01"
+                   id="opabox" opacity="0.25" position="-0.05 -0.02 0.05" width="0.06">
+            </a-box>
 
 
-  <script>
-    // Get the camera entity
-    const cam = document.getElementById('rig');
+            <a-box id="buton1" cursor-listener-buton
+                   color="green"
+                   depth="0.06"
+                   height="0.02"
+                   position="-0.05 0.01 0.05"
+                   width="0.06"
+            >
+                <a-entity position="0 0.01 0"
+                          rotation="-90 0 0">
+                    <a-image height="0.06" id="droneImgI" position="0 0 0.01" src="#imgDroneI" width="0.06">
+                    </a-image>
 
-    const targetPositions = [
-      { x: 35, y: 35, z: 35 },
-      { x: 22, y: 16, z: 14 },
-      { x: 12, y: 3, z: 30 },
-      { x: 0, y: 0, z: 35 },
-      { x: 0, y: 0, z: 0 },
-      { x: 0, y: 0, z: 35 },
-      { x: 12, y: 3, z: 30 },
-      { x: 22, y: 16, z: 14 },
-      { x: 35, y: 35, z: 35 },
-    ];
+                </a-entity>
 
-    let currentIndex = 0;
-    let targetPosition = targetPositions[currentIndex];
+            </a-box>
 
-    let animationRef = 0;
-    let startRotate = false; // Flag to indicate if rotation should start
-    let rotationAngle = 0; // Track the rotation angle
+            <a-box id="buton2" cursor-listener-buton
+                   color="red"
+                   depth="0.06"
+                   height="0.02"
+                   width="0.06"
+                   position="-0.05 0.01 -0.05"
+            >
+            <a-entity position="0 0.01 0"
+                      rotation="-90 0 0">
+                <a-image height="0.06" id="droneImgII" position="0 0 0.01" src="#imgDroneII" width="0.06">
+                </a-image>
 
-    // Animation loop
-    function animate() {
-      const startPosition = cam.object3D.position.clone();
-      const target = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
-      const distance = startPosition.distanceTo(target);
+            </a-entity>
 
-      // Ensure camera looks at (0, 0, 0)
-      cam.setAttribute('rotation', `0 ${Math.atan2(startPosition.x, startPosition.z) * (180 / Math.PI)} 0`);
 
-      if (startRotate) {
-        // Perform rotation
-        rotationAngle += 0.005; // Adjust rotation speed as needed
-        cam.object3D.rotation.y = rotationAngle;
+        </a-box>
 
-        // Check if rotation completed (360 degrees)
-        if (rotationAngle >= Math.PI * 2) {
-          startRotate = false; // Stop rotation
-          rotationAngle = 0; // Reset rotation angle
-          currentIndex = (currentIndex + 1) % targetPositions.length; // Move to the next target position
-          targetPosition = targetPositions[currentIndex];
-        }
-      } else {
-        // Move to the target position
-        if (distance > 0.1) {
-          const direction = target.clone().sub(startPosition).normalize();
-          const newPosition = startPosition.clone().add(direction.multiplyScalar(0.1)); // Move by a fixed distance
-          cam.setAttribute('position', newPosition);
-        } else {
-          // Check if the camera position is (0, 0, 0) to start rotation
-          if (currentIndex === 4) {
-            startRotate = true;
-          } else {
-            currentIndex = (currentIndex + 1) % targetPositions.length; // Move to the next target position
-            targetPosition = targetPositions[currentIndex];
-          }
-        }
-      }
+        <a-box  id="buton3" cursor-listener-buton
+                color="red"
+                depth="0.06"
+                height="0.02"
+                position="0.05 0.01 0.05"
+                width="0.06"
+        >
+        <a-entity position="0 0.01 0"
+                  rotation="-90 0 0">
+            <a-image height="0.06" id="droneImgIII" position="0 0 0.01" src="#imgDroneIII" width="0.06">
+            </a-image>
 
-      animationRef = requestAnimationFrame(animate);
-    }
+        </a-entity>
 
-    // Start the animation loop
-    animate();
 
-    // Function to stop animation
-    function stopAnimation() {
-      cancelAnimationFrame(animationRef);
-    }
+        </a-box>
 
-    // Function to preload the GLB model
-    function preloadModel(src) {
-      return new Promise((resolve, reject) => {
-        const loader = new THREE.GLTFLoader();
-        const dracoLoader = new THREE.DRACOLoader();
-        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
-        loader.setDRACOLoader(dracoLoader);
-        loader.load(src, resolve, undefined, reject);
-      });
-    }
+        <a-box id="buton4" cursor-listener-buton
+               color="red"
+               depth="0.06"
+               height="0.02"
+               position="0.05 0.01 -0.05"
+               width="0.06"
+        >
+        <a-entity position="0 0.01 0"
+                  rotation="-90 0 0">
+            <a-image height="0.06" id="droneImgIV" position="0 0 0.01" src="#imgDroneIV" width="0.06">
+            </a-image>
 
-    // Preload the GLB model
-    preloadModel('../GLB/Barrel_Toroid_Scene-Draco.glb')
-            .then(gltf => {
-              // Model loaded successfully
-              const modelContainer = document.getElementById('modelContainer');
-              const model = document.createElement('a-entity');
-              const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
-              model.setAttribute('id', modelId);
-              model.setAttribute('gltf-model', `#${modelId}`);
-              modelContainer.appendChild(model);
+        </a-entity>
 
-              // Set the GLTF model data
-              const modelElement = document.getElementById(modelId);
-              modelElement.setObject3D('gltf-model', gltf.scene);
 
-              // Make the model visible
-              model.setAttribute('visible', true);
-            })
-            .catch(error => {
-              console.error('Error loading model:', error);
-            });
-  </script>
+        </a-box>
+
+        </a-box>
+    </a-entity>
+
 </a-scene>
+
+<script src="./script/script.js"></script>
+
 </body>
 
 </html>

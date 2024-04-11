@@ -245,10 +245,6 @@ preloadModel(fulladres)
     });
 }
 
-addGlbModel('../GLB/models/core/cavern/ux15/', 'ux15.glb');
-addGlbModel('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet.glb');
-
-addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-a/', 'ho-side-a-platforms.glb');
-addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-c/', 'ho-side-c-platforms.glb');
-addGlbModel('../GLB/models/core/main-components/platforms/hs-platforms/us15-platforms/', 'hs-us.glb');
-addGlbModel('../GLB/models/core/main-components/platforms/hs-platforms/usa15-platforms/', 'hs-usa.glb');
+addGlbModel('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet(asanadan).glb');
+addGlbModel('../GLB/models/core/main-components/magnet-system/toroid/', 'op-bt-vacuum-vessel(asanadan).glb');
+addGlbModel('../GLB/models/core/support-structure/mechanical-structure/warm-structure/', 'op-Warm-Structure(asanadan).glb');
