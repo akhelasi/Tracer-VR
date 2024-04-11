@@ -3,6 +3,12 @@
 
 // Get the camera entity
 const cam = document.getElementById('rig');
+const camera = document.getElementById('camera');
+
+
+window.addEventListener('load', function () {
+    cam.setAttribute('position','0 0 35');
+});
 
 let droneN = 1;
 let nextdroneN;
@@ -21,7 +27,7 @@ const targetPositions = [
     { x: 35, y: 35, z: 35 },
 ];
 
-let currentIndex = 0;
+let currentIndex = 3;
 let targetPosition = targetPositions[currentIndex];
 
 let animationRef = 0;
@@ -31,7 +37,7 @@ let rotationAngle = 0; // Track the rotation angle
 ////////////////////////////////////////////////////////////////////////// CIRCLE's options
 
 let q = 0; // circle animation's cvladi
-let r = 10; // circle's radius
+let r = 12; // circle's radius
 
 const nextDronePositions = [
     { x: 35, y: 35, z: 35 },
@@ -56,15 +62,16 @@ AFRAME.registerComponent('cursor-listener-buton', {
             }
             this.setAttribute('material', 'color', COLORS[1]);
             console.log(nextdroneN);
-            if (nextdroneN == 1 || nextdroneN == 2 && nextdroneN != droneN) {
+            if (nextdroneN == 1 || nextdroneN == 2 || nextdroneN == 4 && nextdroneN != droneN) {
 
-                currentIndex = 0;
+                currentIndex = 3;
                 targetPosition = targetPositions[currentIndex];
                 animationRef = 0;
                 startRotate = false; // Flag to indicate if rotation should start
                 rotationAngle = 0; // Track the rotation angle
+                cam.setAttribute('rotation', `0 0 0`);
 
-                q = 0; // circle animation's cvladi
+                q = 0;
 
                 droneN = 0;
             }
@@ -95,7 +102,7 @@ function animate() {
             const targetdronePosition = new THREE.Vector3(nextDronePositions[nextdroneN - 1].x, nextDronePositions[nextdroneN - 1].y, nextDronePositions[nextdroneN - 1].z);
             const distancedronePosition = startdronePosition.distanceTo(targetdronePosition);
 
-            if (distancedronePosition > 0.3) {
+            if (distancedronePosition > 0.3 && nextdroneN !== 4) {
                 const direction = targetdronePosition.clone().sub(startdronePosition).normalize();
                 const newPosition = startdronePosition.clone().add(direction.multiplyScalar(0.3)); // Move by a fixed distance
                 cam.setAttribute('position', newPosition);
@@ -163,12 +170,29 @@ function animate() {
             break;
 
         case 4:
-            // code block
+            let cameraRot = camera.getAttribute('rotation');
+            let camPos = cam.getAttribute('position');
+
+            // Convert rotation degrees to radians
+            let radX = cameraRot.x * Math.PI / 180;
+            let radY = cameraRot.y * Math.PI / 180;
+        
+            // Calculate the new position based on camera rotation
+            let deltaX = 0.1 * Math.sin(radY);
+            let deltaY = -0.1 * Math.sin(radX);
+            let deltaZ = 0.1 * Math.cos(radY);
+        
+            // Update the position components
+            let newX = parseFloat(camPos.x) - deltaX;
+            let newY = parseFloat(camPos.y) - deltaY;
+            let newZ = parseFloat(camPos.z) - deltaZ;
+        
+            // Set the new position
+            cam.setAttribute('position', `${newX} ${newY} ${newZ}`);
             break;
     }
 
-
-
+    console.log('COS(x): ', Math.cos(camera.getAttribute('rotation').x * (Math.PI / 180)),'COS(y): ', Math.cos(camera.getAttribute('rotation').y * (Math.PI / 180)),'COS(z): ', Math.cos(camera.getAttribute('rotation').z * (Math.PI / 180)))
 
     animationRef = requestAnimationFrame(animate);
 }
