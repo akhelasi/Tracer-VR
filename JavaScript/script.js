@@ -12,7 +12,7 @@ function vrButton() {
         const timerEl = document.getElementById("vr");
 
         timerEl.innerHTML = seconds < 10 ? "0" + seconds : seconds;
-        seconds--
+        seconds--;
 
         let interval = setInterval(timer, 1000);
 

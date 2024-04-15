@@ -39,6 +39,11 @@ let rotationAngle = 0; // Track the rotation angle
 let q = 0; // circle animation's cvladi
 let r = 12; // circle's radius
 
+////////////////////////////////////////////////////////////////////////// FREE FLY's options
+
+let maxDistance = 50;
+let minDistance = 3;
+
 const nextDronePositions = [
     { x: 0, y: 0, z: 35 },
     { x: (r * Math.cos(q)), y: 5, z: (r * Math.sin(q)) },
@@ -62,7 +67,7 @@ AFRAME.registerComponent('cursor-listener-buton', {
             }
             this.setAttribute('material', 'color', COLORS[1]);
             // console.log(nextdroneN);
-            if (nextdroneN == 1 || nextdroneN == 2 || nextdroneN == 4 && nextdroneN != droneN) {
+            if ( nextdroneN != droneN ) {
 
                 currentIndex = 3;
                 targetPosition = targetPositions[currentIndex];
@@ -165,33 +170,49 @@ function animate() {
             cam.setAttribute('position', `${scaledCos} 5 ${scaledSin}`);
             break;
 
-        case 3:
-            // code block
+        case 3:        //-------------------------- EXIT back to start page -------------------------------
+            droneN = 1;
+            window.location.href = "../../index.html";
             break;
 
-        case 4:
+        case 4:        //-------------------------- Free Fly ANIMATE -------------------------------
             let cameraRot = camera.getAttribute('rotation');
             let camPos = cam.getAttribute('position');
+            const centerPos = new THREE.Vector3(0, 0, 0);
+            const distanceFromCenter = camPos.distanceTo(centerPos);
 
             // Convert rotation degrees to radians
             let radX = cameraRot.x * Math.PI / 180;
             let radY = cameraRot.y * Math.PI / 180;
         
             // Calculate the new position based on camera rotation
-            let deltaX = 0.1 * Math.sin(radY);
-            let deltaY = -0.1 * Math.sin(radX);
-            let deltaZ = 0.1 * Math.cos(radY);
+            let delta = 0.04;
+            let deltaX = delta * Math.sin(radY);
+            let deltaY = -1 * delta * Math.sin(radX);
+            let deltaZ = delta * Math.cos(radY);
+
+            let newX,
+                newY,
+                newZ,
+                newPosition;
         
             // Update the position components
-            let newX = parseFloat(camPos.x) - deltaX;
-            let newY = parseFloat(camPos.y) - deltaY;
-            let newZ = parseFloat(camPos.z) - deltaZ;
-        
+            if ( distanceFromCenter < maxDistance && distanceFromCenter > minDistance) {
+                newX = parseFloat(camPos.x) - deltaX;
+                newY = parseFloat(camPos.y) - deltaY;
+                newZ = parseFloat(camPos.z) - deltaZ;
+                newPosition = `${newX} ${newY} ${newZ}`; // Move by a fixed distance
+
+            } else {
+                let distanceRecovery = distanceFromCenter < ((minDistance + maxDistance) / 2) ? -1 * (delta + (delta / 10)) : delta + (delta / 10);
+                const direction = centerPos.clone().sub(camPos).normalize();
+                newPosition = camPos.clone().add(direction.multiplyScalar(distanceRecovery)); // Move by a fixed distance
+            }
+
             // Set the new position
-            cam.setAttribute('position', `${newX} ${newY} ${newZ}`);
+            cam.setAttribute('position', newPosition);
             break;
     }
-
     // console.log('COS(x): ', Math.cos(camera.getAttribute('rotation').x * (Math.PI / 180)),'COS(y): ', Math.cos(camera.getAttribute('rotation').y * (Math.PI / 180)),'COS(z): ', Math.cos(camera.getAttribute('rotation').z * (Math.PI / 180)))
 
     animationRef = requestAnimationFrame(animate);
