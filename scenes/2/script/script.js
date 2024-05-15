@@ -5,9 +5,9 @@
 const cam = document.getElementById('rig');
 const camera = document.getElementById('camera');
 
-window.addEventListener('load', function () {
-    cam.setAttribute('position', '0 0 35');
-});
+// window.addEventListener('load', function () {
+//     cam.setAttribute('position', '0 0 35');
+// });
 
 
 let droneN = 1;
@@ -61,14 +61,30 @@ let flyZones = [
     { x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: 6.6, z2: 5.3 }, 
     { x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: -5.4, z2: -6.8 }, 
     { x1: 6.5, x2: -7.7, y1: -10.5, y2: -12.5, z1: -13.3, z2: -22.4 },
-    { x1: -7.7, x2: -19.2, y1: -10.5, y2: -12.5, z1: -13.3, z2: -22.4 },
-    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: -12.6, z2: -1.7 }, 
-    { x1: -12.5, x2: -16.5, y1: -11.9, y2: -12.5, z1: -1.7, z2: 2.7 }, 
-    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: 2.7, z2: 8 }, 
-    //////////////////////// zonebi Wershi
+    { x1: -7.7, x2: -14.3, y1: -10.5, y2: -12.5, z1: -13.3, z2: -19.8 },
+    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: -1.7, z2: -12.6 }, 
+    { x1: -12.5, x2: -16.5, y1: -11.9, y2: -12.5, z1: 2.7, z2: -1.7 }, 
+    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: 8, z2: 2.7 }, 
+    //////////////////////// zonebi Wershi // Weris radiusi 21.1
     { x1: 12, x2: -15.5, y1: 15, y2: 12, z1: 21, z2: -21 },
     { x1: 13, x2: -16.5, y1: 16.7, y2: 15, z1: 21, z2: -21 },
 ];
+
+function saxuravi(){
+    for( let i = 16.7; i <= 21.1; i = i + 0.1){
+        let newZone = { 
+            x1: Math.sqrt( 21.1 * 21.1 - i * i ) - 1.75, 
+            x2: (Math.sqrt( 21.1 * 21.1 - i * i ) * -1) - 1.75, 
+            y1: i, 
+            y2: 15, 
+            z1: 21, 
+            z2: -21 };
+
+        flyZones[flyZones.length] = newZone;
+    }
+}
+
+saxuravi();
 
 function xyzMove(camPos, deltaX, deltaY, deltaZ) {
 
