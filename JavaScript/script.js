@@ -8,7 +8,7 @@ function vrButton() {
       if (notClick < 1) {
         notClick = 1;
 
-        let seconds = 10;
+        let seconds = 2;
         const timerEl = document.getElementById("vr");
 
         timerEl.innerHTML = seconds < 10 ? "0" + seconds : seconds;
