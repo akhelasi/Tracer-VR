@@ -498,7 +498,7 @@ function addGlbModel(adres, nameGlb) {
         });
 }
 
-addGlbModel('../GLB/trecer-geometry/vr/', 'UX15.glb');
+addGlbModel('../GLB/models/core/cavern/ux15/', 'ux15.glb');
 addGlbModel('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet.glb');
 
 addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-a/', 'ho-side-a-platforms.glb');
