@@ -5,32 +5,34 @@ let vrScene = 0,
 
 function vrButton() {
   if (vrScene > 0) {
-      if (notClick < 1) {
-        notClick = 1;
+    window.location.href = "./scenes/" + vrScene + "/index.html";
 
-        let seconds = 2;
-        const timerEl = document.getElementById("vr");
+      // if (notClick < 1) {
+      //   notClick = 1;
 
-        timerEl.innerHTML = seconds < 10 ? "0" + seconds : seconds;
-        seconds--;
+      //   let seconds = 10;
+      //   const timerEl = document.getElementById("vr");
 
-        let interval = setInterval(timer, 1000);
+      //   timerEl.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+      //   seconds--;
 
-        function timer() {
-          let time = seconds;
+      //   let interval = setInterval(timer, 1000);
 
-          time = time < 10 ? "0" + seconds : seconds;
+      //   function timer() {
+      //     let time = seconds;
 
-          timerEl.innerHTML = time;
-          seconds--;
-          if (seconds < 0) {
-            timerEl.innerHTML = "VR";
-            notClick = 0;
-            clearInterval(interval);
-            window.location.href = "./scenes/" + vrScene + "/index.html";
-          }
-        }
-      }
+      //     time = time < 10 ? "0" + seconds : seconds;
+
+      //     timerEl.innerHTML = time;
+      //     seconds--;
+      //     if (seconds < 0) {
+      //       timerEl.innerHTML = "VR";
+      //       notClick = 0;
+      //       clearInterval(interval);
+      //       window.location.href = "./scenes/" + vrScene + "/index.html";
+      //     }
+      //   }
+      // }
   }
 }
 
