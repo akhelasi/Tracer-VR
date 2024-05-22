@@ -5,26 +5,26 @@
 const cam = document.getElementById('rig');
 const camera = document.getElementById('camera');
 
-// window.addEventListener('load', function () {
-//     cam.setAttribute('position', '0 0 35');
-// });
+window.addEventListener('load', function () {
+    cam.setAttribute('position', '0 0 35');
+});
 
 
-let droneN = -1;
+let droneN = 1;
 let nextdroneN;
 
 ////////////////////////////////////////////////////////////////////////// FILM's options
 
 const targetPositions = [
-    {x: 35, y: 35, z: 35},
-    {x: 22, y: 16, z: 14},
-    {x: 12, y: 3, z: 30},
-    {x: 0, y: 0, z: 35},
-    {x: 0, y: 0, z: 0},
-    {x: 0, y: 0, z: 35},
-    {x: 12, y: 3, z: 30},
-    {x: 22, y: 16, z: 14},
-    {x: 35, y: 35, z: 35},
+    { x: 35, y: 35, z: 35 },
+    { x: 22, y: 16, z: 14 },
+    { x: 12, y: 3, z: 30 },
+    { x: 0, y: 0, z: 35 },
+    { x: 0, y: 0, z: 0 },
+    { x: 0, y: 0, z: 35 },
+    { x: 12, y: 3, z: 30 },
+    { x: 22, y: 16, z: 14 },
+    { x: 35, y: 35, z: 35 },
 ];
 
 let currentIndex = 3;
@@ -48,29 +48,29 @@ let yMove;
 let zMove;
 
 let flyZones = [
-    {x1: 13, x2: -16.5, y1: 12, y2: -10.5, z1: 21, z2: -21}, // didi zona centrshi
-    /////////////////////// bevri zonebi iatakshi
-    {x1: 6.5, x2: -7.7, y1: -10.5, y2: -12.5, z1: 22.4, z2: 13},
-    {x1: -7.7, x2: -14.3, y1: -10.5, y2: -12.5, z1: 19.8, z2: 13.2},
-    {x1: 2.6, x2: 1.8, y1: -10.5, y2: -12.5, z1: 13, z2: -13.3},
-    {x1: -1.8, x2: -2.6, y1: -10.5, y2: -12.5, z1: 13, z2: -13.3},
-    {x1: 1.8, x2: -1.8, y1: -10.5, y2: -12.5, z1: 13, z2: 7.1},
-    {x1: 1.8, x2: -1.8, y1: -11.2, y2: -12.5, z1: 4.6, z2: -4.8},
-    {x1: 1.8, x2: -1.8, y1: -10.5, y2: -11.2, z1: 7.1, z2: -7.4},
-    {x1: 1.8, x2: -1.8, y1: -10.5, y2: -12.5, z1: -7.4, z2: -13.3},
-    {x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: 6.6, z2: 5.3},
-    {x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: -5.4, z2: -6.8},
-    {x1: 6.5, x2: -7.7, y1: -10.5, y2: -12.5, z1: -13.3, z2: -22.4},
-    {x1: -7.7, x2: -14.3, y1: -10.5, y2: -12.5, z1: -13.3, z2: -19.8},
-    {x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: -1.7, z2: -12.6},
-    {x1: -12.5, x2: -16.5, y1: -11.9, y2: -12.5, z1: 2.7, z2: -1.7},
-    {x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: 8, z2: 2.7},
+    { x1: 13, x2: -16.5, y1: 12, y2: -10.5, z1: 21, z2: -21 }, //big zone in centre
+    /////////////////////// many zones in floor ( bevri zonebi iatakshi ) 
+    { x1: 6.5, x2: -7.7, y1: -10.5, y2: -12.5, z1: 22.4, z2: 13 },
+    { x1: -7.7, x2: -14.3, y1: -10.5, y2: -12.5, z1: 19.8, z2: 13.2 },
+    { x1: 2.6, x2: 1.8, y1: -10.5, y2: -12.5, z1: 13, z2: -13.3 },
+    { x1: -1.8, x2: -2.6, y1: -10.5, y2: -12.5, z1: 13, z2: -13.3 },
+    { x1: 1.8, x2: -1.8, y1: -10.5, y2: -12.5, z1: 13, z2: 7.1 },
+    { x1: 1.8, x2: -1.8, y1: -11.2, y2: -12.5, z1: 4.6, z2: -4.8 },
+    { x1: 1.8, x2: -1.8, y1: -10.5, y2: -11.2, z1: 7.1, z2: -7.4 },
+    { x1: 1.8, x2: -1.8, y1: -10.5, y2: -12.5, z1: -7.4, z2: -13.3 },
+    { x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: 6.6, z2: 5.3 },
+    { x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: -5.4, z2: -6.8 },
+    { x1: 6.5, x2: -7.7, y1: -10.5, y2: -12.5, z1: -13.3, z2: -22.4 },
+    { x1: -7.7, x2: -14.3, y1: -10.5, y2: -12.5, z1: -13.3, z2: -19.8 },
+    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: -1.7, z2: -12.6 },
+    { x1: -12.5, x2: -16.5, y1: -11.9, y2: -12.5, z1: 2.7, z2: -1.7 },
+    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: 8, z2: 2.7 },
     //////////////////////// zonebi saxuravshi // saxuravis radiusi 22.2
-    {x1: 12, x2: -15.5, y1: 15, y2: 12, z1: 21, z2: -21},
-    {x1: 13, x2: -16.5, y1: 16.7, y2: 15, z1: 21, z2: -21},
+    { x1: 12, x2: -15.5, y1: 15, y2: 12, z1: 21, z2: -21 },
+    { x1: 13, x2: -16.5, y1: 16.7, y2: 15, z1: 21, z2: -21 },
     //////////////////////// zonebi momgvalebuli kedeli-1
-    {x1: -0.5, x2: -3, y1: -4.6, y2: -10.5, z1: 25, z2: 20},
-    {x1: 3.3, x2: 0.5, y1: -4.6, y2: -10.5, z1: 25, z2: 20},
+    { x1: -0.5, x2: -3, y1: -4.6, y2: -10.5, z1: 25, z2: 20 },
+    { x1: 3.3, x2: 0.5, y1: -4.6, y2: -10.5, z1: 25, z2: 20 },
 ];
 
 ///////////////////////////// momgvalebuli zona saxuravshi
@@ -88,7 +88,6 @@ function saxuravi() {
         );
     }
 }
-
 saxuravi();
 
 // ///////////////////////////// kutxe momgvalebuli saxuravis da momgvalebuli kedels shoris
@@ -104,7 +103,7 @@ saxuravi();
 //                 z2: 21
 //             }
 //         );
-//
+
 //         flyZones.push(
 //             {
 //                 x1: i,
@@ -122,33 +121,45 @@ saxuravi();
 ///////////////////////////// momgvalebuli zona kedeli-1
 function kedeli1() {
 
-    for (let i = 21; i <= 23; i = i + 0.01) {
-        flyZones.push(
-            {
-                x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
-                x2: ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75) < -16.5 ? -16.5 : ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75),
-                y1: -4.6,
-                y2: -10.5,
-                z1: 21,
-                z2: i
-            }
-        );
-    }
-
-    for (let i = 24.8; i <= 26; i = i + 0.01) {
-        flyZones.push(
-            {
-                x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
-                x2: ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75) < -16.5 ? -16.5 : ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75),
-                y1: -4.6,
-                y2: -10.5,
-                z1: i,
-                z2: 24.8
-            }
-        );
-    }
-
     for (let i = 21; i <= 26; i = i + 0.01) {
+
+        let X1 = (Math.sqrt(26 * 26 - i * i) - 1.75)
+        let X2 = ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75);
+
+        if (X1 > 13) {
+            X1 = 13
+        }
+
+        if (X2 < -16.5) {
+            X2 = -16.5
+        }
+
+        if (i <= 23) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: i,
+                    z2: 21
+                }
+            );
+        }
+
+        if (i >= 24.8) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: i,
+                    z2: 24.8
+                }
+            );
+        }
+
         flyZones.push(
             {
                 x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
@@ -183,39 +194,51 @@ function kedeli1() {
         );
     }
 }
-
 kedeli1();
 
 
 ///////////////////////////// momgvalebuli zona kedeli-2
 function kedeli2() {
-    for (let i = -21; i >= -23; i = i - 0.01) {
-        flyZones.push(
-            {
-                x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
-                x2: ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75) < -16.5 ? -16.5 : ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75),
-                y1: -4.6,
-                y2: -10.5,
-                z1: i,
-                z2: -23
-            }
-        );
-    }
-
-    for (let i = -24.8; i >= -26; i = i - 0.01) {
-        flyZones.push(
-            {
-                x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
-                x2: ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75) < -16.5 ? -16.5 : ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75),
-                y1: -4.6,
-                y2: -10.5,
-                z1: i,
-                z2: -26
-            }
-        );
-    }
-
     for (let i = -21; i >= -26; i = i - 0.01) {
+
+
+        let X1 = (Math.sqrt(26 * 26 - i * i) - 1.75)
+        let X2 = ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75);
+
+        if (X1 > 13) {
+            X1 = 13
+        }
+
+        if (X2 < -16.5) {
+            X2 = -16.5
+        }
+
+        if (i >= -23) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: -21,
+                    z2: i
+                }
+            );
+        }
+
+        if (i <= -24.8) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: -24.8,
+                    z2: i
+                }
+            );
+        }
+
         flyZones.push(
             {
                 x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
@@ -233,8 +256,8 @@ function kedeli2() {
                 x2: 4.5,
                 y1: 5,
                 y2: -10.5,
-                z1: i,
-                z2: -26
+                z1: -21,
+                z2: i
             }
         );
 
@@ -244,14 +267,14 @@ function kedeli2() {
                 x2: (Math.sqrt(26 * 26 - i * i) * -1) - 1.75,
                 y1: 5,
                 y2: -10.5,
-                z1: i,
-                z2: -26
+                z1: -21,
+                z2: i
             }
         );
     }
 }
-
 kedeli2();
+
 
 
 function xyzMove(camPos, deltaX, deltaY, deltaZ) {
@@ -301,6 +324,12 @@ function xyzMove(camPos, deltaX, deltaY, deltaZ) {
         if (newZ <= thisZone.z1 &&
             newZ >= thisZone.z2
         ) zMove = 1; else zMove = 0;
+
+        // if ( ( xMove + yMove + zMove ) === 1) {
+        //     if (xMove){
+
+        //     }
+        // }
     } else {
         xMove = 1;
         yMove = 1;
@@ -309,10 +338,10 @@ function xyzMove(camPos, deltaX, deltaY, deltaZ) {
 }
 
 const nextDronePositions = [
-    {x: 0, y: 0, z: 35},
-    {x: (r * Math.cos(q)), y: 5, z: (r * Math.sin(q))},
-    {x: 0, y: 0, z: 0},
-    {x: 0, y: 0, z: 0},
+    { x: 0, y: 0, z: 35 },
+    { x: (r * Math.cos(q)), y: 5, z: (r * Math.sin(q)) },
+    { x: 0, y: 0, z: 0 },
+    { x: 0, y: 0, z: 0 },
 ];
 
 // Component to change to a sequential color on click.
@@ -527,7 +556,7 @@ function addGlbModel(adres, nameGlb) {
         });
 }
 
-addGlbModel('../GLB/models/core/cavern/ux15/', 'ux15.glb');
+addGlbModel('../GLB/trecer-geometry/vr/', 'UX15.glb');
 addGlbModel('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet.glb');
 
 addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-a/', 'ho-side-a-platforms.glb');

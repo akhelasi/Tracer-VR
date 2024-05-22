@@ -5,10 +5,10 @@
 const cam = document.getElementById('rig');
 const camera = document.getElementById('camera');
 
-
 window.addEventListener('load', function () {
-    cam.setAttribute('position','0 0 35');
+    cam.setAttribute('position', '0 0 35');
 });
+
 
 let droneN = 1;
 let nextdroneN;
@@ -41,8 +41,301 @@ let r = 12; // circle's radius
 
 ////////////////////////////////////////////////////////////////////////// FREE FLY's options
 
-let maxDistance = 50;
-let minDistance = 3;
+let delta = 0.015;
+
+let xMove;
+let yMove;
+let zMove;
+
+let flyZones = [
+    { x1: 13, x2: -16.5, y1: 12, y2: -10.5, z1: 21, z2: -21 }, //big zone in centre
+    /////////////////////// many zones in floor ( bevri zonebi iatakshi ) 
+    { x1: 6.5, x2: -7.7, y1: -10.5, y2: -12.5, z1: 22.4, z2: 13 },
+    { x1: -7.7, x2: -14.3, y1: -10.5, y2: -12.5, z1: 19.8, z2: 13.2 },
+    { x1: 2.6, x2: 1.8, y1: -10.5, y2: -12.5, z1: 13, z2: -13.3 },
+    { x1: -1.8, x2: -2.6, y1: -10.5, y2: -12.5, z1: 13, z2: -13.3 },
+    { x1: 1.8, x2: -1.8, y1: -10.5, y2: -12.5, z1: 13, z2: 7.1 },
+    { x1: 1.8, x2: -1.8, y1: -11.2, y2: -12.5, z1: 4.6, z2: -4.8 },
+    { x1: 1.8, x2: -1.8, y1: -10.5, y2: -11.2, z1: 7.1, z2: -7.4 },
+    { x1: 1.8, x2: -1.8, y1: -10.5, y2: -12.5, z1: -7.4, z2: -13.3 },
+    { x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: 6.6, z2: 5.3 },
+    { x1: 1.3, x2: -1.3, y1: -10.5, y2: -13.5, z1: -5.4, z2: -6.8 },
+    { x1: 6.5, x2: -7.7, y1: -10.5, y2: -12.5, z1: -13.3, z2: -22.4 },
+    { x1: -7.7, x2: -14.3, y1: -10.5, y2: -12.5, z1: -13.3, z2: -19.8 },
+    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: -1.7, z2: -12.6 },
+    { x1: -12.5, x2: -16.5, y1: -11.9, y2: -12.5, z1: 2.7, z2: -1.7 },
+    { x1: -12.5, x2: -16.5, y1: -10.5, y2: -12.5, z1: 8, z2: 2.7 },
+    //////////////////////// zonebi saxuravshi // saxuravis radiusi 22.2
+    { x1: 12, x2: -15.5, y1: 15, y2: 12, z1: 21, z2: -21 },
+    { x1: 13, x2: -16.5, y1: 16.7, y2: 15, z1: 21, z2: -21 },
+    //////////////////////// zonebi momgvalebuli kedeli-1
+    { x1: -0.5, x2: -3, y1: -4.6, y2: -10.5, z1: 25, z2: 20 },
+    { x1: 3.3, x2: 0.5, y1: -4.6, y2: -10.5, z1: 25, z2: 20 },
+];
+
+///////////////////////////// momgvalebuli zona saxuravshi
+function saxuravi() {
+    for (let i = 16.7; i <= 22.2; i = i + 0.01) {
+        flyZones.push(
+            {
+                x1: Math.sqrt(22.2 * 22.2 - i * i) - 1.75,
+                x2: (Math.sqrt(22.2 * 22.2 - i * i) * -1) - 1.75,
+                y1: i,
+                y2: 15,
+                z1: 21,
+                z2: -21
+            }
+        );
+    }
+}
+saxuravi();
+
+// ///////////////////////////// kutxe momgvalebuli saxuravis da momgvalebuli kedels shoris
+// function saxuravKedeli() {
+//     for (let i = 13; i >= -16.5; i = i - 0.01) {
+//         flyZones.push(
+//             {
+//                 x1: i,
+//                 x2: (i - 0.01),
+//                 y1: (Math.sqrt(22.2 * 22.2 - i * i) - 1.75) > 15 ? (Math.sqrt(22.2 * 22.2 - i * i) - 1.75) : 15,
+//                 y2: 15 < (Math.sqrt(22.2 * 22.2 - i * i) - 1.75) ? 15 : (Math.sqrt(22.2 * 22.2 - i * i) - 1.75),
+//                 z1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 21 ? (Math.sqrt(26 * 26 - i * i) - 1.75) : 21,
+//                 z2: 21
+//             }
+//         );
+
+//         flyZones.push(
+//             {
+//                 x1: i,
+//                 x2: (i - 0.01),
+//                 y1: (Math.sqrt(22.2 * 22.2 - i * i) - 1.75) > 15 ? (Math.sqrt(22.2 * 22.2 - i * i) - 1.75) : 15,
+//                 y2: 15 < (Math.sqrt(22.2 * 22.2 - (i + 1.75) * (i + 1.75)) - 1.75) ? 15 : (Math.sqrt(22.2 * 22.2 - i * i) - 1.75),
+//                 z1: -21,
+//                 z2: (Math.sqrt(26 * 26 - i * i) - 1.75) * -1 < -21 ? (Math.sqrt(26 * 26 - i * i) - 1.75) * -1 : -21
+//             }
+//         );
+//     }
+// }
+// saxuravKedeli();
+
+///////////////////////////// momgvalebuli zona kedeli-1
+function kedeli1() {
+
+    for (let i = 21; i <= 26; i = i + 0.01) {
+
+        let X1 = (Math.sqrt(26 * 26 - i * i) - 1.75)
+        let X2 = ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75);
+
+        if (X1 > 13) {
+            X1 = 13
+        }
+
+        if (X2 < -16.5) {
+            X2 = -16.5
+        }
+
+        if (i <= 23) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: i,
+                    z2: 21
+                }
+            );
+        }
+
+        if (i >= 24.8) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: i,
+                    z2: 24.8
+                }
+            );
+        }
+
+        flyZones.push(
+            {
+                x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
+                x2: ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75) < -16.5 ? -16.5 : ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75),
+                y1: 12,
+                y2: 4.5,
+                z1: i,
+                z2: 21
+            }
+        );
+
+        flyZones.push(
+            {
+                x1: Math.sqrt(26 * 26 - i * i) - 1.75,
+                x2: 4.5,
+                y1: 4.5,
+                y2: -10.5,
+                z1: i,
+                z2: 21
+            }
+        );
+
+        flyZones.push(
+            {
+                x1: -4.5,
+                x2: (Math.sqrt(26 * 26 - i * i) * -1) - 1.75,
+                y1: 4.5,
+                y2: -10.5,
+                z1: i,
+                z2: 21
+            }
+        );
+    }
+}
+kedeli1();
+
+
+///////////////////////////// momgvalebuli zona kedeli-2
+function kedeli2() {
+    for (let i = -21; i >= -26; i = i - 0.01) {
+
+
+        let X1 = (Math.sqrt(26 * 26 - i * i) - 1.75)
+        let X2 = ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75);
+
+        if (X1 > 13) {
+            X1 = 13
+        }
+
+        if (X2 < -16.5) {
+            X2 = -16.5
+        }
+
+        if (i >= -23) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: -21,
+                    z2: i
+                }
+            );
+        }
+
+        if (i <= -24.8) {
+            flyZones.push(
+                {
+                    x1: X1,
+                    x2: X2,
+                    y1: -4.6,
+                    y2: -10.5,
+                    z1: -24.8,
+                    z2: i
+                }
+            );
+        }
+
+        flyZones.push(
+            {
+                x1: (Math.sqrt(26 * 26 - i * i) - 1.75) > 13 ? 13 : (Math.sqrt(26 * 26 - i * i) - 1.75),
+                x2: ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75) < -16.5 ? -16.5 : ((Math.sqrt(26 * 26 - i * i) * -1) - 1.75),
+                y1: 12,
+                y2: 5,
+                z1: -21,
+                z2: i
+            }
+        );
+
+        flyZones.push(
+            {
+                x1: Math.sqrt(26 * 26 - i * i) - 1.75,
+                x2: 4.5,
+                y1: 5,
+                y2: -10.5,
+                z1: -21,
+                z2: i
+            }
+        );
+
+        flyZones.push(
+            {
+                x1: -4.5,
+                x2: (Math.sqrt(26 * 26 - i * i) * -1) - 1.75,
+                y1: 5,
+                y2: -10.5,
+                z1: -21,
+                z2: i
+            }
+        );
+    }
+}
+kedeli2();
+
+
+
+function xyzMove(camPos, deltaX, deltaY, deltaZ) {
+
+    let newX = camPos.x - deltaX;
+    let newY = camPos.y - deltaY;
+    let newZ = camPos.z - deltaZ;
+
+    let curentZoneIndex = -1, nextZoneIndex = -1;
+
+    for (let i = 0; i < flyZones.length; i++) {
+        let thisZone = flyZones[i];
+
+        if (camPos.x <= thisZone.x1 &&
+            camPos.x >= thisZone.x2 &&
+            camPos.y <= thisZone.y1 &&
+            camPos.y >= thisZone.y2 &&
+            camPos.z <= thisZone.z1 &&
+            camPos.z >= thisZone.z2
+        ) curentZoneIndex = i;
+    }
+
+    for (let i = 0; i < flyZones.length; i++) {
+        let nextZone = flyZones[i];
+
+        if (newX <= nextZone.x1 &&
+            newX >= nextZone.x2 &&
+            newY <= nextZone.y1 &&
+            newY >= nextZone.y2 &&
+            newZ <= nextZone.z1 &&
+            newZ >= nextZone.z2
+        ) nextZoneIndex = i;
+    }
+
+    if (nextZoneIndex < 0) {
+        let thisZone = flyZones[curentZoneIndex];
+
+        if (newX <= thisZone.x1 &&
+            newX >= thisZone.x2
+        ) xMove = 1; else xMove = 0;
+
+
+        if (newY <= thisZone.y1 &&
+            newY >= thisZone.y2
+        ) yMove = 1; else yMove = 0;
+
+        if (newZ <= thisZone.z1 &&
+            newZ >= thisZone.z2
+        ) zMove = 1; else zMove = 0;
+
+        // if ( ( xMove + yMove + zMove ) === 1) {
+        //     if (xMove){
+
+        //     }
+        // }
+    } else {
+        xMove = 1;
+        yMove = 1;
+        zMove = 1;
+    }
+}
 
 const nextDronePositions = [
     { x: 0, y: 0, z: 35 },
@@ -67,7 +360,7 @@ AFRAME.registerComponent('cursor-listener-buton', {
             }
             this.setAttribute('material', 'color', COLORS[1]);
             // console.log(nextdroneN);
-            if ( nextdroneN != droneN ) {
+            if (nextdroneN != droneN) {
 
                 currentIndex = 3;
                 targetPosition = targetPositions[currentIndex];
@@ -107,7 +400,7 @@ function animate() {
             const targetdronePosition = new THREE.Vector3(nextDronePositions[nextdroneN - 1].x, nextDronePositions[nextdroneN - 1].y, nextDronePositions[nextdroneN - 1].z);
             const distancedronePosition = startdronePosition.distanceTo(targetdronePosition);
 
-            if (distancedronePosition > 0.3 && nextdroneN !== 4) {
+            if (distancedronePosition > 0.3) {
                 const direction = targetdronePosition.clone().sub(startdronePosition).normalize();
                 const newPosition = startdronePosition.clone().add(direction.multiplyScalar(0.3)); // Move by a fixed distance
                 cam.setAttribute('position', newPosition);
@@ -158,7 +451,7 @@ function animate() {
 
         case 2:        //-------------------------- CIRCLE ANIMATE -------------------------------
 
-            q += 0.01;
+            q += 0.003;
 
             let qSin = Math.sin(q);
             let qCos = Math.cos(q);
@@ -184,9 +477,8 @@ function animate() {
             // Convert rotation degrees to radians
             let radX = cameraRot.x * Math.PI / 180;
             let radY = cameraRot.y * Math.PI / 180;
-        
+
             // Calculate the new position based on camera rotation
-            let delta = 0.04;
             let deltaX = delta * Math.sin(radY);
             let deltaY = -1 * delta * Math.sin(radX);
             let deltaZ = delta * Math.cos(radY);
@@ -195,19 +487,16 @@ function animate() {
                 newY,
                 newZ,
                 newPosition;
-        
-            // Update the position components
-            if ( distanceFromCenter < maxDistance && distanceFromCenter > minDistance) {
-                newX = parseFloat(camPos.x) - deltaX;
-                newY = parseFloat(camPos.y) - deltaY;
-                newZ = parseFloat(camPos.z) - deltaZ;
-                newPosition = `${newX} ${newY} ${newZ}`; // Move by a fixed distance
 
-            } else {
-                let distanceRecovery = distanceFromCenter < ((minDistance + maxDistance) / 2) ? -1 * (delta + (delta / 10)) : delta + (delta / 10);
-                const direction = centerPos.clone().sub(camPos).normalize();
-                newPosition = camPos.clone().add(direction.multiplyScalar(distanceRecovery)); // Move by a fixed distance
-            }
+            // Update the position components
+            xyzMove(new THREE.Vector3(parseFloat(camPos.x), parseFloat(camPos.y), parseFloat(camPos.z)), deltaX, deltaY, deltaZ);
+
+            newX = parseFloat(camPos.x) - xMove * deltaX;
+            newY = parseFloat(camPos.y) - yMove * deltaY;
+            newZ = parseFloat(camPos.z) - zMove * deltaZ;
+
+            newPosition = `${newX} ${newY} ${newZ}`; // Move by a fixed distance
+
 
             // Set the new position
             cam.setAttribute('position', newPosition);
@@ -215,16 +504,17 @@ function animate() {
     }
     // console.log('COS(x): ', Math.cos(camera.getAttribute('rotation').x * (Math.PI / 180)),'COS(y): ', Math.cos(camera.getAttribute('rotation').y * (Math.PI / 180)),'COS(z): ', Math.cos(camera.getAttribute('rotation').z * (Math.PI / 180)))
 
-    animationRef = requestAnimationFrame(animate);
+    // animationRef = requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
 
 // Start the animation loop
 animate();
 
-// Function to stop animation
-function stopAnimation() {
-    cancelAnimationFrame(animationRef);
-}
+// // Function to stop animation
+// function stopAnimation() {
+//     cancelAnimationFrame(animationRef);
+// }
 
 // Function to preload the GLB model
 function preloadModel(src) {
@@ -237,36 +527,36 @@ function preloadModel(src) {
     });
 }
 
-function addGlbModel(adres ,nameGlb) {
+function addGlbModel(adres, nameGlb) {
 
     let fulladres = adres + nameGlb;
 
-// Preload the GLB model
-preloadModel(fulladres)
-    .then(gltf => {
-        // Model loaded successfully
-        const modelContainer = document.getElementById('modelContainer');
-        const model = document.createElement('a-entity');
-        // const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
-        const modelId = 'loadedModel_' + nameGlb;
-        model.setAttribute('id', modelId);
-        model.setAttribute('gltf-model', `#${modelId}`);
-        modelContainer.appendChild(model);
-        console.log(modelId);
+    // Preload the GLB model
+    preloadModel(fulladres)
+        .then(gltf => {
+            // Model loaded successfully
+            const modelContainer = document.getElementById('modelContainer');
+            const model = document.createElement('a-entity');
+            // const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+            const modelId = 'loadedModel_' + nameGlb;
+            model.setAttribute('id', modelId);
+            model.setAttribute('gltf-model', `#${modelId}`);
+            modelContainer.appendChild(model);
+            console.log(modelId);
 
-        // Set the GLTF model data
-        const modelElement = document.getElementById(modelId);
-        modelElement.setObject3D('gltf-model', gltf.scene);
+            // Set the GLTF model data
+            const modelElement = document.getElementById(modelId);
+            modelElement.setObject3D('gltf-model', gltf.scene);
 
-        // Make the model visible
-        model.setAttribute('visible', true);
-    })
-    .catch(error => {
-        console.error('Error loading model( ' + nameGlb + ' ): ', error);
-    });
+            // Make the model visible
+            model.setAttribute('visible', true);
+        })
+        .catch(error => {
+            console.error('Error loading model( ' + nameGlb + ' ): ', error);
+        });
 }
 
-addGlbModel('../GLB/models/core/cavern/ux15/', 'ux15.glb');
+addGlbModel('../GLB/trecer-geometry/vr/', 'UX15.glb');
 addGlbModel('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet.glb');
 
 addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-a/', 'ho-side-a-platforms.glb');
