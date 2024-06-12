@@ -8,68 +8,85 @@ window.addEventListener('load', function () {
     cam.setAttribute('position', '0 0 35');
 });
 
+// const queryString = window.location.search;
+// const urlParams = new URLSearchParams(queryString);
+// const vrScene = parseInt(urlParams.get('vrScene'));
 
-// Function to preload the GLB model
-function preloadModel(src) {
-    return new Promise((resolve, reject) => {
-        const loader = new THREE.GLTFLoader();
-        const dracoLoader = new THREE.DRACOLoader();
-        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
-        loader.setDRACOLoader(dracoLoader);
-        loader.load(src, resolve, undefined, reject);
-    });
-}
 
-// Function to add GLB model to the scene
-function addGlbModel(adres, nameGlb) {
+// // Function to preload the GLB model
+// function preloadModel(src) {
+//     return new Promise((resolve, reject) => {
+//         const loader = new THREE.GLTFLoader();
+//         const dracoLoader = new THREE.DRACOLoader();
+//         dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+//         loader.setDRACOLoader(dracoLoader);
+//         loader.load(src, resolve, undefined, reject);
+//     });
+// }
 
-    // Preload the GLB model
-    preloadModel(adres)
-        .then(gltf => {
-            // Model loaded successfully
-            const modelContainer = document.getElementById('modelContainer');
-            const model = document.createElement('a-entity');
-            const modelId = 'loadedModel_' + nameGlb;
-            model.setAttribute('id', modelId);
-            model.setAttribute('gltf-model', `#${modelId}`);
-            modelContainer.appendChild(model);
+// // Function to add GLB model to the scene
+// function addGlbModel(adres, nameGlb) {
 
-            // Set the GLTF model data
-            const modelElement = document.getElementById(modelId);
-            modelElement.setObject3D('gltf-model', gltf.scene);
+//     // Preload the GLB model
+//     preloadModel(adres)
+//         .then(gltf => {
+//             // Model loaded successfully
+//             const modelContainer = document.getElementById('modelContainer');
+//             const model = document.createElement('a-entity');
+//             const modelId = 'loadedModel_' + nameGlb;
+//             model.setAttribute('id', modelId);
+//             model.setAttribute('gltf-model', `#${modelId}`);
+//             modelContainer.appendChild(model);
 
-            // Make the model visible
-            model.setAttribute('visible', true);
-        })
-        .catch(error => {
-            console.error('Error loading model( ' + nameGlb + ' ): ', error);
-        });
-}
+//             // Set the GLTF model data
+//             const modelElement = document.getElementById(modelId);
+//             modelElement.setObject3D('gltf-model', gltf.scene);
 
-// Function to fetch and add the GLB model to the scene
-async function getObjects(adres, nameGlb) {
-    let response = await fetch(adres + nameGlb);
+//             // Make the model visible
+//             model.setAttribute('visible', true);
+//         })
+//         .catch(error => {
+//             console.error('Error loading model( ' + nameGlb + ' ): ', error);
+//         });
+// }
 
-    if (!response.ok) {
-        console.error('HTTP-Error: ' + response.status);
-        return;
-    }
+// // Function to fetch and add the GLB model to the scene
+// async function getObjects(adres, nameGlb) {
+//     let response = await fetch(adres + nameGlb);
 
-    let arrayBuffer = await response.arrayBuffer();
-    let blob = new Blob([arrayBuffer], { type: 'model/gltf-binary' });
-    let url = URL.createObjectURL(blob);
+//     if (!response.ok) {
+//         console.error('HTTP-Error: ' + response.status);
+//         return;
+//     }
 
-    // Use the addGlbModel function to add the model to the scene
-    addGlbModel(url, nameGlb);
-}
+//     let arrayBuffer = await response.arrayBuffer();
+//     let blob = new Blob([arrayBuffer], { type: 'model/gltf-binary' });
+//     let url = URL.createObjectURL(blob);
 
-// Call getObjects function to load the model
-getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'UX15.glb');
-getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'feet.glb');
+//     // Use the addGlbModel function to add the model to the scene
+//     addGlbModel(url, nameGlb);
+// }
 
-getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'HO-Platforms.glb');
-// coming soon:
-// getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'HS-Platforms.glb');
+// const GLBLink = "https://tracer-geometry-dev.web.cern.ch/vr/"
+
+// switch(vrScene) {
+//     case 1:
+//     case 2:
+//         // Call getObjects function to load the model
+//         getObjects(GLBLink, 'UX15.glb');
+//         getObjects(GLBLink, 'feet.glb');
+//         getObjects(GLBLink, 'HO-Platforms.glb');
+//         getObjects(GLBLink, 'HS-Platforms.glb');
+//         break;
+
+//     case 3:
+//     case 4:
+//         // Call getObjects function to load the model
+//         getObjects(GLBLink, 'feet.glb');
+//         getObjects(GLBLink, 'barrel_toroid.glb');
+//         getObjects(GLBLink, 'warm_structure.glb');
+//         break;
+// }
 
 let droneN = 1;
 let nextdroneN;
@@ -410,16 +427,18 @@ AFRAME.registerComponent('cursor-listener-buton', {
     init: function () {
         // console.log('I was clicked at: ', evt.detail.intersection.point);
 
+        let COLORS = ['#ff0000', '#008000', '#990000', '#004d00']; // red, green, dark Red, dark Green
+        let clickbuton = 0;
+
         //  click on button
         this.el.addEventListener('click', function (evt) {
             nextdroneN = parseInt(this.getAttribute('id')[5]);
 
-            let COLORS = ['red', 'green'];
             for (let i = 1; i < 5; i++) {
                 let butoni = document.getElementById(("buton" + i));
                 butoni.setAttribute('material', 'color', COLORS[0]);
             }
-            this.setAttribute('material', 'color', COLORS[1]);
+            this.setAttribute('material', 'color', COLORS[3]);
             // console.log(nextdroneN);
             if (nextdroneN != droneN) {
 
@@ -429,25 +448,37 @@ AFRAME.registerComponent('cursor-listener-buton', {
                 startRotate = false; // Flag to indicate if rotation should start
                 rotationAngle = 0; // Track the rotation angle
                 cam.setAttribute('rotation', `0 0 0`);
-
                 q = 0;
-
                 droneN = 0;
             }
+            clickbuton = 1;
         });
+        
+        let thisbuton, thisid;
 
         //  mouseenter on button
         this.el.addEventListener('mouseenter', function (evt) {
-            let opabox = document.getElementById("opabox");
-            let xyz = this.getAttribute('position');
-            opabox.setAttribute('position', `${xyz.x} 0.02 ${xyz.z}`);
+            thisid = this.getAttribute('id');
+            thisbuton = document.getElementById(thisid);
+
+            if (clickbuton || parseInt(thisid[5]) == droneN) thisbuton.setAttribute('material', 'color', COLORS[3]); // dark green
+            else thisbuton.setAttribute('material', 'color', COLORS[2]); // dark red
+
+            // let opabox = document.getElementById("opabox");
+            // let xyz = this.getAttribute('position');
+            // opabox.setAttribute('position', `${xyz.x} 0.02 ${xyz.z}`);
         });
 
         //  mouseleave on button
         this.el.addEventListener('mouseleave', function (evt) {
-            let opabox = document.getElementById("opabox");
-            let xyz = this.getAttribute('position');
-            opabox.setAttribute('position', `${xyz.x} -0.02 ${xyz.z}`);
+
+            if (clickbuton || parseInt(thisid[5]) == droneN) thisbuton.setAttribute('material', 'color', COLORS[1]); // green
+            else thisbuton.setAttribute('material', 'color', COLORS[0]); // red
+            clickbuton = 0;
+
+            // let opabox = document.getElementById("opabox");
+            // let xyz = this.getAttribute('position');
+            // opabox.setAttribute('position', `${xyz.x} -0.02 ${xyz.z}`);
         });
     }
 });
@@ -572,58 +603,52 @@ function animate() {
 // Start the animation loop
 animate();
 
-// // Function to stop animation
-// function stopAnimation() {
-//     cancelAnimationFrame(animationRef);
-// }
 
 
-////////////////////////////////////////////////   add local .GLB
+// Function to preload the GLB model
+function preloadModel1(src) {
+    return new Promise((resolve, reject) => {
+        const loader = new THREE.GLTFLoader();
+        const dracoLoader = new THREE.DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+        loader.setDRACOLoader(dracoLoader);
+        loader.load(src, resolve, undefined, reject);
+    });
+}
 
-// // Function to preload the GLB model
-// function preloadModel(src) {
-//     return new Promise((resolve, reject) => {
-//         const loader = new THREE.GLTFLoader();
-//         const dracoLoader = new THREE.DRACOLoader();
-//         dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
-//         loader.setDRACOLoader(dracoLoader);
-//         loader.load(src, resolve, undefined, reject);
-//     });
-// }
+function addGlbModel1(adres, nameGlb) {
 
-// function addGlbModel(adres, nameGlb) {
+    let fulladres = adres + nameGlb;
 
-//     let fulladres = adres + nameGlb;
+    // Preload the GLB model
+    preloadModel1(fulladres)
+        .then(gltf => {
+            // Model loaded successfully
+            const modelContainer = document.getElementById('modelContainer');
+            const model = document.createElement('a-entity');
+            // const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+            const modelId = 'loadedModel_' + nameGlb;
+            model.setAttribute('id', modelId);
+            model.setAttribute('gltf-model', `#${modelId}`);
+            modelContainer.appendChild(model);
+            console.log(modelId);
 
-//     // Preload the GLB model
-//     preloadModel(fulladres)
-//         .then(gltf => {
-//             // Model loaded successfully
-//             const modelContainer = document.getElementById('modelContainer');
-//             const model = document.createElement('a-entity');
-//             // const modelId = 'loadedModel_' + Math.random().toString(36).substr(2, 9); // Generate unique ID
-//             const modelId = 'loadedModel_' + nameGlb;
-//             model.setAttribute('id', modelId);
-//             model.setAttribute('gltf-model', `#${modelId}`);
-//             modelContainer.appendChild(model);
-//             console.log(modelId);
+            // Set the GLTF model data
+            const modelElement = document.getElementById(modelId);
+            modelElement.setObject3D('gltf-model', gltf.scene);
 
-//             // Set the GLTF model data
-//             const modelElement = document.getElementById(modelId);
-//             modelElement.setObject3D('gltf-model', gltf.scene);
+            // Make the model visible
+            model.setAttribute('visible', true);
+        })
+        .catch(error => {
+            console.error('Error loading model( ' + nameGlb + ' ): ', error);
+        });
+}
 
-//             // Make the model visible
-//             model.setAttribute('visible', true);
-//         })
-//         .catch(error => {
-//             console.error('Error loading model( ' + nameGlb + ' ): ', error);
-//         });
-// }
+addGlbModel1('../GLB/trecer-geometry/vr/', 'UX15.glb');
+addGlbModel1('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet.glb');
 
-// addGlbModel('../GLB/trecer-geometry/vr/', 'UX15.glb');
-// addGlbModel('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet.glb');
-
-// addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-a/', 'ho-side-a-platforms.glb');
-// addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-c/', 'ho-side-c-platforms.glb');
-// addGlbModel('../GLB/models/core/main-components/platforms/hs-platforms/us15-platforms/', 'hs-us.glb');
-// addGlbModel('../GLB/models/core/main-components/platforms/hs-platforms/usa15-platforms/', 'hs-usa.glb');
+addGlbModel1('../GLB/models/core/main-components/platforms/ho-platforms/side-a/', 'ho-side-a-platforms.glb');
+addGlbModel1('../GLB/models/core/main-components/platforms/ho-platforms/side-c/', 'ho-side-c-platforms.glb');
+addGlbModel1('../GLB/models/core/main-components/platforms/hs-platforms/us15-platforms/', 'hs-us.glb');
+addGlbModel1('../GLB/models/core/main-components/platforms/hs-platforms/usa15-platforms/', 'hs-usa.glb');
