@@ -26,12 +26,12 @@
 </head>
 
 <body>
-    <a-scene ar-mode-ui="enabled: false" vr-mode-ui="enabled: true">
+    <a-scene stats ar-mode-ui="enabled: false" vr-mode-ui="enabled: true">
         <a-assets>
-            <img id="imgDroneI" src="../../SVGs/film.svg">
-            <img id="imgDroneII" src="../../SVGs/circle.svg">
-            <img id="imgDroneIII" src="../../SVGs/exit-alt.svg">
-            <img id="imgDroneIV" src="../../SVGs/drone.svg">
+            <img id="imgDroneI" src="../../assets/svg/film.svg">
+            <img id="imgDroneII" src="../../assets/svg/circle.svg">
+            <img id="imgDroneIII" src="../../assets/svg/exit-alt.svg">
+            <img id="imgDroneIV" src="../../assets/svg/drone.svg">
         </a-assets>
 
         <!-- Set the background color of the scene to black -->
@@ -48,24 +48,20 @@
                       wasd-controls-enabled="false">
                 <a-cursor cursor="fuse: true; fuseTimeout: 1000"
                           geometry="primitive: ring; radiusInner: 0.004; radiusOuter: 0.007"
-                          material="color:#ffffff; opacity: 0 shader: flat" 
-                          position="0 0 -0.6">
-                </a-cursor>
-                <a-entity geometry="primitive: ring; radiusInner: 0.004; radiusOuter: 0.007"
-                          material="color:#ffffff; opacity: 0.8 shader: flat" 
+                          material="color:#ffffff;" 
                           position="0 0 -0.5">
-                </a-entity>
+                </a-cursor>
             </a-camera>
 
             <!-- buttons -->
             <a-box color="#a1a1a1" depth="0.2" height="0.01" position="0 1 0" width="0.2">
-
+<!-- 
                 <a-box color="black" depth="0.06" height="0.01" id="opabox" opacity="0.25" position="-0.05 -0.02 0.05"
                     width="0.06">
-                </a-box>
+                </a-box> -->
 
 
-                <a-box id="buton1" cursor-listener-buton color="green" depth="0.06" height="0.02"
+                <a-box id="buton1" cursor-listener-buton color="#008000" depth="0.06" height="0.02"
                     position="-0.05 0.01 0.05" width="0.06">
                     <a-entity position="0 0.01 0" rotation="-90 0 0">
                         <a-image height="0.059" id="droneImgI" position="0 0 0.01" src="#imgDroneI" width="0.059">
@@ -75,7 +71,7 @@
 
                 </a-box>
 
-                <a-box id="buton2" cursor-listener-buton color="red" depth="0.06" height="0.02" width="0.06"
+                <a-box id="buton2" cursor-listener-buton color="#ff0000" depth="0.06" height="0.02" width="0.06"
                     position="-0.05 0.01 -0.05">
                     <a-entity position="0 0.01 0" rotation="-90 0 0">
                         <a-image height="0.059" id="droneImgII" position="0 0 0.01" src="#imgDroneII" width="0.059">
@@ -86,7 +82,7 @@
 
                 </a-box>
 
-                <a-box id="buton3" cursor-listener-buton color="red" depth="0.06" height="0.02"
+                <a-box id="buton3" cursor-listener-buton color="#ff0000" depth="0.06" height="0.02"
                     position="0.05 0.01 0.05" width="0.06">
                     <a-entity position="0 0.01 0" rotation="-90 0 0">
                         <a-image height="0.059" id="droneImgIII" position="0 0 0.01" src="#imgDroneIII" width="0.059">
@@ -97,7 +93,7 @@
 
                 </a-box>
 
-                <a-box id="buton4" cursor-listener-buton color="red" depth="0.06" height="0.02"
+                <a-box id="buton4" cursor-listener-buton color="#ff0000" depth="0.06" height="0.02"
                     position="0.05 0.01 -0.05" width="0.06">
                     <a-entity position="0 0.01 0" rotation="-90 0 0">
                         <a-image height="0.059" id="droneImgIV" position="0 0 0.01" src="#imgDroneIV" width="0.059">
@@ -113,8 +109,8 @@
 
     </a-scene>
 
-</body>
+<script src="./js/script.js"></script>
 
-<script src="./script/script.js"></script>
+</body>
 
 </html>
