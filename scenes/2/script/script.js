@@ -8,10 +8,6 @@ window.addEventListener('load', function () {
     cam.setAttribute('position', '0 0 35');
 });
 
-// const queryString = window.location.search;
-// const urlParams = new URLSearchParams(queryString);
-// const vrScene = parseInt(urlParams.get('vrScene'));
-
 
 // // Function to preload the GLB model
 // function preloadModel(src) {
@@ -67,26 +63,13 @@ window.addEventListener('load', function () {
 //     addGlbModel(url, nameGlb);
 // }
 
-// const GLBLink = "https://tracer-geometry-dev.web.cern.ch/vr/"
+// // Call getObjects function to load the model
+// getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'UX15.glb');
+// getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'feet.glb');
 
-// switch(vrScene) {
-//     case 1:
-//     case 2:
-//         // Call getObjects function to load the model
-//         getObjects(GLBLink, 'UX15.glb');
-//         getObjects(GLBLink, 'feet.glb');
-//         getObjects(GLBLink, 'HO-Platforms.glb');
-//         getObjects(GLBLink, 'HS-Platforms.glb');
-//         break;
-
-//     case 3:
-//     case 4:
-//         // Call getObjects function to load the model
-//         getObjects(GLBLink, 'feet.glb');
-//         getObjects(GLBLink, 'barrel_toroid.glb');
-//         getObjects(GLBLink, 'warm_structure.glb');
-//         break;
-// }
+// getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'HO-Platforms.glb');
+// // coming soon:
+// // getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'HS-Platforms.glb');
 
 let droneN = 1;
 let nextdroneN;
@@ -427,18 +410,16 @@ AFRAME.registerComponent('cursor-listener-buton', {
     init: function () {
         // console.log('I was clicked at: ', evt.detail.intersection.point);
 
-        let COLORS = ['#ff0000', '#008000', '#990000', '#004d00']; // red, green, dark Red, dark Green
-        let clickbuton = 0;
-
         //  click on button
         this.el.addEventListener('click', function (evt) {
             nextdroneN = parseInt(this.getAttribute('id')[5]);
 
+            let COLORS = ['red', 'green'];
             for (let i = 1; i < 5; i++) {
                 let butoni = document.getElementById(("buton" + i));
                 butoni.setAttribute('material', 'color', COLORS[0]);
             }
-            this.setAttribute('material', 'color', COLORS[3]);
+            this.setAttribute('material', 'color', COLORS[1]);
             // console.log(nextdroneN);
             if (nextdroneN != droneN) {
 
@@ -448,37 +429,25 @@ AFRAME.registerComponent('cursor-listener-buton', {
                 startRotate = false; // Flag to indicate if rotation should start
                 rotationAngle = 0; // Track the rotation angle
                 cam.setAttribute('rotation', `0 0 0`);
+
                 q = 0;
+
                 droneN = 0;
             }
-            clickbuton = 1;
         });
-        
-        let thisbuton, thisid;
 
         //  mouseenter on button
         this.el.addEventListener('mouseenter', function (evt) {
-            thisid = this.getAttribute('id');
-            thisbuton = document.getElementById(thisid);
-
-            if (clickbuton || parseInt(thisid[5]) == droneN) thisbuton.setAttribute('material', 'color', COLORS[3]); // dark green
-            else thisbuton.setAttribute('material', 'color', COLORS[2]); // dark red
-
-            // let opabox = document.getElementById("opabox");
-            // let xyz = this.getAttribute('position');
-            // opabox.setAttribute('position', `${xyz.x} 0.02 ${xyz.z}`);
+            let opabox = document.getElementById("opabox");
+            let xyz = this.getAttribute('position');
+            opabox.setAttribute('position', `${xyz.x} 0.02 ${xyz.z}`);
         });
 
         //  mouseleave on button
         this.el.addEventListener('mouseleave', function (evt) {
-
-            if (clickbuton || parseInt(thisid[5]) == droneN) thisbuton.setAttribute('material', 'color', COLORS[1]); // green
-            else thisbuton.setAttribute('material', 'color', COLORS[0]); // red
-            clickbuton = 0;
-
-            // let opabox = document.getElementById("opabox");
-            // let xyz = this.getAttribute('position');
-            // opabox.setAttribute('position', `${xyz.x} -0.02 ${xyz.z}`);
+            let opabox = document.getElementById("opabox");
+            let xyz = this.getAttribute('position');
+            opabox.setAttribute('position', `${xyz.x} -0.02 ${xyz.z}`);
         });
     }
 });
@@ -603,10 +572,16 @@ function animate() {
 // Start the animation loop
 animate();
 
+// // Function to stop animation
+// function stopAnimation() {
+//     cancelAnimationFrame(animationRef);
+// }
 
+
+////////////////////////////////////////////////   add local .GLB
 
 // Function to preload the GLB model
-function preloadModel1(src) {
+function preloadModel(src) {
     return new Promise((resolve, reject) => {
         const loader = new THREE.GLTFLoader();
         const dracoLoader = new THREE.DRACOLoader();
@@ -616,12 +591,12 @@ function preloadModel1(src) {
     });
 }
 
-function addGlbModel1(adres, nameGlb) {
+function addGlbModel(adres, nameGlb) {
 
     let fulladres = adres + nameGlb;
 
     // Preload the GLB model
-    preloadModel1(fulladres)
+    preloadModel(fulladres)
         .then(gltf => {
             // Model loaded successfully
             const modelContainer = document.getElementById('modelContainer');
