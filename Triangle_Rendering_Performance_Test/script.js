@@ -1,5 +1,5 @@
-let numShapes = 500; // How many figures (Shapes)
-let numTrianglesInShape = 500; // How many "triangles" in one figure (Shape)
+let numShapes = 1500; // How many figures (Shapes)
+let numTrianglesInShape = 00; // How many "triangles" in one figure (Shape)
 // "triangles" რაოდენობა = numShapes * numTrianglesInShape
 
 AFRAME.registerComponent('generate-shapes', {
