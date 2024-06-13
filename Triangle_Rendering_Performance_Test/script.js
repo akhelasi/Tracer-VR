@@ -1,4 +1,4 @@
-let numShapes = 500; // How many figures (Shapes)
+let numShapes = 5000; // How many figures (Shapes)
 let numTrianglesInShape = 200; // How many "triangles" in one figure (Shape)
 // "triangles" რაოდენობა = numShapes * numTrianglesInShape
 
