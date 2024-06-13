@@ -1,4 +1,4 @@
-let numShapes = 5000; // How many figures (Shapes)
+let numShapes = 500; // How many figures (Shapes)
 let numTrianglesInShape = 200; // How many "triangles" in one figure (Shape)
 // "triangles" რაოდენობა = numShapes * numTrianglesInShape
 
@@ -10,7 +10,7 @@ AFRAME.registerComponent('generate-shapes', {
         for (let i = 0; i < numShapes; i++) {
             const shapeGeometry = new THREE.BufferGeometry();
 
-            // Generate 180 random vertices (0 or 1) for 20 triangles
+            // Generate "numTrianglesInShape * 9" random vertices (0 or 1) for "numTrianglesInShape" triangles
             const vertices = new Float32Array(numTrianglesInShape * 9);
             for (let j = 0; j < numTrianglesInShape * 9; j++) {
                 vertices[j] = Math.random() < 0.5 ? 0 : 1;
@@ -41,12 +41,11 @@ AFRAME.registerComponent('generate-shapes', {
             const triangles = numShapes * numTrianglesInShape;
             const avgTimePerTriangle = avgTimePerFrame / triangles;
 
-            fpsDisplay[0].textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`;
-            fpsDisplay[1].textContent = `Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s`;
-            fpsDisplay[2].textContent = `Triangles(Tr): ${triangles}`;
-            fpsDisplay[3].textContent = `draw calls(Geometries): ${numShapes}`;
+            fpsDisplay[1].textContent = `Triangles(Tr): ${triangles}`;
+            fpsDisplay[2].textContent = `draw calls(Geometries): ${numShapes}`;
+            fpsDisplay[3].textContent = `(ATP) frame: ${avgTimePerFrame.toFixed(6)} seconds`;
+            fpsDisplay[4].textContent = `(ATP) (Tr): ${avgTimePerTriangle.toFixed(9)} seconds`;
         };
-
 
         const measure = () => {
             frameCount++;
