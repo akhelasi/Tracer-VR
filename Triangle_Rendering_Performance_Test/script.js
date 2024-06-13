@@ -49,8 +49,11 @@ AFRAME.registerComponent('generate-shapes', {
                 console.log(`Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`);
                 console.log(`Average time per triangle: ${avgTimePerTriangle.toFixed(9)} seconds`);
 
-                fpsDisplay[0].textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} s`;
-                fpsDisplay[1].textContent = `Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s`;
+                fpsDisplay[0].textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`;
+                fpsDisplay[1].textContent = `Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s.`;
+                fpsDisplay[2].textContent = `Triangles: ${triangles}`;
+                fpsDisplay[3].textContent = `draw calls: ${numShapes}`;
+
             }
         };
 
