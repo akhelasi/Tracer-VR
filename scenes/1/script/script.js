@@ -620,10 +620,8 @@ function addGlbModel(adres, nameGlb) {
         });
 }
 
-addGlbModel('../GLB/trecer-geometry/vr/', 'UX15.glb');
-addGlbModel('../GLB/models/core/support-structure/mechanical-structure/feet/', 'feet.glb');
+addGlbModel('../GLB/', 'UX15.glb');
+addGlbModel('../GLB/', 'feet.glb');
 
-addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-a/', 'ho-side-a-platforms.glb');
-addGlbModel('../GLB/models/core/main-components/platforms/ho-platforms/side-c/', 'ho-side-c-platforms.glb');
-addGlbModel('../GLB/models/core/main-components/platforms/hs-platforms/us15-platforms/', 'hs-us.glb');
-addGlbModel('../GLB/models/core/main-components/platforms/hs-platforms/usa15-platforms/', 'hs-usa.glb');
+addGlbModel('../GLB/', 'HO-Platforms.glb');
+addGlbModel('../GLB/', 'HS-Platforms.glb');
