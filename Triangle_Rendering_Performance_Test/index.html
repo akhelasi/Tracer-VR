@@ -19,21 +19,15 @@
 </head>
 
 <body>
-  <div class="fps-display" id="fpsDisplay">Average time per frame: 0.000000 s | Average time per triangle: 0.000000000 s</div>
+  <div class="fps-display" id="fpsDisplay">
+    <div>Average time per frame: 0.000000 s</div>
+    <div>Average time per triangle: 0.000000000 s</div>
+  </div>
 
   <a-scene stats>
-    <!-- <a-assets>
-      <img id="texture1" src="path_to_texture1.jpg" />
-      <img id="texture2" src="path_to_texture2.jpg" />
-      <img id="texture3" src="path_to_texture3.jpg" />
-      <img id="texture4" src="path_to_texture4.jpg" />
-      <img id="texture5" src="path_to_texture5.jpg" />
-    </a-assets> -->
-
     <a-entity id="shapes"></a-entity>
     <a-camera position="0 5 70"></a-camera>
   </a-scene>
   <script src="script.js"></script>
 </body>
-
 </html>

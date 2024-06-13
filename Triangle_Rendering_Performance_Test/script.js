@@ -6,13 +6,6 @@ AFRAME.registerComponent('generate-shapes', {
     init: function () {
         const shapeContainer = this.el;
         const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff]; // Array of colors
-        // const textures = [
-        //     new THREE.TextureLoader().load('path_to_texture1.jpg'),
-        //     new THREE.TextureLoader().load('path_to_texture2.jpg'),
-        //     new THREE.TextureLoader().load('path_to_texture3.jpg'),
-        //     new THREE.TextureLoader().load('path_to_texture4.jpg'),
-        //     new THREE.TextureLoader().load('path_to_texture5.jpg')
-        // ];
 
         for (let i = 0; i < numShapes; i++) {
             const shapeGeometry = new THREE.BufferGeometry();
@@ -28,10 +21,6 @@ AFRAME.registerComponent('generate-shapes', {
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             const shapeMaterial = new THREE.MeshBasicMaterial({ color: randomColor, side: THREE.DoubleSide });
 
-            // // Randomly select a texture from the array
-            // const randomTexture = textures[Math.floor(Math.random() * textures.length)];
-            // const shapeMaterial = new THREE.MeshBasicMaterial({ map: randomTexture, side: THREE.DoubleSide });
-
             const shape = new THREE.Mesh(shapeGeometry, shapeMaterial);
             shape.position.set(Math.random() * 50 - 25, Math.random() * 50 - 25, Math.random() * 50 - 25);
             shapeContainer.setObject3D(`shape${i}`, shape);
@@ -41,7 +30,7 @@ AFRAME.registerComponent('generate-shapes', {
     },
 
     startPerformanceMeasurement: function () {
-        const fpsDisplay = document.getElementById('fpsDisplay');
+        const fpsDisplay = document.getElementById('fpsDisplay').children;
         let frameCount = 0;
         let startTime = performance.now();
         let totalTime = 0;
@@ -60,7 +49,8 @@ AFRAME.registerComponent('generate-shapes', {
                 console.log(`Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`);
                 console.log(`Average time per triangle: ${avgTimePerTriangle.toFixed(9)} seconds`);
 
-                fpsDisplay.textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} s | Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s`;
+                fpsDisplay[0].textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} s`;
+                fpsDisplay[1].textContent = `Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s`;
             }
         };
 
