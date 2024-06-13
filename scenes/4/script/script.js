@@ -9,64 +9,64 @@ window.addEventListener('load', function () {
 });
 
 
-// Function to preload the GLB model
-function preloadModel(src) {
-    return new Promise((resolve, reject) => {
-        const loader = new THREE.GLTFLoader();
-        const dracoLoader = new THREE.DRACOLoader();
-        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
-        loader.setDRACOLoader(dracoLoader);
-        loader.load(src, resolve, undefined, reject);
-    });
-}
+// // Function to preload the GLB model
+// function preloadModel(src) {
+//     return new Promise((resolve, reject) => {
+//         const loader = new THREE.GLTFLoader();
+//         const dracoLoader = new THREE.DRACOLoader();
+//         dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+//         loader.setDRACOLoader(dracoLoader);
+//         loader.load(src, resolve, undefined, reject);
+//     });
+// }
 
-// Function to add GLB model to the scene
-function addGlbModel(adres, nameGlb) {
+// // Function to add GLB model to the scene
+// function addGlbModel(adres, nameGlb) {
 
-    // Preload the GLB model
-    preloadModel(adres)
-        .then(gltf => {
-            // Model loaded successfully
-            const modelContainer = document.getElementById('modelContainer');
-            const model = document.createElement('a-entity');
-            const modelId = 'loadedModel_' + nameGlb;
-            model.setAttribute('id', modelId);
-            model.setAttribute('gltf-model', `#${modelId}`);
-            modelContainer.appendChild(model);
+//     // Preload the GLB model
+//     preloadModel(adres)
+//         .then(gltf => {
+//             // Model loaded successfully
+//             const modelContainer = document.getElementById('modelContainer');
+//             const model = document.createElement('a-entity');
+//             const modelId = 'loadedModel_' + nameGlb;
+//             model.setAttribute('id', modelId);
+//             model.setAttribute('gltf-model', `#${modelId}`);
+//             modelContainer.appendChild(model);
 
-            // Set the GLTF model data
-            const modelElement = document.getElementById(modelId);
-            modelElement.setObject3D('gltf-model', gltf.scene);
+//             // Set the GLTF model data
+//             const modelElement = document.getElementById(modelId);
+//             modelElement.setObject3D('gltf-model', gltf.scene);
 
-            // Make the model visible
-            model.setAttribute('visible', true);
-        })
-        .catch(error => {
-            console.error('Error loading model( ' + nameGlb + ' ): ', error);
-        });
-}
+//             // Make the model visible
+//             model.setAttribute('visible', true);
+//         })
+//         .catch(error => {
+//             console.error('Error loading model( ' + nameGlb + ' ): ', error);
+//         });
+// }
 
-// Function to fetch and add the GLB model to the scene
-async function getObjects(adres, nameGlb) {
-    let response = await fetch(adres + nameGlb);
+// // Function to fetch and add the GLB model to the scene
+// async function getObjects(adres, nameGlb) {
+//     let response = await fetch(adres + nameGlb);
 
-    if (!response.ok) {
-        console.error('HTTP-Error: ' + response.status);
-        return;
-    }
+//     if (!response.ok) {
+//         console.error('HTTP-Error: ' + response.status);
+//         return;
+//     }
 
-    let arrayBuffer = await response.arrayBuffer();
-    let blob = new Blob([arrayBuffer], { type: 'model/gltf-binary' });
-    let url = URL.createObjectURL(blob);
+//     let arrayBuffer = await response.arrayBuffer();
+//     let blob = new Blob([arrayBuffer], { type: 'model/gltf-binary' });
+//     let url = URL.createObjectURL(blob);
 
-    // Use the addGlbModel function to add the model to the scene
-    addGlbModel(url, nameGlb);
-}
+//     // Use the addGlbModel function to add the model to the scene
+//     addGlbModel(url, nameGlb);
+// }
 
-// Call getObjects function to load the model
-getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'feet.glb');
-getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'barrel_toroid.glb');
-getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'warm_structure.glb');
+// // Call getObjects function to load the model
+// getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'feet.glb');
+// getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'barrel_toroid.glb');
+// getObjects('https://tracer-geometry-dev.web.cern.ch/vr/', 'warm_structure.glb');
 
 
 let droneN = 1;
@@ -618,6 +618,6 @@ animate();
 //         });
 // }
 
-// addGlbModel('../GLB/trecer-geometry/vr/', 'feet.glb');
-// addGlbModel('../GLB/trecer-geometry/vr/', 'barrel_toroid.glb');
-// addGlbModel('../GLB/trecer-geometry/vr/', 'warm_structure.glb');
+addGlbModel('../GLB/', 'feet.glb');
+addGlbModel('../GLB/', 'barrel_toroid.glb');
+addGlbModel('../GLB/', 'warm_structure.glb');
