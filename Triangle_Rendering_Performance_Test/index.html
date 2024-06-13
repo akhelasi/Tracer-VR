@@ -1,18 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triangle Rendering Performance Test</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Triangle Rendering Performance Test</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+  <style>
+    .fps-display {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: rgb(255, 0, 0);
+      background-color: white;
+      font-size: 20px;
+      z-index: 999;
+    }
+  </style>
 </head>
+
 <body>
-    <a-scene>
-        <!-- Set the background color of the scene to black -->
-        <a-sky color="gray"></a-sky>
-        <a-entity id="modelContainer"></a-entity>
-        <a-camera position="0 1.6 2"></a-camera>
-    </a-scene>
+  <div class="fps-display" id="fpsDisplay">Average time per frame: 0.000000 s | Average time per triangle: 0.000000000 s</div>
+
+  <a-scene stats>
+    <!-- <a-assets>
+      <img id="texture1" src="path_to_texture1.jpg" />
+      <img id="texture2" src="path_to_texture2.jpg" />
+      <img id="texture3" src="path_to_texture3.jpg" />
+      <img id="texture4" src="path_to_texture4.jpg" />
+      <img id="texture5" src="path_to_texture5.jpg" />
+    </a-assets> -->
+
+    <a-entity id="shapes"></a-entity>
+    <a-camera position="0 5 70"></a-camera>
+  </a-scene>
+  <script src="script.js"></script>
 </body>
+
 </html>

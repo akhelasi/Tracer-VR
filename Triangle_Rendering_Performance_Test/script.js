@@ -1,61 +1,71 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const sceneEl = document.querySelector('a-scene');
-    const modelContainer = document.getElementById('modelContainer');
+let numShapes = 500; // How many figures (Shapes)
+let numTrianglesInShape = 200; // How many "triangles" in one figure (Shape)
+// "tringles" რაოდენობა = numShapes * numTrianglesInShape
 
-    let startTime, endTime, frameCount = 0;
-    const totalTriangles = 10000; // რამდენი სამკუთხედი გინდათ სცენაში
-    const fpsDisplay = document.createElement('div');
-    fpsDisplay.style.position = 'absolute';
-    fpsDisplay.style.top = '10px';
-    fpsDisplay.style.left = '10px';
-    fpsDisplay.style.color = 'white';
-    fpsDisplay.style.fontSize = '20px';
-    document.body.appendChild(fpsDisplay);
+AFRAME.registerComponent('generate-shapes', {
+    init: function () {
+        const shapeContainer = this.el;
+        const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff]; // Array of colors
+        // const textures = [
+        //     new THREE.TextureLoader().load('path_to_texture1.jpg'),
+        //     new THREE.TextureLoader().load('path_to_texture2.jpg'),
+        //     new THREE.TextureLoader().load('path_to_texture3.jpg'),
+        //     new THREE.TextureLoader().load('path_to_texture4.jpg'),
+        //     new THREE.TextureLoader().load('path_to_texture5.jpg')
+        // ];
 
-    function createTriangle() {
-        const entity = document.createElement('a-entity');
-        entity.setAttribute('geometry', {
-            primitive: 'triangle',
-            vertexA: '0 0.5 0',
-            vertexB: '0.5 -0.5 0',
-            vertexC: '-0.5 -0.5 0'
-        });
-        entity.setAttribute('material', 'color', '#0077ff');
-        entity.setAttribute('position', {
-            x: (Math.random() - 0.5) * 10,
-            y: (Math.random() - 0.5) * 10,
-            z: (Math.random() - 0.5) * 10
-        });
-        return entity;
-    }
+        for (let i = 0; i < numShapes; i++) {
+            const shapeGeometry = new THREE.BufferGeometry();
 
-    function startTest() {
-        startTime = performance.now();
-        for (let i = 0; i < totalTriangles; i++) {
-            const triangle = createTriangle();
-            modelContainer.appendChild(triangle);
+            // Generate 180 random vertices (0 or 1) for 20 triangles
+            const vertices = new Float32Array(numTrianglesInShape * 9);
+            for (let j = 0; j < numTrianglesInShape * 9; j++) {
+                vertices[j] = Math.random() < 0.5 ? 0 : 1;
+            }
+            shapeGeometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+
+            // Randomly select a color from the array
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const shapeMaterial = new THREE.MeshBasicMaterial({ color: randomColor, side: THREE.DoubleSide });
+
+            // // Randomly select a texture from the array
+            // const randomTexture = textures[Math.floor(Math.random() * textures.length)];
+            // const shapeMaterial = new THREE.MeshBasicMaterial({ map: randomTexture, side: THREE.DoubleSide });
+
+            const shape = new THREE.Mesh(shapeGeometry, shapeMaterial);
+            shape.position.set(Math.random() * 50 - 25, Math.random() * 50 - 25, Math.random() * 50 - 25);
+            shapeContainer.setObject3D(`shape${i}`, shape);
         }
-        sceneEl.addEventListener('renderstart', measureFPS);
+
+        this.startPerformanceMeasurement();
+    },
+
+    startPerformanceMeasurement: function () {
+        const fpsDisplay = document.getElementById('fpsDisplay');
+        let frameCount = 0;
+        let startTime = performance.now();
+        let totalTime = 0;
+
+        const measure = () => {
+            frameCount++;
+            if (frameCount <= 100) {
+                requestAnimationFrame(measure);
+            } else {
+                const endTime = performance.now();
+                totalTime = (endTime - startTime) / 1000;
+                const avgTimePerFrame = totalTime / 100;
+                const triangles = numShapes * numTrianglesInShape;
+                const avgTimePerTriangle = avgTimePerFrame / triangles;
+
+                console.log(`Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`);
+                console.log(`Average time per triangle: ${avgTimePerTriangle.toFixed(9)} seconds`);
+
+                fpsDisplay.textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} s | Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s`;
+            }
+        };
+
+        measure();
     }
-
-    function measureFPS() {
-        if (frameCount === 0) {
-            startTime = performance.now();
-        }
-        frameCount++;
-
-        if (frameCount === 100) {
-            endTime = performance.now();
-            const duration = (endTime - startTime) / 1000;
-            const fps = frameCount / duration;
-            const timePerTriangle = duration / (totalTriangles * frameCount);
-
-            fpsDisplay.innerText = `FPS: ${fps.toFixed(2)}\nTime per Triangle: ${(timePerTriangle * 1000000).toFixed(2)} µs`;
-            
-            // stop measuring
-            sceneEl.removeEventListener('renderstart', measureFPS);
-        }
-    }
-
-    startTest();
 });
+
+document.querySelector('#shapes').setAttribute('generate-shapes', '');
