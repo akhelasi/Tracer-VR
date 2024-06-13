@@ -1,6 +1,6 @@
 let numShapes = 500; // How many figures (Shapes)
 let numTrianglesInShape = 200; // How many "triangles" in one figure (Shape)
-// "tringles" რაოდენობა = numShapes * numTrianglesInShape
+// "triangles" რაოდენობა = numShapes * numTrianglesInShape
 
 AFRAME.registerComponent('generate-shapes', {
     init: function () {
@@ -33,31 +33,28 @@ AFRAME.registerComponent('generate-shapes', {
         const fpsDisplay = document.getElementById('fpsDisplay').children;
         let frameCount = 0;
         let startTime = performance.now();
-        let totalTime = 0;
+
+        const updatePerformanceMetrics = () => {
+            const currentTime = performance.now();
+            const elapsedTime = (currentTime - startTime) / 1000; // in seconds
+            const avgTimePerFrame = elapsedTime / frameCount;
+            const triangles = numShapes * numTrianglesInShape;
+            const avgTimePerTriangle = avgTimePerFrame / triangles;
+
+            fpsDisplay[0].textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`;
+            fpsDisplay[1].textContent = `Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s`;
+            fpsDisplay[2].textContent = `Triangles(Tr): ${triangles}`;
+            fpsDisplay[3].textContent = `draw calls(Geometries): ${numShapes}`;
+        };
+
 
         const measure = () => {
             frameCount++;
-            if (frameCount <= 100) {
-                requestAnimationFrame(measure);
-            } else {
-                const endTime = performance.now();
-                totalTime = (endTime - startTime) / 1000;
-                const avgTimePerFrame = totalTime / 100;
-                const triangles = numShapes * numTrianglesInShape;
-                const avgTimePerTriangle = avgTimePerFrame / triangles;
-
-                console.log(`Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`);
-                console.log(`Average time per triangle: ${avgTimePerTriangle.toFixed(9)} seconds`);
-
-                fpsDisplay[0].textContent = `Average time per frame: ${avgTimePerFrame.toFixed(6)} seconds`;
-                fpsDisplay[1].textContent = `Average time per triangle: ${avgTimePerTriangle.toFixed(9)} s.`;
-                fpsDisplay[2].textContent = `Triangles: ${triangles}`;
-                fpsDisplay[3].textContent = `draw calls: ${numShapes}`;
-
-            }
+            requestAnimationFrame(measure);
         };
 
         measure();
+        setInterval(updatePerformanceMetrics, 1000);
     }
 });
 
