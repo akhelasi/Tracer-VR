@@ -620,8 +620,10 @@ function addGlbModel(adres, nameGlb) {
         });
 }
 
-addGlbModel('../GLB/', 'UX15.glb');
+addGlbModel('../GLB/', 'cavern_.glb');
 addGlbModel('../GLB/', 'feet.glb');
 
-addGlbModel('../GLB/', 'HO-Platforms.glb');
-addGlbModel('../GLB/', 'HS-Platforms.glb');
+addGlbModel('../GLB/', 'barrel_toroid.glb');
+addGlbModel('../GLB/', 'endcap_toroid.glb');
+addGlbModel('../GLB/', 'warm_structure.glb');
+
