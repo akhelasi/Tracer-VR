@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR Example</title>
+  <title>AR Project</title>
   <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
   <style>
@@ -34,9 +34,10 @@
   <a-scene
     vr-mode-ui='enabled: false;'
     renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
+    embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: true;'>
+
     <a-nft
-      type='nft' url='./assets/images/Detector_Overview_300_DPI'
+      type='nft' url='./assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1'
       smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
       <a-entity
         gltf-model='./assets/models/magnet_system_scene.glb'
@@ -44,6 +45,17 @@
         position="0 0 -5">
       </a-entity>
     </a-nft>
+
+    <a-nft
+    type='nft' url='./assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2'
+    smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
+    <a-entity
+      gltf-model='./assets/models/solenoid_scene.glb'
+      scale="5 5 5"
+      position="0 0 -5">
+    </a-entity>
+  </a-nft>
+
     <a-entity camera></a-entity>
   </a-scene>
 </body>
