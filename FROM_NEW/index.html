@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AR Project</title>
-  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
   <style>
     .arjs-loader {
       height: 100%;
@@ -26,41 +26,49 @@
       color: white;
     }
   </style>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
 </head>
-<body style='margin: 0; overflow: hidden;'>
+
+<body style="margin: 0; overflow: hidden;">
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-  <a-scene
-    vr-mode-ui='enabled: false;'
-    renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: true;'>
+  <a-scene  vr-mode-ui="enabled: false;" 
+            renderer="logarithmicDepthBuffer: true; precision: medium;" 
+            embedded
+            arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;">
 
     <!-- პირველი NFT მარკერი -->
 
-    <a-nft
-      type='nft' url='./assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1'
-      smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
-      <a-entity
-        gltf-model='./assets/models/magnet_system_scene.glb'
-        scale="5 5 5"
-        position="0 0 -5">
+    <a-nft  type="nft" 
+            url="./assets/images/Detector_Overview_1-1(NFT)2/Detector_Overview_1-1" 
+            smooth="true"
+            smoothcount="10" 
+            smoothtolerance="0.01" 
+            smooththreshold="5">
+      <a-entity gltf-model="./assets/models/magnet_system_scene.glb" 
+                scale="5 5 5" 
+                position="0 0 -5">
       </a-entity>
     </a-nft>
 
-        <!-- მეორე NFT მარკერი -->
+    <!-- მეორე NFT მარკერი -->
 
-    <a-nft
-    type='nft' url='./assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2'
-    smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
-    <a-entity
-      gltf-model='./assets/models/solenoid_scene.glb'
-      scale="5 5 5"
-      position="0 0 -5">
-    </a-entity>
-  </a-nft>
+    <a-nft  type="nft" 
+            url="./assets/images/Detector_Overview_1-2(NFT)2/Detector_Overview_1-2" 
+            smooth="true"
+            smoothcount="10" 
+            smoothtolerance="0.01" 
+            smooththreshold="5">
+      <a-entity gltf-model="./assets/models/solenoid_scene.glb" 
+                scale="5 5 5" 
+                position="0 0 -5">
+      </a-entity>
+    </a-nft>
 
     <a-entity camera></a-entity>
   </a-scene>
 </body>
+
 </html>
