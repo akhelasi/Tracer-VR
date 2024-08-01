@@ -43,14 +43,14 @@
     <!-- პირველი NFT მარკერი -->
     <a-nft type="nft" url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)/DetectorOverview_1-1" smooth="true" smoothcount="10"
       smoothtolerance="0.01" smooththreshold="5">
-      <a-entity gltf-model="#magnetModel" scale="30 30 30" position="0 0 0" center-model>
+      <a-entity gltf-model="#magnetModel" scale="30 30 30" center-model>
       </a-entity>
     </a-nft>
 
     <!-- მეორე NFT მარკერი -->
     <a-nft type="nft" url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-2(NFT)/DetectorOverview_1-2" smooth="true" smoothcount="10"
       smoothtolerance="0.01" smooththreshold="5">
-      <a-entity gltf-model="#solenoidModel" scale="30 30 30" position="0 0 0" center-model>
+      <a-entity gltf-model="#solenoidModel" scale="30 30 30" center-model>
       </a-entity>
     </a-nft>
 
@@ -64,7 +64,7 @@
           const bbox = new THREE.Box3().setFromObject(this.el.getObject3D('mesh'));
           const center = bbox.getCenter(new THREE.Vector3());
           const size = bbox.getSize(new THREE.Vector3());
-          this.el.object3D.position.set(-center.x, size.y / 2 - center.y, -center.z);
+          this.el.object3D.position.set(-center.x, -center.y + size.y / 2, -center.z);
         });
       }
     });
