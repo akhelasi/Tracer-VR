@@ -1,52 +1,79 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.4.0/dist/aframe-master.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Project</title>
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.4.0/dist/aframe-master.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <style>
+    .arjs-loader {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
-</style>
+    .arjs-loader div {
+      text-align: center;
+      font-size: 1.25em;
+      color: white;
+    }
+  </style>
+</head>
 
-<!-- rawgithack development URL -->
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-
-<body style='margin : 0px; overflow: hidden;'>
-   <!-- minimal loader shown until image descriptors are loaded -->
+<body style="margin: 0; overflow: hidden;">
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-    <a-scene
-        vr-mode-ui='enabled: false;'
-        renderer="logarithmicDepthBuffer: true; precision: medium;"
-        embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
+  <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true; precision: medium;" embedded
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+    <a-assets>
+      <a-asset-item id="magnetModel" src="./assets/models/magnet_system_scene.glb"></a-asset-item>
+      <a-asset-item id="solenoidModel" src="./assets/models/solenoid_scene.glb"></a-asset-item>
+    </a-assets>
 
-        <!-- use rawgithack to retrieve the correct url for nft marker (see 'trex' below) -->
-	<!-- url="https://github.com/akhelasi/Tracer-VR/blob/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)2/ultralytics_1-1" -->
-	<!-- url="https://github.com/akhelasi/Tracer-VR/blob/master/FROM_NEW/assets/models/magnet_system_scene.glb" -->
-        <a-nft
-            type='nft' url='https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)2/ultralytics_1-1'
-            smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
-            <a-entity
-                gltf-model='https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/magnet_system_scene.glb'
-                scale="250 250 250"
-                position="1000 350 80"
-                >
-            </a-entity>
-        </a-nft>
-		<a-entity camera></a-entity>
-    </a-scene>
+    <!-- პირველი NFT მარკერი -->
+    <a-nft type="nft" url="./assets/images/Detector_Overview_1-1(NFT)2/ultralytics_1-1" smooth="true" smoothcount="10"
+      smoothtolerance="0.01" smooththreshold="5">
+      <a-entity gltf-model="#magnetModel" scale="5 5 5" position="0 0 0">
+      </a-entity>
+    </a-nft>
+
+    <!-- მეორე NFT მარკერი -->
+    <a-nft type="nft" url="./assets/images/Detector_Overview_1-2(NFT)2/ultralytics_1-2" smooth="true" smoothcount="10"
+      smoothtolerance="0.01" smooththreshold="5">
+      <a-entity gltf-model="#solenoidModel" scale="5 5 5" position="0 0 0">
+      </a-entity>
+    </a-nft>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    AFRAME.registerComponent('center-model', {
+      init: function () {
+        this.el.addEventListener('model-loaded', () => {
+          const bbox = new THREE.Box3().setFromObject(this.el.getObject3D('mesh'));
+          const center = bbox.getCenter(new THREE.Vector3());
+          const size = bbox.getSize(new THREE.Vector3());
+          this.el.object3D.position.set(-center.x, -center.y, -center.z);
+          this.el.object3D.position.y += size.y / 2;
+        });
+      }
+    });
+
+    document.querySelectorAll('a-nft a-entity').forEach(entity => {
+      entity.setAttribute('center-model', '');
+    });
+  </script>
 </body>
+
+</html>
