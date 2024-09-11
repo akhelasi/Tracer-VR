@@ -11,7 +11,7 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,6 +37,33 @@
 
     <!-- პირველი NFT მარკერი -->
     <a-nft  type="nft" 
+            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)3/DetectorOverview_1-1" 
+            smooth="true" 
+            smoothcount="10"
+            smoothtolerance="0.01" 
+            smooththreshold="5">
+      <a-entity gltf-model="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/magnet_system_scene.glb" 
+                scale="30 30 30" 
+                position="0 0 0">
+      </a-entity>
+    </a-nft>
+
+    <!-- მეორე NFT მარკერი -->
+    <a-nft  type="nft" 
+            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-2(NFT)3/DetectorOverview_1-2" 
+            smooth="true" 
+            smoothcount="10"
+            smoothtolerance="0.01" 
+            smooththreshold="5">
+      <a-entity gltf-model="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/solenoid_scene.glb" 
+                scale="30 30 30" 
+                position="0 0 0">
+      </a-entity>
+    </a-nft>
+
+	    
+<!--     <-- პირველი NFT მარკერი ->
+    <a-nft  type="nft" 
             url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)/DetectorOverview_1-1" 
             smooth="true" 
             smoothcount="10"
@@ -46,7 +73,7 @@
                 scale="50 50 50" 
                 position="150 70 100">
       </a-entity>
-    </a-nft>
+    </a-nft> -->
       
 		<a-entity camera></a-entity>
     </a-scene>
