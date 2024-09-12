@@ -1,80 +1,75 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.4.0/dist/aframe-master.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- rawgithack development URL -->
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Project</title>
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.4.0/dist/aframe-master.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <style>
+    .arjs-loader {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-<style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    .arjs-loader div {
+      text-align: center;
+      font-size: 1.25em;
+      color: white;
+    }
+  </style>
+</head>
 
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
-</style>
-
-<body style='margin : 0px; overflow: hidden;'>
-   <!-- minimal loader shown until image descriptors are loaded -->
+<body style="margin: 0; overflow: hidden;">
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-    <a-scene
-        vr-mode-ui='enabled: false;'
-        renderer="logarithmicDepthBuffer: true; precision: medium;"
-        embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
-
+  <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true; precision: medium;" embedded
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+    <a-assets>
+      <a-asset-item id="magnetModel" src="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/magnet_system_scene.glb"></a-asset-item>
+      <a-asset-item id="solenoidModel" src="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/solenoid_scene.glb"></a-asset-item>
+    </a-assets>
 
     <!-- პირველი NFT მარკერი -->
     <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)3/DetectorOverview_1-1" 
+            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)6/ultralytics_1-1324" 
             smooth="true" 
             smoothcount="10"
             smoothtolerance="0.01" 
-            smooththreshold="5">
-      <a-entity gltf-model="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/magnet_system_scene.glb" 
+            smooththreshold="5"
+            size="0.165">
+      <a-entity gltf-model="#magnetModel" 
                 scale="30 30 30" 
-                position="0 0 0">
+                position="256 0 -51.2">
       </a-entity>
     </a-nft>
 
     <!-- მეორე NFT მარკერი -->
     <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-2(NFT)3/DetectorOverview_1-2" 
+            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-2(NFT)6/ultralytics_1-2324" 
             smooth="true" 
             smoothcount="10"
             smoothtolerance="0.01" 
-            smooththreshold="5">
-      <a-entity gltf-model="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/solenoid_scene.glb" 
+            smooththreshold="5"
+            size="0.084">
+      <a-entity gltf-model="#solenoidModel" 
                 scale="30 30 30" 
-                position="0 0 0">
+                position="150 0 -80">
       </a-entity>
     </a-nft>
 
-	    
-<!--     <-- პირველი NFT მარკერი ->
-    <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/images/Detector_Overview_1-1(NFT)/DetectorOverview_1-1" 
-            smooth="true" 
-            smoothcount="10"
-            smoothtolerance="0.01" 
-            smooththreshold="5">
-      <a-entity gltf-model="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/magnet_system_scene.glb" 
-                scale="50 50 50" 
-                position="150 70 100">
-      </a-entity>
-    </a-nft> -->
-      
-		<a-entity camera></a-entity>
-    </a-scene>
+    <a-entity camera></a-entity>
+  </a-scene>
+
 </body>
+
+</html>
