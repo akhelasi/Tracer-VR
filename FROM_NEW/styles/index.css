@@ -1,5 +1,10 @@
 /*     CSS     */
 
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
 .arjs-loader {
     height: 100%;
     width: 100%;
@@ -18,3 +23,4 @@
     font-size: 1.25em;
     color: white;
 }
+  
