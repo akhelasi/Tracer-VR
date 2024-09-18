@@ -29,11 +29,21 @@
 </head>
 
 <body style="margin: 0; overflow: hidden;">
+
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-  <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true; precision: medium;" embedded
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+
+<!--   
+              renderer="logarithmicDepthBuffer: true; precision: medium;" 
+  -->
+  <a-scene  arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+            embedded 
+            renderer="logarithmicDepthBuffer: true;" 
+            vr-mode-ui="enabled: false;" 
+            gesture-detector
+            id="scene">
+
     <a-assets>
       <a-asset-item id="magnetModel" src="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/magnet_system_scene.glb"></a-asset-item>
       <a-asset-item id="solenoidModel" src="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/FROM_NEW/assets/models/solenoid_scene.glb"></a-asset-item>
@@ -46,10 +56,15 @@
             smoothcount="10"
             smoothtolerance="0.01" 
             smooththreshold="5"
-            size="0.165">
+            raycaster="objects: .clickable"
+            emitevents="true"
+            cursor="fuse: false; rayOrigin: mouse;"
+            >
       <a-entity gltf-model="#magnetModel" 
                 scale="30 30 30" 
-                position="256 0 -51.2">
+                position="256 0 -51.2"
+                class="clickable"
+                gesture-handler="minScale: 0.25; maxScale: 10">
       </a-entity>
     </a-nft>
 
@@ -60,10 +75,15 @@
             smoothcount="10"
             smoothtolerance="0.01" 
             smooththreshold="5"
-            size="0.084">
+            raycaster="objects: .clickable"
+            emitevents="true"
+            cursor="fuse: false; rayOrigin: mouse;"
+            >
       <a-entity gltf-model="#solenoidModel" 
                 scale="30 30 30" 
-                position="150 0 -80">
+                position="150 0 -80"
+                class="clickable"
+                gesture-handler="minScale: 0.25; maxScale: 10">
       </a-entity>
     </a-nft>
 
