@@ -2,10 +2,17 @@
 <html lang="en">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR Project</title>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AR Project _ Gesture Interactions - A-Frame & AR.js</title>
   <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.4.0/dist/aframe-master.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="gesture-detector.js"></script>
+  <script src="gesture-handler.js"></script>
+  <!-- <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script> -->
+  
   <style>
     .arjs-loader {
       height: 100%;
@@ -39,7 +46,7 @@
   -->
   <a-scene  arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
             embedded 
-            renderer="logarithmicDepthBuffer: true; precision: medium;" 
+            renderer="logarithmicDepthBuffer: true;" 
             vr-mode-ui="enabled: false;" 
             gesture-detector
             id="scene">
@@ -59,12 +66,13 @@
             raycaster="objects: .clickable"
             emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;"
+            id="markerA"
             >
       <a-entity gltf-model="#magnetModel" 
                 scale="30 30 30" 
                 position="256 0 -51.2"
                 class="clickable"
-                gesture-handler="minScale: 0.25; maxScale: 10">
+                gesture-handler="minScale: 5; maxScale: 100">
       </a-entity>
     </a-nft>
 
@@ -78,12 +86,13 @@
             raycaster="objects: .clickable"
             emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;"
+            id="markerB"
             >
       <a-entity gltf-model="#solenoidModel" 
                 scale="30 30 30" 
                 position="150 0 -80"
                 class="clickable"
-                gesture-handler="minScale: 0.25; maxScale: 10">
+                gesture-handler="minScale: 5; maxScale: 100">
       </a-entity>
     </a-nft>
 
