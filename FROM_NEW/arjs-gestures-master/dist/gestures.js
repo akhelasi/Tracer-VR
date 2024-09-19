@@ -15,16 +15,13 @@ AFRAME.registerComponent("gesture-handler", {
     this.isVisible = false;
     this.initialScale = this.el.object3D.scale.clone();
     this.scaleFactor = 1;
-    let visibleNumber = 0;
 
     this.el.sceneEl.addEventListener("markerFound", (e) => {
       this.isVisible = true;
-      visibleNumber++;
     });
 
     this.el.sceneEl.addEventListener("markerLost", (e) => {
       this.isVisible = false;
-      visibleNumber--;
     });
   },
 
@@ -44,7 +41,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleRotation: function (event) {
-    if (this.isVisible || visibleNumber > 0) {
+    if (this.isVisible) {
       this.el.object3D.rotation.y +=
         event.detail.positionChange.x * this.data.rotationFactor;
       this.el.object3D.rotation.x +=
@@ -53,7 +50,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleScale: function (event) {
-    if (this.isVisible || visibleNumber > 0) {
+    if (this.isVisible) {
       this.scaleFactor *=
         1 + event.detail.spreadChange / event.detail.startSpread;
 
