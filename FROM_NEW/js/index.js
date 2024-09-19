@@ -11,23 +11,23 @@ const marker2 = document.getElementById("marker2");
 marker1.addEventListener("markerFound", () => {
   if (!model2Visible) {
     model1Visible = true;
-    model1.setAttribute("visible", true);
+    model1.setAttribute("isVisible", true);
   }
 });
 
 marker1.addEventListener("markerLost", () => {
   model1Visible = false;
-  model1.setAttribute("visible", false);
+  model1.setAttribute("isVisible", false);
 });
 
 marker2.addEventListener("markerFound", () => {
   if (!model1Visible) {
     model2Visible = true;
-    model2.setAttribute("visible", true);
+    model2.setAttribute("isVisible", true);
   }
 });
 
 marker2.addEventListener("markerLost", () => {
   model2Visible = false;
-  model2.setAttribute("visible", false);
+  model2.setAttribute("isVisible", false);
 });
