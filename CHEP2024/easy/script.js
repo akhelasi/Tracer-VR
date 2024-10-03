@@ -1,7 +1,6 @@
 ////   JavaScript   ////
 
-let numFigures = 500; // რამდენი ფიგურა (Shapes)
-let numTrianglesInFigure = 200; // რამდენი "სამკუთხედი" ერთ ფიგურაში
+let numFigures = 16; // რამდენი ფიგურა (Shapes)
 
 // ფუნქცია, რომელიც იწყებს შესრულების გაზომვას
 function startPerformanceMeasurement() {
@@ -13,13 +12,13 @@ function startPerformanceMeasurement() {
         const currentTime = performance.now();
         const elapsedTime = (currentTime - startTime) / 1000; // წამებში
         const avgTimePerFrame = elapsedTime / frameCount;
-        const triangles = numFigures * numTrianglesInFigure;
+        const triangles = 104612;
         const avgTimePerTriangle = avgTimePerFrame / triangles;
 
         fpsDisplay[1].textContent = `Triangles (Tr): ${triangles}`;
         fpsDisplay[2].textContent = `Draw calls (Geometries): ${numFigures}`;
-        fpsDisplay[3].textContent = `ATP frame: ${avgTimePerFrame.toFixed(6)} seconds`;
-        fpsDisplay[4].textContent = `ATP (Tr): ${avgTimePerTriangle.toFixed(9)} seconds`;
+        fpsDisplay[3].textContent = `(ATP)* frame: ${avgTimePerFrame.toFixed(6)} seconds`;
+        fpsDisplay[4].textContent = `(ATP)* (Tr)*: ${avgTimePerTriangle.toFixed(9)} seconds`;
     };
 
     const measure = () => {
@@ -28,7 +27,7 @@ function startPerformanceMeasurement() {
     };
 
     measure();
-    setInterval(updatePerformanceMetrics, 250);
+    setInterval(updatePerformanceMetrics, 100);
 }
 
 // დაიწყეთ შესრულების გაზომვა
