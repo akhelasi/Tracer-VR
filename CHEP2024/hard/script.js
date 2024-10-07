@@ -82,6 +82,6 @@ addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'muon-barrel-outer.glb');
 // addGlbModel('./GLB/meore_scena/cavern/', 'px16.glb');
 // addGlbModel('./GLB/meore_scena/cavern/', 'us15.glb');
 // addGlbModel('./GLB/meore_scena/cavern/', 'usa15.glb');
-addGlbModel('./GLB/meore_scena/cavern/', 'ux15.glb');
+addGlbModel('./GLB/meore_scena/cavern/', 'cavern.glb');
 
 addGlbModel('./GLB/meore_scena/feets/', 'feet.glb');
