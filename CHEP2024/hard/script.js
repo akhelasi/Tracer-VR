@@ -72,16 +72,18 @@ function addGlbModel(adres, nameGlb) {
 }
 
 // მოდელების დამატება
-addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'muon-barrel-inner.glb');
-addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'muon-barrel-middle.glb');
-addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'muon-barrel-outer.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'inner-compresed.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'middle-compresed.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'outer_1compresed.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'outer_2compresed.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'outer_3compresed.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'outer_4compresed.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'outer_5compresed.glb');
+addGlbModel('./GLB/meore_scena/BIS_BIM_BIO/', 'outer_6compresed.glb');
 
-// addGlbModel('./GLB/meore_scena/cavern/', 'pm15.glb');
-// addGlbModel('./GLB/meore_scena/cavern/', 'px14.glb');
-// addGlbModel('./GLB/meore_scena/cavern/', 'px15.glb');
-// addGlbModel('./GLB/meore_scena/cavern/', 'px16.glb');
-// addGlbModel('./GLB/meore_scena/cavern/', 'us15.glb');
-// addGlbModel('./GLB/meore_scena/cavern/', 'usa15.glb');
-addGlbModel('./GLB/meore_scena/cavern/', 'cavern.glb');
+addGlbModel('./GLB/meore_scena/brackets/', 'brackets_1-compresed.glb');
+addGlbModel('./GLB/meore_scena/brackets/', 'brackets_1-compresed.glb');
 
-addGlbModel('./GLB/meore_scena/feets/', 'Feet-v1.glb');
+addGlbModel('./GLB/meore_scena/cavern/', 'cavern-compresed.glb');
+
+addGlbModel('./GLB/meore_scena/feets/', 'feet-compresed.glb');
