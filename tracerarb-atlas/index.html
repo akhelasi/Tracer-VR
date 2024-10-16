@@ -17,11 +17,112 @@
    -->
 </head>
 
+<script>
+
+  window.addEventListener('load', () => {
+    const camera = document.querySelector('[camera]');
+    const marker = document.querySelector('#marker1'); // main marker
+    const entMarker = document.querySelector('#entmarker1'); // hidden marker entity
+    const distanceDisplay = document.querySelector('#distance-display'); // distance display element
+
+    let entMarkerAdded = false; // track if entMarker1 is added
+    let check;
+
+    marker.addEventListener('markerFound', () => {
+      let cameraPosition = camera.object3D.position;
+      let markerPosition = marker.object3D.position;
+      let distance = cameraPosition.distanceTo(markerPosition)
+
+      check = setInterval(() => {
+        cameraPosition = camera.object3D.position;
+        markerPosition = marker.object3D.position;
+        distance = cameraPosition.distanceTo(markerPosition)
+
+        // do what you want with the distance:
+        
+        // Update the distance in the console and on screen
+        console.log(distance);
+
+        // Convert distance to centimeters and update the display
+        const distanceInCm = (distance * 100).toFixed(2); // convert to centimeters and round to 2 decimal places
+        distanceDisplay.innerHTML = `Distance: ${distanceInCm} cm`;
+      }, 500);
+    });
+
+    marker.addEventListener('markerLost', () => {
+      clearInterval(check);
+    })
+
+    marker.addEventListener('markerFound', () => {
+      if (!entMarkerAdded) {
+        // Get marker1's position and rotation
+        const markerPosition = marker.object3D.position;
+        const markerRotation = marker.object3D.rotation;
+
+        // Update the position and rotation directly using object3D
+        entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+        entMarker.object3D.rotation.set(markerRotation.x, markerRotation.y, markerRotation.z);
+
+        // Make the entmarker1 visible
+        entMarker.setAttribute('visible', 'true');
+
+        console.log(entMarker.getAttribute('visible'));
+
+        // Mark that entmarker1 has been added
+        entMarkerAdded = true;
+
+        console.log('entmarker1 added with position:', markerPosition);
+        console.log('entMarker position:', entMarker.object3D.position);
+
+
+        // Rotation update interval (every 50ms for 20 updates per second)
+        setInterval(() => {
+          const updatedRotation = marker.object3D.rotation;
+          entMarker.object3D.rotation.set(updatedRotation.x, updatedRotation.y, updatedRotation.z);
+        }, 50); // 50ms interval for 20 updates per second
+        
+      }
+    });
+
+    marker.addEventListener('markerLost', () => {
+      console.log('Marker lost');
+      // Optionally hide or do something when marker is lost
+    });
+  });
+
+
+// const marker = document.querySelector('a-nft');
+// let lastPosition = new THREE.Vector3();
+// let tolerance = 10;
+// const entmarker = document.querySelector('#entmarker1');
+
+// marker.addEventListener('markerFound', () => {
+//   setInterval(() => {
+
+//     let currentMarkPosition = marker.object3D.position;
+//     let currentEntPosition = entmarker.object3D.position;
+//     if (lastPosition.distanceTo(currentMarkPosition) > tolerance) {
+//       // განაახლე პოზიცია მხოლოდ მაშინ, თუ მნიშვნელოვნად შეიცვალა
+//       lastPosition.copy(currentMarkPosition);
+//     } else {
+//       // გააჩერე მოდელი, თუ მცირე მერყეობაა
+//       entmarker.object3D.position.copy(lastPosition);
+//     }
+//   }, 100); // განაახლე ყოველ 100 ms-ში
+// });
+
+</script>
+
 <body>
 
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
+
+    <!-- Distance Display Div -->
+    <div id="distance-display" style="position: fixed; bottom: 10px; left: 10px; font-size: 20px; color: white; background-color: rgba(0, 0, 0, 0.5); padding: 5px;">
+      Distance: 0 cm
+    </div>
 
 <!--   
             renderer="logarithmicDepthBuffer: true; precision: medium;" 
@@ -39,29 +140,45 @@
     </a-assets>
 
     <!-- პირველი NFT მარკერი -->
+    <!-- url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi"  -->
     <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" 
+            url="./assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" 
             smooth="true" 
-            smoothcount="10"
-            smoothtolerance="0.01" 
-            smooththreshold="5"
+            smoothcount="60"
+            smoothtolerance="20" 
+            smooththreshold="30"
+            size="0.1699 0.1116"
             raycaster="objects: .clickable"
             emitevents="true"
             cursor="fuse: false; rayOrigin: mouse;"
             id="marker1"
             >
+      <!-- <a-entity gltf-model="#magnetModel" 
+                scale="10 10 10" 
+                position="108 116.8 0"
+                class="clickable"
+                gesture-handler
+                >
+      </a-entity> -->
+    </a-nft>
+
+    <a-entity id="entmarker1"
+              position="0 0 0"
+              visible="false"
+              >
       <a-entity gltf-model="#magnetModel" 
                 scale="30 30 30" 
-                position="0 0 0"
+                position="108 116.8 0"
                 class="clickable"
                 gesture-handler
                 >
       </a-entity>
-    </a-nft>
+    </a-entity>
 
     <!-- მეორე NFT მარკერი -->
-    <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"
+    <!-- url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"  -->
+    <!-- <a-nft  type="nft" 
+            url="./assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"
             smooth="true" 
             smoothcount="10"
             smoothtolerance="0.01" 
@@ -73,12 +190,12 @@
             >
       <a-entity gltf-model="#solenoidModel" 
                 scale="30 30 30" 
-                position="0 0 0"
+                position="650.1 426.9 0"
                 class="clickable"
                 gesture-handler
                 >
       </a-entity>
-    </a-nft>
+    </a-nft> -->
 
     <a-entity camera></a-entity>
   </a-scene>
