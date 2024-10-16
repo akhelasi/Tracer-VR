@@ -27,6 +27,8 @@
 
     let entMarkerAdded = false; // track if entMarker1 is added
     let check;
+    let modelRotInt;
+
 
     marker.addEventListener('markerFound', () => {
       let cameraPosition = camera.object3D.position;
@@ -76,7 +78,6 @@
 
 
         // Rotation update interval (every 50ms for 20 updates per second)
-        let modelRotInt;
         modelRotInt = setInterval(() => {
           const updatedRotation = marker.object3D.rotation;
           entMarker.object3D.rotation.set(updatedRotation.x, updatedRotation.y, updatedRotation.z);
