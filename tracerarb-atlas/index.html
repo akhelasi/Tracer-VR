@@ -76,7 +76,8 @@
 
 
         // Rotation update interval (every 50ms for 20 updates per second)
-        setInterval(() => {
+        let modelRotInt;
+        modelRotInt = setInterval(() => {
           const updatedRotation = marker.object3D.rotation;
           entMarker.object3D.rotation.set(updatedRotation.x, updatedRotation.y, updatedRotation.z);
         }, 50); // 50ms interval for 20 updates per second
@@ -85,6 +86,9 @@
     });
 
     marker.addEventListener('markerLost', () => {
+      clearInterval(modelRotInt);
+      entMarkerAdded = false;
+      entMarker.setAttribute('visible', 'false');
       console.log('Marker lost');
       // Optionally hide or do something when marker is lost
     });
