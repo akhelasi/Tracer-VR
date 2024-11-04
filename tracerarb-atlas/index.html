@@ -49,6 +49,32 @@
       }
     }
 
+    
+    function stabilizeRotation() {
+      const markerRotation = marker.object3D.rotation;
+      const entMarkerRotation = entMarker.object3D.rotation;
+
+      // Convert rotations from radians to degrees
+      const markerRotX = THREE.MathUtils.radToDeg(markerRotation.x);
+      const markerRotY = THREE.MathUtils.radToDeg(markerRotation.y);
+      const markerRotZ = THREE.MathUtils.radToDeg(markerRotation.z);
+
+      const entMarkerRotX = THREE.MathUtils.radToDeg(entMarkerRotation.x);
+      const entMarkerRotY = THREE.MathUtils.radToDeg(entMarkerRotation.y);
+      const entMarkerRotZ = THREE.MathUtils.radToDeg(entMarkerRotation.z);
+
+      // Check if any rotation difference exceeds 10 degrees
+      if (Math.abs(markerRotX - entMarkerRotX) > 10) {
+        entMarkerRotation.x = markerRotation.x;
+      }
+      if (Math.abs(markerRotY - entMarkerRotY) > 10) {
+        entMarkerRotation.y = markerRotation.y;
+      }
+      if (Math.abs(markerRotZ - entMarkerRotZ) > 10) {
+        entMarkerRotation.z = markerRotation.z;
+      }
+    }
+
 
     marker.addEventListener('markerFound', () => {
       let distance;
@@ -65,7 +91,11 @@
       }, 500);
 
       // Call stabilizeModel every 25 milliseconds
-      stabilizeInterval = setInterval(stabilizeModel, 25);
+      stabilizeInterval = setInterval(() => {
+        stabilizeModel();
+        stabilizeRotation();
+      }, 25);
+
     });
 
     marker.addEventListener('markerLost', () => {
@@ -129,6 +159,7 @@
 // });
 
 </script>
+
   
 <body>
 
