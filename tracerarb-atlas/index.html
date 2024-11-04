@@ -40,7 +40,7 @@
       const distanceMarkerToEnt = markerPosition.distanceTo(entMarkerPosition);
 
       // Check the stabilization condition
-      if (distanceToMarker / 30 < distanceMarkerToEnt) {
+      if (distanceToMarker / 10 < distanceMarkerToEnt) {
         // Update entmarker1's position to match marker1
         entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
         console.log("Updated entMarker position to match marker1");
