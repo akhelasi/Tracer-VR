@@ -30,25 +30,40 @@
     let modelRotInt;
 
 
+    function stabilizeModel() {
+      const cameraPosition = camera.object3D.position;
+      const markerPosition = marker.object3D.position;
+      const entMarkerPosition = entMarker.object3D.position;
+
+      const distanceToMarker = cameraPosition.distanceTo(markerPosition);
+      const distanceMarkerToEnt = markerPosition.distanceTo(entMarkerPosition);
+
+      // Check the stabilization condition
+      if (distanceToMarker / 30 < distanceMarkerToEnt) {
+        // Update entmarker1's position to match marker1
+        entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+        console.log("Updated entMarker position to match marker1");
+      } else {
+        console.log("entMarker position remains the same");
+      }
+    }
+
+
     marker.addEventListener('markerFound', () => {
-      let cameraPosition = camera.object3D.position;
-      let markerPosition = marker.object3D.position;
-      let distance = cameraPosition.distanceTo(markerPosition)
+      let distance;
 
       check = setInterval(() => {
-        cameraPosition = camera.object3D.position;
-        markerPosition = marker.object3D.position;
+        const cameraPosition = camera.object3D.position;
+        const markerPosition = marker.object3D.position;
         distance = cameraPosition.distanceTo(markerPosition)
-
-        // do what you want with the distance:
-        
-        // Update the distance in the console and on screen
-        console.log(distance);
 
         // Convert distance to centimeters and update the display
         const distanceInCm = (distance * 100).toFixed(2); // convert to centimeters and round to 2 decimal places
         distanceDisplay.innerHTML = `Distance: ${distanceInCm} cm`;
-      }, 500);
+
+        stabilizeModel(); // Call the stabilization function
+
+      }, 17); // 58 frame per second
     });
 
     marker.addEventListener('markerLost', () => {
@@ -146,9 +161,8 @@
 
     <!-- პირველი NFT მარკერი -->
     <!-- url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi"  -->
-    <!-- url="./assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" -->
     <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" 
+            url="./assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" 
             smooth="true" 
             smoothcount="60"
             smoothtolerance="20" 
@@ -159,13 +173,12 @@
             cursor="fuse: false; rayOrigin: mouse;"
             id="marker1"
             >
-      <!-- <a-entity gltf-model="#magnetModel" 
-                scale="10 10 10" 
+      <a-entity scale="10 10 10" 
                 position="108 116.8 0"
                 class="clickable"
-                gesture-handler
+                visible="false"
                 >
-      </a-entity> -->
+      </a-entity>
     </a-nft>
 
     <a-entity id="entmarker1"
