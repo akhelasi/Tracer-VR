@@ -30,39 +30,24 @@
     let modelRotInt;
 
 
-    function stabilizeModel() {
-      const cameraPosition = camera.object3D.position;
-      const markerPosition = marker.object3D.position;
-      const entMarkerPosition = entMarker.object3D.position;
-
-      const distanceToMarker = cameraPosition.distanceTo(markerPosition);
-      const distanceMarkerToEnt = markerPosition.distanceTo(entMarkerPosition);
-
-      // Check the stabilization condition
-      if (distanceToMarker / 30 < distanceMarkerToEnt) {
-        // Update entmarker1's position to match marker1
-        entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
-        console.log("Updated entMarker position to match marker1");
-      } else {
-        console.log("entMarker position remains the same");
-      }
-    }
-
-
     marker.addEventListener('markerFound', () => {
-      let distance;
+      let cameraPosition = camera.object3D.position;
+      let markerPosition = marker.object3D.position;
+      let distance = cameraPosition.distanceTo(markerPosition)
 
       check = setInterval(() => {
-        const cameraPosition = camera.object3D.position;
-        const markerPosition = marker.object3D.position;
+        cameraPosition = camera.object3D.position;
+        markerPosition = marker.object3D.position;
         distance = cameraPosition.distanceTo(markerPosition)
+
+        // do what you want with the distance:
+        
+        // Update the distance in the console and on screen
+        console.log(distance);
 
         // Convert distance to centimeters and update the display
         const distanceInCm = (distance * 100).toFixed(2); // convert to centimeters and round to 2 decimal places
         distanceDisplay.innerHTML = `Distance: ${distanceInCm} cm`;
-
-        stabilizeModel(); // Call the stabilization function
-
       }, 500);
     });
 
