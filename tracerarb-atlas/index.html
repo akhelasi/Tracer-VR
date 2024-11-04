@@ -27,6 +27,7 @@
 
     let entMarkerAdded = false; // track if entMarker1 is added
     let check;
+    let stabilizeInterval; // interval for stabilizeModel
     // let modelRotInt;
 
 
@@ -57,19 +58,19 @@
         const markerPosition = marker.object3D.position;
         distance = cameraPosition.distanceTo(markerPosition)
 
-        // do what you want with the distance:
-
         // Convert distance to centimeters and update the display
         const distanceInCm = (distance * 100).toFixed(2); // convert to centimeters and round to 2 decimal places
         distanceDisplay.innerHTML = `Distance: ${distanceInCm} cm`;
 
-        stabilizeModel(); // Call the stabilization function
-
       }, 500);
+
+      // Call stabilizeModel every 25 milliseconds
+      stabilizeInterval = setInterval(stabilizeModel, 25);
     });
 
     marker.addEventListener('markerLost', () => {
       clearInterval(check);
+      clearInterval(stabilizeInterval); // stop stabilizeModel interval
     })
 
     marker.addEventListener('markerFound', () => {
@@ -85,13 +86,8 @@
         // Make the entmarker1 visible
         entMarker.setAttribute('visible', 'true');
 
-        console.log(entMarker.getAttribute('visible'));
-
         // Mark that entmarker1 has been added
         entMarkerAdded = true;
-
-        console.log('entmarker1 added with position:', markerPosition);
-        console.log('entMarker position:', entMarker.object3D.position);
 
 
         // Rotation update interval (every 50ms for 20 updates per second)
@@ -107,7 +103,6 @@
       // clearInterval(modelRotInt);
       entMarkerAdded = false;
       entMarker.setAttribute('visible', 'false');
-      console.log('Marker lost');
       // Optionally hide or do something when marker is lost
     });
   });
@@ -134,7 +129,7 @@
 // });
 
 </script>
-
+  
 <body>
 
   <div class="arjs-loader">
