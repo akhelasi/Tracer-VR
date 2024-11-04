@@ -27,27 +27,44 @@
 
     let entMarkerAdded = false; // track if entMarker1 is added
     let check;
-    let modelRotInt;
+    // let modelRotInt;
+
+
+    function stabilizeModel() {
+      const cameraPosition = camera.object3D.position;
+      const markerPosition = marker.object3D.position;
+      const entMarkerPosition = entMarker.object3D.position;
+
+      const distanceToMarker = cameraPosition.distanceTo(markerPosition);
+      const distanceMarkerToEnt = markerPosition.distanceTo(entMarkerPosition);
+
+      // Check the stabilization condition
+      if (distanceToMarker / 30 < distanceMarkerToEnt) {
+        // Update entmarker1's position to match marker1
+        entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+        console.log("Updated entMarker position to match marker1");
+      } else {
+        console.log("entMarker position remains the same");
+      }
+    }
 
 
     marker.addEventListener('markerFound', () => {
-      let cameraPosition = camera.object3D.position;
-      let markerPosition = marker.object3D.position;
-      let distance = cameraPosition.distanceTo(markerPosition)
+      let distance;
 
       check = setInterval(() => {
-        cameraPosition = camera.object3D.position;
-        markerPosition = marker.object3D.position;
+        const cameraPosition = camera.object3D.position;
+        const markerPosition = marker.object3D.position;
         distance = cameraPosition.distanceTo(markerPosition)
 
         // do what you want with the distance:
-        
-        // Update the distance in the console and on screen
-        console.log(distance);
 
         // Convert distance to centimeters and update the display
         const distanceInCm = (distance * 100).toFixed(2); // convert to centimeters and round to 2 decimal places
         distanceDisplay.innerHTML = `Distance: ${distanceInCm} cm`;
+
+        stabilizeModel(); // Call the stabilization function
+
       }, 500);
     });
 
@@ -78,16 +95,16 @@
 
 
         // Rotation update interval (every 50ms for 20 updates per second)
-        modelRotInt = setInterval(() => {
-          const updatedRotation = marker.object3D.rotation;
-          entMarker.object3D.rotation.set(updatedRotation.x, updatedRotation.y, updatedRotation.z);
-        }, 50); // 50ms interval for 20 updates per second
+        // modelRotInt = setInterval(() => {
+        //   const updatedRotation = marker.object3D.rotation;
+        //   entMarker.object3D.rotation.set(updatedRotation.x, updatedRotation.y, updatedRotation.z);
+        // }, 50); // 50ms interval for 20 updates per second
         
       }
     });
 
     marker.addEventListener('markerLost', () => {
-      clearInterval(modelRotInt);
+      // clearInterval(modelRotInt);
       entMarkerAdded = false;
       entMarker.setAttribute('visible', 'false');
       console.log('Marker lost');
