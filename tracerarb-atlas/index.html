@@ -40,16 +40,17 @@
       const distanceMarkerToEnt = markerPosition.distanceTo(entMarkerPosition);
 
       // Check the stabilization condition
-      if (distanceToMarker / 20 < distanceMarkerToEnt) {
+      if (distanceToMarker / 30 < distanceMarkerToEnt) {
         // Update entmarker1's position to match marker1
-        entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+        // entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+        entMarker.object3D.position.set( 0, 0, (0 - distanceToMarker) );
         console.log("Updated entMarker position to match marker1");
       } else {
         console.log("entMarker position remains the same");
       }
     }
 
-    
+
     function stabilizeRotation() {
       const markerRotation = marker.object3D.rotation;
       const entMarkerRotation = entMarker.object3D.rotation;
@@ -202,7 +203,7 @@
             id="marker1"
             >
       <a-entity scale="10 10 10" 
-                position="108 116.8 0"
+                position="0 0 0"
                 class="clickable"
                 visible="false"
                 >
@@ -215,12 +216,14 @@
               >
       <a-entity gltf-model="#magnetModel" 
                 scale="30 30 30" 
-                position="108 116.8 0"
+                position="0 0 0"
                 class="clickable"
                 gesture-handler
                 >
       </a-entity>
     </a-entity>
+    <!-- position="108 116.8 0" -->
+
 
     <!-- მეორე NFT მარკერი -->
     <!-- url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"  -->
