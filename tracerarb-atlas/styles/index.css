@@ -24,3 +24,20 @@ body {
     color: white;
 }
   
+#memory-button-container {
+    position: fixed; 
+    bottom: 20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 1000;
+}
+
+#memory-button {
+    font-size: 18px; 
+    padding: 10px 20px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer;
+} 
