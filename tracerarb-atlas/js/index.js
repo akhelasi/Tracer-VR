@@ -17,14 +17,13 @@ window.addEventListener('load', () => {
     const cameraPosition = camera.object3D.position;
     const markerPosition = marker.object3D.position;
     const entMarkerPosition = entMarker.object3D.position;
-
     const distanceToMarker = cameraPosition.distanceTo(markerPosition);
     const distanceMarkerToEnt = markerPosition.distanceTo(entMarkerPosition);
-
     // Check the stabilization condition
-    if (distanceToMarker / 20 < distanceMarkerToEnt) {
+    if (distanceToMarker / 30 < distanceMarkerToEnt) {
       // Update entmarker1's position to match marker1
-      entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+      // entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+      entMarker.object3D.position.set( 0, 0, (0 - distanceToMarker) );
       console.log("Updated entMarker position to match marker1");
     } else {
       console.log("entMarker position remains the same");
@@ -45,14 +44,14 @@ window.addEventListener('load', () => {
     const entMarkerRotY = THREE.MathUtils.radToDeg(entMarkerRotation.y);
     const entMarkerRotZ = THREE.MathUtils.radToDeg(entMarkerRotation.z);
 
-    // Check if any rotation difference exceeds 10 degrees
-    if (Math.abs(markerRotX - entMarkerRotX) > 10) {
+    // Check if any rotation difference exceeds 5 degrees
+    if (Math.abs(markerRotX - entMarkerRotX) > 5) {
       entMarkerRotation.x = markerRotation.x;
     }
-    if (Math.abs(markerRotY - entMarkerRotY) > 10) {
+    if (Math.abs(markerRotY - entMarkerRotY) > 5) {
       entMarkerRotation.y = markerRotation.y;
     }
-    if (Math.abs(markerRotZ - entMarkerRotZ) > 10) {
+    if (Math.abs(markerRotZ - entMarkerRotZ) > 5) {
       entMarkerRotation.z = markerRotation.z;
     }
   }
