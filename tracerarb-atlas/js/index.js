@@ -1,4 +1,5 @@
-//   JavaScript   //
+//      JavaScript      //
+
 
 window.addEventListener('load', () => {
   const camera = document.querySelector('[camera]');
@@ -7,7 +8,7 @@ window.addEventListener('load', () => {
   // const distanceDisplay = document.querySelector('#distance-display'); // distance display element
 
   let entMarkerAdded = false; // track if entMarker1 is added
-  let check;
+  // let check;
   let stabilizeInterval; // interval for stabilizeModel
   // let modelRotInt;
 
@@ -21,17 +22,16 @@ window.addEventListener('load', () => {
     const distanceMarkerToEnt = markerPosition.distanceTo(entMarkerPosition);
 
     // Check the stabilization condition
-    if (distanceToMarker / 30 < distanceMarkerToEnt) {
+    if (distanceToMarker / 20 < distanceMarkerToEnt) {
       // Update entmarker1's position to match marker1
-      // entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
-      entMarker.object3D.position.set( 0, 0, (0 - distanceToMarker) );
+      entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
       console.log("Updated entMarker position to match marker1");
     } else {
       console.log("entMarker position remains the same");
     }
   }
 
-
+  
   function stabilizeRotation() {
     const markerRotation = marker.object3D.rotation;
     const entMarkerRotation = entMarker.object3D.rotation;
@@ -45,14 +45,14 @@ window.addEventListener('load', () => {
     const entMarkerRotY = THREE.MathUtils.radToDeg(entMarkerRotation.y);
     const entMarkerRotZ = THREE.MathUtils.radToDeg(entMarkerRotation.z);
 
-    // Check if any rotation difference exceeds 5 degrees
-    if (Math.abs(markerRotX - entMarkerRotX) > 5) {
+    // Check if any rotation difference exceeds 10 degrees
+    if (Math.abs(markerRotX - entMarkerRotX) > 10) {
       entMarkerRotation.x = markerRotation.x;
     }
-    if (Math.abs(markerRotY - entMarkerRotY) > 5) {
+    if (Math.abs(markerRotY - entMarkerRotY) > 10) {
       entMarkerRotation.y = markerRotation.y;
     }
-    if (Math.abs(markerRotZ - entMarkerRotZ) > 5) {
+    if (Math.abs(markerRotZ - entMarkerRotZ) > 10) {
       entMarkerRotation.z = markerRotation.z;
     }
   }
@@ -81,7 +81,7 @@ window.addEventListener('load', () => {
   });
 
   marker.addEventListener('markerLost', () => {
-    clearInterval(check);
+    // clearInterval(check);
     clearInterval(stabilizeInterval); // stop stabilizeModel interval
   })
 
