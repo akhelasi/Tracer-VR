@@ -40,8 +40,9 @@ AFRAME.registerComponent("gesture-handler", {
     this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
   },
 
+  //  "|| isMemoryMode" - ეს მე დავამატე
   handleRotation: function (event) {
-    if (this.isVisible) {
+    if (this.isVisible || isMemoryMode) {
       this.el.object3D.rotation.y +=
         event.detail.positionChange.x * this.data.rotationFactor;
       this.el.object3D.rotation.x +=
@@ -49,8 +50,9 @@ AFRAME.registerComponent("gesture-handler", {
     }
   },
 
+  //  "|| isMemoryMode" - ეს მე დავამატე
   handleScale: function (event) {
-    if (this.isVisible) {
+    if (this.isVisible || isMemoryMode) {
       this.scaleFactor *=
         1 + event.detail.spreadChange / event.detail.startSpread;
 

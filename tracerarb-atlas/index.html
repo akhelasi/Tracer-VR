@@ -134,7 +134,11 @@
       // გააკეთე entmarker1 ყოველთვის ხილული
       entMarker.setAttribute('visible', 'true');
 
-      console.log("Memory mode activated!");
+      // განაახლე gesture-handler
+      entMarker.removeAttribute('gesture-handler'); // ამოშალე gesture-handler
+      entMarker.setAttribute('gesture-handler', ''); // თავიდან დაამატე gesture-handler
+
+      console.log("Memory mode activated and gesture-handler reinitialized!");
     });
 
   </script>
