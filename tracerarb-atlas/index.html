@@ -116,9 +116,12 @@
 
   <script>
 
+    let memoryButton = document.getElementById('memory-button');
+
     let isMemoryMode = false; // True თუ "Memory" რეჟიმში ვართ
 
-    document.getElementById('memory-button').addEventListener('click', () => {
+    memoryButton.addEventListener('click', () => {
+
       if (!isMemoryMode) {
         // Memory რეჟიმის ჩართვა
         isMemoryMode = true; // ჩართე Memory რეჟიმი
@@ -153,7 +156,7 @@
 
         // მარკერის მოქმედებების აღდგენა
         // entMarker.removeAttribute('gesture-handler');
-        
+
         memoryButton.innerText = "Activate Memory";
         console.log("Memory mode deactivated and marker restored!");
       }
