@@ -92,7 +92,7 @@
     <!-- მეორე NFT მარკერი -->
     <!-- url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"  -->
     <!-- <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"
+            url="./assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"
             smooth="true" 
             smoothcount="10"
             smoothtolerance="0.01" 
@@ -115,15 +115,30 @@
   </a-scene>
 
   <script>
-    // სატესტო ფუნქცია ღილაკისთვის
+
+    let isMemoryMode = false; // True თუ "Memory" რეჟიმში ვართ
+
     document.getElementById('memory-button').addEventListener('click', () => {
-      alert('Memory button clicked!'); // სატესტო ფუნქცია: აჩვენებს "alert"-ს
-      // აქ დაამატე შენი ფუნქცია
+      isMemoryMode = true; // ჩართე Memory რეჟიმი
+
+      // entmarker1-ის პოზიციის და როტაციის შენარჩუნება
+      const markerPosition = marker.object3D.position;
+      const markerRotation = marker.object3D.rotation;
+
+      // პოზიცია
+      entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+
+      // როტაცია
+      entMarker.object3D.rotation.set(markerRotation.x, markerRotation.y, markerRotation.z);
+
+      // გააკეთე entmarker1 ყოველთვის ხილული
+      entMarker.setAttribute('visible', 'true');
+
+      console.log("Memory mode activated!");
     });
+
   </script>
 
-  
-  <!-- <script src="./js/index.js"></script> -->
 </body>
 
 </html>

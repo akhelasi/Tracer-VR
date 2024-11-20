@@ -14,6 +14,8 @@ window.addEventListener('load', () => {
 
 
   function stabilizeModel() {
+    if (isMemoryMode) return; // თუ Memory რეჟიმში ვართ, არაფერი გააკეთო
+
     const cameraPosition = camera.object3D.position;
     const markerPosition = marker.object3D.position;
     const entMarkerPosition = entMarker.object3D.position;
@@ -32,6 +34,8 @@ window.addEventListener('load', () => {
 
   
   function stabilizeRotation() {
+    if (isMemoryMode) return; // თუ Memory რეჟიმში ვართ, არაფერი გააკეთო
+
     const markerRotation = marker.object3D.rotation;
     const entMarkerRotation = entMarker.object3D.rotation;
 
@@ -111,11 +115,15 @@ window.addEventListener('load', () => {
   });
 
   marker.addEventListener('markerLost', () => {
-    // clearInterval(modelRotInt);
-    entMarkerAdded = false;
-    entMarker.setAttribute('visible', 'false');
-    // Optionally hide or do something when marker is lost
+    if (!isMemoryMode) {
+      entMarkerAdded = false;
+      entMarker.setAttribute('visible', 'false');
+      console.log("Marker lost and entMarker hidden.");
+    } else {
+      console.log("Marker lost but Memory mode is active. entMarker remains visible.");
+    }
   });
+  
 });
 
 
