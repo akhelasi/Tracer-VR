@@ -119,26 +119,44 @@
     let isMemoryMode = false; // True თუ "Memory" რეჟიმში ვართ
 
     document.getElementById('memory-button').addEventListener('click', () => {
-      isMemoryMode = true; // ჩართე Memory რეჟიმი
+      if (!isMemoryMode) {
+        // Memory რეჟიმის ჩართვა
+        isMemoryMode = true; // ჩართე Memory რეჟიმი
 
-      // entmarker1-ის პოზიციის და როტაციის შენარჩუნება
-      const markerPosition = marker.object3D.position;
-      const markerRotation = marker.object3D.rotation;
+        // entmarker1-ის პოზიციის და როტაციის შენარჩუნება
+        const markerPosition = marker.object3D.position;
+        const markerRotation = marker.object3D.rotation;
 
-      // პოზიცია
-      entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
+        // პოზიცია
+        entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
 
-      // როტაცია
-      entMarker.object3D.rotation.set(markerRotation.x, markerRotation.y, markerRotation.z);
+        // როტაცია
+        entMarker.object3D.rotation.set(markerRotation.x, markerRotation.y, markerRotation.z);
 
-      // გააკეთე entmarker1 ყოველთვის ხილული
-      entMarker.setAttribute('visible', 'true');
+        // გააკეთე entmarker1 ყოველთვის ხილული
+        entMarker.setAttribute('visible', 'true');
 
-      // განაახლე gesture-handler
-      entMarker.removeAttribute('gesture-handler'); // ამოშალე gesture-handler
-      entMarker.setAttribute('gesture-handler', ''); // თავიდან დაამატე gesture-handler
+        // // განაახლე gesture-handler
+        // entMarker.removeAttribute('gesture-handler'); // ამოშალე gesture-handler
+        // entMarker.setAttribute('gesture-handler', ''); // თავიდან დაამატე gesture-handler
 
-      console.log("Memory mode activated and gesture-handler reinitialized!");
+        memoryButton.innerText = "Deactivate Memory";
+        console.log("Memory mode activated!")
+
+      } else {
+        // Memory რეჟიმის გათიშვა
+        isMemoryMode = false;
+
+        // Memory რეჟიმის დეაქტივაციის შემდეგ დამალე entMarker
+        
+        entMarker.setAttribute('visible', marker.isvisible );
+
+        // მარკერის მოქმედებების აღდგენა
+        // entMarker.removeAttribute('gesture-handler');
+        
+        memoryButton.innerText = "Activate Memory";
+        console.log("Memory mode deactivated and marker restored!");
+      }
     });
 
   </script>
