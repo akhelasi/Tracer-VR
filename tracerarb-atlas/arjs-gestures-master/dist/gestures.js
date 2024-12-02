@@ -17,7 +17,7 @@ AFRAME.registerComponent("gesture-handler", {
     this.scaleFactor = 1;
 
     this.el.sceneEl.addEventListener("markerFound", (e) => {
-      this.isVisible = true;
+      this.isVisible = isMemoryMode; // true შევცვალე isMemoryMode-ით
     });
 
     this.el.sceneEl.addEventListener("markerLost", (e) => {

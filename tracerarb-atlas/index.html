@@ -32,7 +32,7 @@
 
       <!-- "Memory" Button -->
   <div id="memory-button-container">
-    <button id="memory-button">
+    <button id="memory-button" style="background-color: #007bff">
       Memory
     </button>
   </div>
@@ -58,8 +58,8 @@
             url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" 
             smooth="true" 
             smoothcount="60"
-            smoothtolerance="20" 
-            smooththreshold="30"
+            smoothtolerance="30" 
+            smooththreshold="50"
             size="0.1699 0.1116"
             raycaster="objects: .clickable"
             emitevents="true"
@@ -143,7 +143,7 @@
         // entMarker.removeAttribute('gesture-handler'); // ამოშალე gesture-handler
         // entMarker.setAttribute('gesture-handler', ''); // თავიდან დაამატე gesture-handler
 
-        memoryButton.innerText = "Deactivate Memory";
+        memoryButton.setAttribute('style', 'background-color: #007bff')
         console.log("Memory mode activated!")
 
       } else {
@@ -157,7 +157,7 @@
         // მარკერის მოქმედებების აღდგენა
         // entMarker.removeAttribute('gesture-handler');
 
-        memoryButton.innerText = "Activate Memory";
+        memoryButton.setAttribute('style', 'background-color: #ff0000')
         console.log("Memory mode deactivated and marker restored!");
       }
     });
