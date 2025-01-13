@@ -10,6 +10,9 @@
   <!-- <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.4.0/dist/aframe-master.min.js"></script> -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+  <script>   window.isMemoryMode = true; // True თუ "Memory" რეჟიმში ვართ  </script>
+  
   <script src="./arjs-gestures-master/dist/gestures.js"></script>
   <!--   
   <script src="./arjs-gestures-master/gesture-detector.js"></script>
@@ -32,7 +35,7 @@
 
       <!-- "Memory" Button -->
   <div id="memory-button-container">
-    <button id="memory-button" style="background-color: #007bff">
+    <button id="memory-button" class="active-button">
       Memory
     </button>
   </div>
@@ -55,7 +58,7 @@
     <!-- პირველი NFT მარკერი -->
     <!-- url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi"  -->
     <a-nft  type="nft" 
-            url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" 
+            url="./assets/images/Detector_Overview_1-1(NFT)/Detector_Overview_1-1-324dpi" 
             smooth="true" 
             smoothcount="60"
             smoothtolerance="30" 
@@ -67,31 +70,17 @@
             id="marker1"
             >
       <a-entity scale="10 10 10" 
-                position="0 0 0"
-                class="clickable"
+                position="1 0 0"
+                class="clickab"
                 visible="false"
                 >
       </a-entity>
     </a-nft>
 
-    <a-entity id="entmarker1"
-              position="0 0 0"
-              visible="false"
-              >
-      <a-entity gltf-model="#magnetModel" 
-                scale="30 30 30" 
-                position="0 0 0"
-                class="clickable"
-                gesture-handler
-                >
-      </a-entity>
-    </a-entity>
-    <!-- position="108 116.8 0" -->
-
 
     <!-- მეორე NFT მარკერი -->
     <!-- url="https://raw.githubusercontent.com/akhelasi/Tracer-VR/master/tracerarb-atlas/assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"  -->
-    <!-- <a-nft  type="nft" 
+    <a-nft  type="nft" 
             url="./assets/images/Detector_Overview_1-2(NFT)/Detector_Overview_1-2-324dpi"
             smooth="true" 
             smoothcount="10"
@@ -102,67 +91,44 @@
             cursor="fuse: false; rayOrigin: mouse;"
             id="marker2"
             >
-      <a-entity gltf-model="#solenoidModel" 
+      <a-entity scale="10 10 10" 
+                position="1 0 0"
+                class="clickab"
+                visible="false"
+                >
+      </a-entity>
+    </a-nft>
+
+
+    <a-entity id="entmarker1"
+              position="0 0 -300"
+              visible="false"
+              >
+      <a-entity gltf-model="#magnetModel" 
                 scale="30 30 30" 
-                position="650.1 426.9 0"
+                position="0 0 0"
                 class="clickable"
+                id="entmodel1"
                 gesture-handler
                 >
       </a-entity>
-    </a-nft> -->
+      <!-- position="108 116.8 0" -->
+                  
+      <a-entity gltf-model="#solenoidModel" 
+                scale="30 30 30" 
+                position="0 0 0"
+                class="clickable"
+                id="entmodel2"
+                gesture-handler
+                >
+      </a-entity>
+      <!-- position="650.1 426.9 0" -->
+
+    </a-entity>
+
 
     <a-entity camera></a-entity>
   </a-scene>
-
-  <script>
-
-    let memoryButton = document.getElementById('memory-button');
-
-    let isMemoryMode = false; // True თუ "Memory" რეჟიმში ვართ
-
-    memoryButton.addEventListener('click', () => {
-
-      if (!isMemoryMode) {
-        // Memory რეჟიმის ჩართვა
-        isMemoryMode = true; // ჩართე Memory რეჟიმი
-
-        // entmarker1-ის პოზიციის და როტაციის შენარჩუნება
-        const markerPosition = marker.object3D.position;
-        const markerRotation = marker.object3D.rotation;
-
-        // პოზიცია
-        entMarker.object3D.position.set(markerPosition.x, markerPosition.y, markerPosition.z);
-
-        // როტაცია
-        entMarker.object3D.rotation.set(markerRotation.x, markerRotation.y, markerRotation.z);
-
-        // გააკეთე entmarker1 ყოველთვის ხილული
-        entMarker.setAttribute('visible', 'true');
-
-        // // განაახლე gesture-handler
-        // entMarker.removeAttribute('gesture-handler'); // ამოშალე gesture-handler
-        // entMarker.setAttribute('gesture-handler', ''); // თავიდან დაამატე gesture-handler
-
-        memoryButton.setAttribute('style', 'background-color: #007bff')
-        console.log("Memory mode activated!")
-
-      } else {
-        // Memory რეჟიმის გათიშვა
-        isMemoryMode = false;
-
-        // Memory რეჟიმის დეაქტივაციის შემდეგ დამალე entMarker
-        
-        entMarker.setAttribute('visible', 'false' );
-
-        // მარკერის მოქმედებების აღდგენა
-        // entMarker.removeAttribute('gesture-handler');
-
-        memoryButton.setAttribute('style', 'background-color: #ff0000')
-        console.log("Memory mode deactivated and marker restored!");
-      }
-    });
-
-  </script>
 
 </body>
 

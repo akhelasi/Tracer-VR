@@ -1,5 +1,7 @@
 /* global AFRAME, THREE */
 
+
+
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
@@ -16,12 +18,18 @@ AFRAME.registerComponent("gesture-handler", {
     this.initialScale = this.el.object3D.scale.clone();
     this.scaleFactor = 1;
 
-    this.el.sceneEl.addEventListener("markerFound", (e) => {
-      this.isVisible = isMemoryMode; // true შევცვალე isMemoryMode-ით
+
+    this.el.sceneEl.addEventListener("markerFound", (e) => { // "markerFound"-ში მარტო "this.isVisible = true;" - ეს ეწერა და შევცვალე if(...){...}-ით
+      if (window.isMemoryMode) { 
+        this.isVisible = true; 
+      }
     });
 
-    this.el.sceneEl.addEventListener("markerLost", (e) => {
-      this.isVisible = false;
+    this.el.sceneEl.addEventListener("markerLost", (e) => { // "markerFound"-ში მარტო "this.isVisible = false;" - ეს ეწერა და შევცვალე if(...){...}-ით
+      if (window.isMemoryMode) {
+        this.isVisible = false;
+
+      }
     });
   },
 
@@ -40,9 +48,9 @@ AFRAME.registerComponent("gesture-handler", {
     this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
   },
 
-  //  "|| isMemoryMode" - ეს მე დავამატე
+
   handleRotation: function (event) {
-    if (this.isVisible || isMemoryMode) {
+    if (this.isVisible || window.isMemoryMode) {
       this.el.object3D.rotation.y +=
         event.detail.positionChange.x * this.data.rotationFactor;
       this.el.object3D.rotation.x +=
@@ -50,9 +58,9 @@ AFRAME.registerComponent("gesture-handler", {
     }
   },
 
-  //  "|| isMemoryMode" - ეს მე დავამატე
+
   handleScale: function (event) {
-    if (this.isVisible || isMemoryMode) {
+    if (this.isVisible || window.isMemoryMode) {
       this.scaleFactor *=
         1 + event.detail.spreadChange / event.detail.startSpread;
 

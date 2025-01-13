@@ -40,3 +40,12 @@ body {
     border-radius: 5px; 
     cursor: pointer;
 } 
+
+.active-button {
+    background-color: #007bff
+}
+
+.deactive-button {
+    background-color: #ff0000
+}
+
