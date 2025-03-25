@@ -71,6 +71,10 @@ button {
     flex-wrap: wrap;
 }
 
+.scenesContainer-portrait {
+    flex-direction: column !important;
+}
+
 .scene {
     width: 50%;
     height: 50%;
