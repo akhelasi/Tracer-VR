@@ -1,20 +1,23 @@
 //   JavaScript
 
-// ავტომატურად ვრთავთ Fullscreen რეჟიმს (თუ მხარდაჭერილია)
 document.addEventListener("DOMContentLoaded", function() {
-  let elem = document.documentElement;
-  if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-  } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-  }
-  
+
   let tablet = document.getElementById("tablet");
   let scenesContainer = document.getElementById("scenesContainer");
+  
+  // ვრთავთ Fullscreen რეჟიმს (თუ მხარდაჭერილია)
+  function enterFullscreen() {
+    let elem = document.documentElement; // სრულეკრანული რეჟიმისთვის მთლიანი დოკუმენტი
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { // Firefox მხარდაჭერა
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { // Chrome, Safari და Opera მხარდაჭერა
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE/Edge მხარდაჭერა
+      elem.msRequestFullscreen();
+    }
+  }
   
   function updateOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches) {
@@ -25,23 +28,28 @@ document.addEventListener("DOMContentLoaded", function() {
       scenesContainer.classList.remove("scenesContainer-portrait");
     }
   }
+  
+  // როცა მომხმარებელი შეეხება ეკრანს, ჩავრთოთ fullscreen და landscape lock
+  document.addEventListener("click", function() {
+    if (!(document.fullscreenElement)) {
+      fullscreenon();
+    }
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock("landscape").catch(function(error) {
+          console.log("Orientation lock failed:", error);
+      });
+    }
+  }, { once: false }); // ეს მოვლენა ბევრჯერ შესრულდება
+  
 
   // პირველად რომ ჩაიტვირთოს სწორი მიმართულებით
+  enterFullscreen();
   updateOrientation();
 
   // როდესაც ეკრანის მიმართულება შეიცვლება
   window.addEventListener("resize", updateOrientation);
+  window.addEventListener("orientationchange", updateOrientation);
 });
-
-// როცა მომხმარებელი შეეხება ეკრანს, ჩავრთოთ landscape lock
-document.addEventListener("click", function() {
-  if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock("landscape").catch(function(error) {
-          console.log("Orientation lock failed:", error);
-      });
-  }
-}, { once: false }); // მუდმივად იმუშავებს
-
 
 let vrScene = 0, notClick = 0;
 
