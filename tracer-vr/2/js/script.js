@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // როცა მომხმარებელი შეეხება ეკრანს, ჩავრთოთ fullscreen და landscape lock
   document.addEventListener("click", function() {
     if (!(document.fullscreenElement)) {
-      fullscreenon();
+      enterFullscreen();
     }
     if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock("landscape").catch(function(error) {
