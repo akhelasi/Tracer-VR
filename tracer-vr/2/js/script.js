@@ -33,14 +33,14 @@ document.addEventListener("DOMContentLoaded", function() {
   window.addEventListener("resize", updateOrientation);
 });
 
-// როცა მომხმარებელი პირველად შეეხება ეკრანს, ჩავრთოთ landscape lock
+// როცა მომხმარებელი შეეხება ეკრანს, ჩავრთოთ landscape lock
 document.addEventListener("click", function() {
   if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock("landscape").catch(function(error) {
           console.log("Orientation lock failed:", error);
       });
   }
-}, { once: true }); // ეს მოვლენა მხოლოდ ერთხელ შესრულდება
+}, { once: false }); // მუდმივად იმუშავებს
 
 
 let vrScene = 0, notClick = 0;
