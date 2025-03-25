@@ -1,5 +1,12 @@
 /*     CSS     */
 
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     position: absolute;
     top: 0;
@@ -114,7 +121,6 @@ button {
     }
 }
 
-
 @media screen and (max-height: 600px) {
     .vr {
         font-size: 60px;
@@ -124,16 +130,5 @@ button {
 
     .scene {
         font-size: 25px;
-    }
-}
-
-@media screen and (orientation: portrait) {
-    body {
-        transform: rotate(90deg);
-        transform-origin: center center;
-        width: 100vh;
-        height: 100vw;
-        overflow: hidden;
-        position: fixed;
     }
 }
