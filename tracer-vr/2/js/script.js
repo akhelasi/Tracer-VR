@@ -23,14 +23,14 @@ document.addEventListener("DOMContentLoaded", function() {
           let containerHeight = container.clientHeight;
           tablet.style.transform = "rotate(90deg)";
           tablet.style.transformOrigin = "center center";
-          tablet.style.width = (containerHeight - 44) + "px";
-          tablet.style.height = (containerWidth - 44) + "px";
+          tablet.style.width = "calc(100vh - 44px)";
+          tablet.style.height = "calc(100vw- 44px)";
           tablet.style.overflow = "hidden";
           tablet.style.position = "fixed";
       } else {
           tablet.style.transform = "none";
-          tablet.style.width = bodyWidth + "px";
-          tablet.style.height = bodyHeight + "px";
+          tablet.style.width = "calc(100vw - 44px)";
+          tablet.style.height = "calc(100vh - 44px)";
       }
   }
   
