@@ -12,16 +12,26 @@ document.addEventListener("DOMContentLoaded", function() {
   } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
   }
-
-  // შეამოწმე, ეკრანი portrait-შია თუ არა
-  if (window.matchMedia("(orientation: portrait)").matches) {
-      document.body.style.transform = "rotate(90deg)";
-      // document.body.style.transformOrigin = "center center";
-      // document.body.style.width = "100vh";
-      // document.body.style.height = "100vw";
-      // document.body.style.overflow = "hidden";
-      // document.body.style.position = "fixed";
-  }  
+  
+  function rotateScreen() {
+    // შეამოწმე, ეკრანი portrait-შია თუ არა
+      if (window.matchMedia("(orientation: portrait)").matches) {
+          document.body.style.transform = "rotate(90deg)";
+          document.body.style.transformOrigin = "center center";
+          document.body.style.width = "100vh";
+          document.body.style.height = "100vw";
+          document.body.style.overflow = "hidden";
+          document.body.style.position = "fixed";
+      } else {
+          document.body.style.transform = "none";
+      }
+  }
+  
+  // ეშვება საიტის ჩატვირთვისას
+  window.addEventListener("load", rotateScreen);
+  
+  // ეშვება მაშინაც, თუ მომხმარებელი ტელეფონს ატრიალებს
+  window.addEventListener("resize", rotateScreen);
 });
 
 // როცა მომხმარებელი პირველად შეეხება ეკრანს, ჩავრთოთ landscape lock
