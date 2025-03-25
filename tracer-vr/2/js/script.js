@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
   
 //   // ეშვება მაშინაც, თუ მომხმარებელი ტელეფონს ატრიალებს
 //   window.addEventListener("resize", rotateScreen);
-// });
+  
+});
 
 // როცა მომხმარებელი პირველად შეეხება ეკრანს, ჩავრთოთ landscape lock
 document.addEventListener("click", function() {
