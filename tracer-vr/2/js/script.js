@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // როცა მომხმარებელი პირველად შეეხება ეკრანს, ჩავრთოთ landscape lock
-document.addEventListener("click", function() {
+document.addEventListener("load", function() {
   if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock("landscape").catch(function(error) {
           console.log("Orientation lock failed:", error);
