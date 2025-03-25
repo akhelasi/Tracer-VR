@@ -14,16 +14,21 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   function rotateScreen() {
+      let container = document.getElementById("container")
     // შეამოწმე, ეკრანი portrait-შია თუ არა
       if (window.matchMedia("(orientation: portrait)").matches) {
-          document.body.style.transform = "rotate(90deg)";
-          document.body.style.transformOrigin = "center center";
-          document.body.style.width = "100vh";
-          document.body.style.height = "100vw";
-          document.body.style.overflow = "hidden";
-          document.body.style.position = "fixed";
+          let bodyWidth = document.body.clientWidth;
+          let bodyHeight = document.body.clientHeight;
+          container.style.transform = "rotate(90deg)";
+          container.style.transformOrigin = "center center";
+          container.style.width = bodyHeight + "px";
+          container.style.height = bodyWidth + "px";
+          container.style.overflow = "hidden";
+          container.style.position = "fixed";
       } else {
           document.body.style.transform = "none";
+          container.style.width = bodyWidth + "px";
+          container.style.height = bodyHeight + "px";
       }
   }
   
