@@ -13,33 +13,33 @@ document.addEventListener("DOMContentLoaded", function() {
       elem.msRequestFullscreen();
   }
   
-  let container = document.getElementById("container");
-  let tablet = document.getElementById("tablet");
+//   let container = document.getElementById("container");
+//   let tablet = document.getElementById("tablet");
   
-  function rotateScreen() {
-    // შეამოწმე, ეკრანი portrait-შია თუ არა
-      if (window.matchMedia("(orientation: portrait)").matches) {
-          let containerWidth = container.clientWidth;
-          let containerHeight = container.clientHeight;
-          tablet.style.transform = "rotate(90deg)";
-          tablet.style.transformOrigin = "center center";
-          tablet.style.width = "calc(100vh - 44px)";
-          tablet.style.height = "calc(100vw- 44px)";
-          tablet.style.overflow = "hidden";
-          tablet.style.position = "fixed";
-      } else {
-          tablet.style.transform = "none";
-          tablet.style.width = "calc(100vw - 44px)";
-          tablet.style.height = "calc(100vh - 44px)";
-      }
-  }
+//   function rotateScreen() {
+//     // შეამოწმე, ეკრანი portrait-შია თუ არა
+//       if (window.matchMedia("(orientation: portrait)").matches) {
+//           let containerWidth = container.clientWidth;
+//           let containerHeight = container.clientHeight;
+//           tablet.style.transform = "rotate(90deg)";
+//           tablet.style.transformOrigin = "center center";
+//           tablet.style.width = "calc(100vh - 44px)";
+//           tablet.style.height = "calc(100vw- 44px)";
+//           tablet.style.overflow = "hidden";
+//           tablet.style.position = "fixed";
+//       } else {
+//           tablet.style.transform = "none";
+//           tablet.style.width = "calc(100vw - 44px)";
+//           tablet.style.height = "calc(100vh - 44px)";
+//       }
+//   }
   
-  // ეშვება საიტის ჩატვირთვისას
-  window.addEventListener("load", rotateScreen);
+//   // ეშვება საიტის ჩატვირთვისას
+//   window.addEventListener("load", rotateScreen);
   
-  // ეშვება მაშინაც, თუ მომხმარებელი ტელეფონს ატრიალებს
-  window.addEventListener("resize", rotateScreen);
-});
+//   // ეშვება მაშინაც, თუ მომხმარებელი ტელეფონს ატრიალებს
+//   window.addEventListener("resize", rotateScreen);
+// });
 
 // როცა მომხმარებელი პირველად შეეხება ეკრანს, ჩავრთოთ landscape lock
 document.addEventListener("click", function() {
@@ -49,17 +49,6 @@ document.addEventListener("click", function() {
       });
   }
 }, { once: true }); // ეს მოვლენა მხოლოდ ერთხელ შესრულდება
-
-// პირველ კლიკზე ან შეხებაზე landscape lock ჩავრთოთ
-document.addEventListener("click", function() {
-  if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock("landscape").catch(function(error) {
-          console.log("Orientation lock failed:", error);
-      });
-  }
-}, { once: true });
-
-
 
 let vrScene = 0,
     notClick = 0;
