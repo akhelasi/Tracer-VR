@@ -14,12 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   let tablet = document.getElementById("tablet");
+  let scenesContainer = document.getElementById("scenesContainer");
   
   function updateOrientation() {
     if (window.matchMedia("(orientation: portrait)").matches) {
-        tablet.classList.add("vertical-text");
+      tablet.classList.add("vertical-text");
+      scenesContainer.classList.add("scenesContainer-portrait");
     } else {
-        tablet.classList.remove("vertical-text");
+      tablet.classList.remove("vertical-text");
+      scenesContainer.classList.remove("scenesContainer-portrait");
     }
   }
 
@@ -39,8 +42,8 @@ document.addEventListener("click", function() {
   }
 }, { once: true }); // ეს მოვლენა მხოლოდ ერთხელ შესრულდება
 
-let vrScene = 0,
-    notClick = 0;
+
+let vrScene = 0, notClick = 0;
 
 function vrButton() {
   if (vrScene > 0) {
