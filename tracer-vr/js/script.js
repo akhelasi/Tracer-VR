@@ -1,7 +1,59 @@
 //   JavaScript
 
-let vrScene = 0,
-    notClick = 0;
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  let tablet = document.getElementById("tablet");
+  let scenesContainer = document.getElementById("scenesContainer");
+  
+  // ვრთავთ Fullscreen რეჟიმს (თუ მხარდაჭერილია)
+  function enterFullscreen() {
+    let elem = document.documentElement; // სრულეკრანული რეჟიმისთვის მთლიანი დოკუმენტი
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { // Firefox მხარდაჭერა
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { // Chrome, Safari და Opera მხარდაჭერა
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE/Edge მხარდაჭერა
+      elem.msRequestFullscreen();
+    }
+  }
+  
+  function updateOrientation() {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+      tablet.classList.add("vertical-text");
+      scenesContainer.classList.add("scenesContainer-portrait");
+    } else {
+      tablet.classList.remove("vertical-text");
+      scenesContainer.classList.remove("scenesContainer-portrait");
+    }
+  }
+  
+  // როცა მომხმარებელი შეეხება ეკრანს, ჩავრთოთ fullscreen და landscape lock
+  document.addEventListener("click", function() {
+    if (!(document.fullscreenElement)) {
+      enterFullscreen();
+    }
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock("landscape").catch(function(error) {
+          console.log("Orientation lock failed:", error);
+      });
+    }
+  }, { once: false }); // ეს მოვლენა ბევრჯერ შესრულდება
+  
+
+  // პირველად რომ ჩაიტვირთოს სწორი მიმართულებით
+  enterFullscreen();
+  updateOrientation();
+
+  // როდესაც ეკრანის მიმართულება შეიცვლება
+  window.addEventListener("resize", updateOrientation);
+  window.addEventListener("orientationchange", updateOrientation);
+});
+
+
+let vrScene = 0, notClick = 0;
 
 function vrButton() {
   if (vrScene > 0) {

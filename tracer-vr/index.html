@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>vrTracer</title>
     <link href="./styles/index.css" rel="stylesheet" />
     <script src="./js/script.js"></script>
@@ -10,23 +10,30 @@
   <body>
     <div class="container" id="container">
       <div class="tablet" id="tablet">
-        <img class="logo" src="./assets/images/logo-removeBg-preview.png" />
 
-        <button id="vr" class="vr" onclick="vrButton()">VR</button>
-        <button id="scene1" class="scene1" onclick="scene1Button()">
-          Scene I
-        </button>
-        <button id="scene2" class="scene2" onclick="scene2Button()">
-          Scene II
-        </button>
-        <button id="scene3" class="scene3" onclick="scene3Button()">
-          Scene III
-        </button>
-        <button id="scene4" class="scene4" onclick="scene4Button()">
-          Scene IV
-        </button>
+        <div id="aroundvrbutton" class="aroundvrbutton">
+          <div class="asd1 asd"></div>
+          <div class="asd2 asd"></div>
+        </div>
+        <button id="vr" class="vr" onclick="vrButton()">GO</button>
 
-        <p class="sentence">2025 Georgian Technical University</p>
+        <div id="scenesContainer" class="scenesContainer">
+          <button id="scene1" class="scene1 scene" onclick="scene1Button()">
+            Magnets + Cavern
+          </button>
+          <button id="scene2" class="scene2 scene" onclick="scene2Button()">
+            Muons
+          </button>
+          <button id="scene3" class="scene3 scene" onclick="scene3Button()">
+            Magnets
+          </button>
+          <button id="scene4" class="scene4 scene" onclick="scene4Button()">
+            Magnets + Muons
+          </button>
+
+        </div>
+
+        <!-- <p class="sentence">2025 Georgian Technical University</p> -->
       </div>
     </div>
   </body>
