@@ -570,7 +570,7 @@ function animate() {
 
         case 3:        //-------------------------- EXIT back to start page -------------------------------
             droneN = 1;
-            window.location.href = "../../index.html";
+            window.location.href = "../index.html";
             break;
 
         case 4:        //-------------------------- Free Fly ANIMATE -------------------------------
