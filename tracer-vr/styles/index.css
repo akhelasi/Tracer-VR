@@ -34,11 +34,16 @@ body {
     position: absolute;
     right: 20px;
     bottom: 15px;
+    width: fit-content;
+    height: fit-content;
 }
 
 .info-button-1 {
     left: 10px;
-    writing-mode: vertical-lr; 
+}
+
+.info-button-1 span{
+    transform: rotate(90deg);
 }
 
 .info-button span {
@@ -48,6 +53,54 @@ body {
 
 .hidden {
     display: none;
+}
+
+#info-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000000a0;
+    border: 1px solid #ffffff;
+    padding: 1.7rem;
+    border-radius: 0.625rem;
+    color: white;
+    font-family: monospace;
+    text-align: center;
+    z-index: 1000;
+    max-width: calc(100vw - 40px);
+    width: auto;
+    height: auto;
+}  
+
+.info-window-1 {
+    writing-mode: vertical-rl; 
+}
+
+.info-content h3 {
+    margin: 0.625rem;
+}
+
+#close-button-info {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #ffffff;
+    padding: 0;
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+
+.close-button-info-1 {
+    top: 0px;
+}
+
+#tracer-tech {
+    text-decoration: underline;
 }
 
 button {

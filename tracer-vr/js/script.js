@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function() {
   let tablet = document.getElementById("tablet");
   let scenesContainer = document.getElementById("scenesContainer");
   let infoButton = document.getElementById("info-button");
+  let infoWindow = document.getElementById("info-window");
+  let closeInfoButton = document.getElementById("close-button-info");
+
   
   // ვრთავთ Fullscreen რეჟიმს (თუ მხარდაჭერილია)
   function enterFullscreen() {
@@ -26,12 +29,24 @@ document.addEventListener("DOMContentLoaded", function() {
       tablet.classList.add("vertical-text");
       scenesContainer.classList.add("scenesContainer-portrait");
       infoButton.classList.add("info-button-1");
+      infoWindow.classList.add("info-window-1")
+      closeInfoButton.classList.remove("close-button-info-1");
     } else {
       tablet.classList.remove("vertical-text");
       scenesContainer.classList.remove("scenesContainer-portrait");
       infoButton.classList.remove("info-button-1");
+      infoWindow.classList.remove("info-window-1");
+      closeInfoButton.classList.add("close-button-info-1");
     }
   }
+
+  infoButton.addEventListener("click", function() {
+    infoWindow.classList.remove("hidden");
+  });
+
+  closeInfoButton.addEventListener("click", function() {
+    infoWindow.classList.add("hidden");
+  });
   
   // როცა მომხმარებელი შეეხება ეკრანს, ჩავრთოთ fullscreen და landscape lock
   document.addEventListener("click", function() {
@@ -54,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
   window.addEventListener("resize", updateOrientation);
   window.addEventListener("orientationchange", updateOrientation);
 });
+
 
 
 let vrScene = 0, notClick = 0;
