@@ -30,11 +30,24 @@ body {
     border: solid 2px #41719c;
 }
 
-/* .logo {
-    width: 100%;
-    max-width: 250px;
-    padding: 5px 20px;
-} */
+.info-button {
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+}
+
+.info-button-1 {
+    left: 40px;
+}
+
+.info-button span {
+    display: block;
+    font-size: 40px;
+}
+
+.hidden {
+    display: none;
+}
 
 button {
     width: 120px;

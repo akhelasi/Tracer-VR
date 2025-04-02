@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let tablet = document.getElementById("tablet");
   let scenesContainer = document.getElementById("scenesContainer");
+  let infoButton = document.getElementById("info-button");
   
   // ვრთავთ Fullscreen რეჟიმს (თუ მხარდაჭერილია)
   function enterFullscreen() {
@@ -24,9 +25,11 @@ document.addEventListener("DOMContentLoaded", function() {
     if (window.matchMedia("(orientation: portrait)").matches) {
       tablet.classList.add("vertical-text");
       scenesContainer.classList.add("scenesContainer-portrait");
+      infoButton.classList.add("info-button-1");
     } else {
       tablet.classList.remove("vertical-text");
       scenesContainer.classList.remove("scenesContainer-portrait");
+      infoButton.classList.remove("info-button-1");
     }
   }
   
