@@ -38,6 +38,7 @@ body {
 
 .info-button-1 {
     left: 10px;
+    writing-mode: vertical-lr; 
 }
 
 .info-button span {
