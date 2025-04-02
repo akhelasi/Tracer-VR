@@ -32,12 +32,12 @@ body {
 
 .info-button {
     position: absolute;
-    right: 40px;
-    bottom: 40px;
+    right: 20px;
+    bottom: 15px;
 }
 
 .info-button-1 {
-    left: 40px;
+    left: 10px;
 }
 
 .info-button span {
