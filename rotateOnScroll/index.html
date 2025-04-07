@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html style="height: calc(100% - 30px)">
+
+<body>
+
+    <h1>WheelEvent deltaY Property</h1>
+
+    <p>Resize the DIV element by scrolling inside it:</p>
+
+    <div onwheel="myFunction(event)" style="min-width:500px; min-height: calc(100% - 100px)">
+        <div class="cube" style="width:200px; height:200px; background-color:Tomato; transform: rotate(0deg)"></div>
+    </div>
+    
+    <script>
+    function myFunction(event) {
+    let y = event.deltaY;
+    let cube = document.querySelector(".cube");
+    let currentSize = cube.style.transform.slice(7,-4);
+    console.log(currentSize)
+    if (y > 0) {
+        newSize = parseInt(currentSize) + 5 - (90 * ((parseInt(currentSize) + 5) > 90));
+    } else {
+        newSize = parseInt(currentSize) - 5 + (90 * ((parseInt(currentSize) - 5) < -90));
+    }
+    
+    cube.style.transform = cube.style.transform.slice(0,7) + newSize + cube.style.transform.slice(-4);
+    }
+    </script>
+
+</body>
+</html>
