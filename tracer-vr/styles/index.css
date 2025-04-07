@@ -60,7 +60,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #000000a0;
+    background: #000000da;
     border: 1px solid #ffffff;
     padding: 1.7rem;
     border-radius: 0.625rem;
@@ -122,15 +122,15 @@ button {
 
 .aroundvrbutton {
     background-color: black;
-    width: 330px;
-    height: 330px;
+    width: 360px;
+    height: 360px;
 }
 
 .vr, .aroundvrbutton {
     position: absolute;
     transform: translate(-50%, -50%);
     font-size: 100px;
-    border-radius: 200px;
+    border-radius: 300px;
     border: solid 2px white;
     top: 50%;
     left: 50%;
@@ -145,13 +145,13 @@ button {
 }
 
 .asd1{
-    width: 19.5px;
+    width: 39.5px;
     height: calc(100% + 5px);
 }
 
 .asd2 {
     width: calc(100% + 5px);
-    height: 19.5px;
+    height: 39.5px;
 }
 
 .vrON {
@@ -168,32 +168,33 @@ button {
 
 .scenesContainer-portrait {
     flex-direction: column !important;
+    
 }
 
 .scene {
-    width: calc(50% - 10px);
-    height: calc(50% - 10px);
+    width: calc(50% - 20px);
+    height: calc(50% - 20px);
     background-color: #55afff70;
 }
 
 .scene1 {
     border-top-left-radius: 25px;
-    margin: 0 10px 10px 0;
+    margin: 0 20px 20px 0;
 }
 
 .scene2 {
     border-top-right-radius: 25px;
-    margin: 0 0 10px 10px;
+    margin: 0 0 20px 20px;
 }
 
 .scene3 {
     border-bottom-left-radius: 25px;
-    margin: 10px 10px 0 0;
+    margin: 20px 20px 0 0;
 }
 
 .scene4 {
     border-bottom-right-radius: 25px;
-    margin: 10px 0 0 10px;
+    margin: 20px 0 0 20px;
 }
 
 .buttonON {
@@ -228,8 +229,8 @@ button {
 
         .aroundvrbutton {
             background-color: black;
-            width: 180px;
-            height: 180px;
+            width: 210px;
+            height: 210px;
         }
     }
 }
@@ -248,7 +249,7 @@ button {
 
     .aroundvrbutton {
         background-color: black;
-        width: 180px;
-        height: 180px;
+        width: 210px;
+        height: 210px;
     }
 }
